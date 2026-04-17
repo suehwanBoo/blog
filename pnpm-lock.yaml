@@ -8,6 +8,12 @@ importers:
 
   .:
     devDependencies:
+      '@boo/font':
+        specifier: workspace:*
+        version: link:packages/font
+      '@boo/theme':
+        specifier: workspace:*
+        version: link:packages/theme
       '@storybook/addon-a11y':
         specifier: ^10.3.5
         version: 10.3.5(storybook@10.3.5(@testing-library/dom@10.4.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))
@@ -140,14 +146,32 @@ importers:
         specifier: ^5
         version: 5.9.3
 
+  packages/font:
+    dependencies:
+      '@vanilla-extract/css':
+        specifier: ^1.20.1
+        version: 1.20.1
+
   packages/hooks:
     dependencies:
       react:
         specifier: ^18 || ^19
         version: 19.2.4
 
+  packages/theme:
+    dependencies:
+      '@vanilla-extract/css':
+        specifier: ^1.20.1
+        version: 1.20.1
+
   packages/ui:
     dependencies:
+      '@boo/font':
+        specifier: workspace:*
+        version: link:../font
+      '@boo/theme':
+        specifier: workspace:*
+        version: link:../theme
       '@vanilla-extract/css':
         specifier: ^1.20.1
         version: 1.20.1

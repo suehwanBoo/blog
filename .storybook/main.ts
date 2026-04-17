@@ -13,6 +13,11 @@ const config: StorybookConfig = {
     options: {},
   },
   async viteFinal(config) {
+    config.resolve = {
+      alias: {
+        "@boo/ui": "../packages/ui/src/index.ts",
+      },
+    };
     return mergeConfig(config, {
       plugins: [vanillaExtractPlugin()],
     });

@@ -4,7 +4,14 @@
     "moduleResolution": "bundler",
     "rootDir": "src",
     "outDir": "dist",
-    "types": ["@storybook/react-vite"]
+    "types": [
+      "@storybook/react-vite",
+      "@testing-library/dom",
+      "@testing-library/jest-dom",
+      "@testing-library/react",
+      "@testing-library/user-event",
+      "vitest/globals"
+    ]
   },
   "include": ["src"]
 }

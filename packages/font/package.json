@@ -1,0 +1,24 @@
+{
+  "name": "@boo/font",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "exports": {
+    ".": "./index.ts",
+    "./load": "./load.ts",
+    "./assets": "./assets/index.ts"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "sideEffects": [
+    "./load.ts",
+    "./face.css.ts"
+  ],
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@vanilla-extract/css": "^1.20.1"
+  }
+}
