@@ -1,4 +1,5 @@
-import { BUILD_TARGET, Button } from "@boo/ui";
+import { BUILD_TARGET } from "@boo/ui";
+import { Button } from "@boo/ui";
 
 function App() {
   return (

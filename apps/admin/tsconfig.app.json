@@ -11,7 +11,8 @@
     "noEmit": true,
     "moduleResolution": "bundler",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@boo/ui": ["../../packages/ui/src/index.ts"]
     },
 
     /* Bundler mode */

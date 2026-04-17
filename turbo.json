@@ -6,7 +6,6 @@
       "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
     },
     "dev": {
-      "with": ["@boo/ui#dev"],
       "cache": false,
       "persistent": true
     },
