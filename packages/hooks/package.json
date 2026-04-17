@@ -1,0 +1,16 @@
+{
+  "name": "@boo/hooks",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "peerDependencies": {
+    "react": "^18 || ^19"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
