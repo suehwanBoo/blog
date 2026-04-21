@@ -7,8 +7,10 @@ ENV PORT=3000
 ENV HOSTNAME=0.0.0.0
 
 COPY apps/blog/.next/standalone ./
-COPY apps/blog/.next/static ./.next/static
-COPY apps/blog/public ./public
+COPY apps/blog/.next/static ./apps/blog/.next/static
+COPY apps/blog/public ./apps/blog/public
+
+WORKDIR /app/apps/blog
 
 EXPOSE 3000
 
