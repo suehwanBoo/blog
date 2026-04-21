@@ -28,9 +28,17 @@ jobs:
         with:
           node-version: 20
           cache: pnpm
-          
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
       - name: Build
         run: pnpm run build --output-logs=new-only
+
+      - name: Build Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./apps/blog/Dockerfile
+          push: false
+          tags: blog
