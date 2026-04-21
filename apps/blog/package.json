@@ -13,6 +13,7 @@
   "dependencies": {
     "@boo/hooks": "workspace:",
     "@boo/ui": "workspace:",
+    "@boo/theme": "workspace:",
     "@vanilla-extract/css": "^1.20.1",
     "clsx": "^2.1.1",
     "next": "16.2.3",
