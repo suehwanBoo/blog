@@ -8,10 +8,10 @@ const withVanillaExtract = createVanillaExtractPlugin({
 
 const nextConfig: NextConfig = {
   /* config options here */
-
   typescript: {
     tsconfigPath: isProd ? "tsconfig.build.json" : "tsconfig.json",
   },
+  output: "standalone",
 };
 
 export default withVanillaExtract(nextConfig);
