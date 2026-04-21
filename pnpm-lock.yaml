@@ -187,10 +187,6 @@ importers:
       react-dom:
         specifier: ^18 || ^19
         version: 19.2.4(react@19.2.4)
-    devDependencies:
-      vite:
-        specifier: ^8.0.4
-        version: 8.0.8(@types/node@25.6.0)(esbuild@0.28.0)(terser@5.46.1)
 
 packages:
 
