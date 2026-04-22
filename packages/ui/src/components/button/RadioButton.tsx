@@ -1,4 +1,4 @@
-import { InputHTMLAttributes } from "react";
+import type { InputHTMLAttributes } from "react";
 import { hiddenInputStyle, inputWrapperStyle } from "./common.css";
 import { radioBoxRecipe, radioIconRecipe } from "./RadioButton.css";
 

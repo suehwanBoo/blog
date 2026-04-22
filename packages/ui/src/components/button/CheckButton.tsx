@@ -1,4 +1,4 @@
-import { InputHTMLAttributes } from "react";
+import type { InputHTMLAttributes } from "react";
 import { checkbox, checkIconRecipe } from "./CheckButton.css";
 import { hiddenInputStyle, inputWrapperStyle } from "./common.css";
 
