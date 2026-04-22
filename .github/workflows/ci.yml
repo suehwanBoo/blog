@@ -58,13 +58,11 @@ jobs:
           tags: |
             ghcr.io/suehwanboo/blog:${{ github.sha }}
             ghcr.io/suehwanboo/blog:latest
-  deploy: # self host test
+  deploy:
     needs: build
     runs-on: self-hosted
     steps:
-      - name: Check runner
+      - name: Deploy blue-green
         run: |
-          whoami
-          pwd
-          docker --version
-          docker ps
+          cd /home/ubuntu/blog
+          sudo ./deploy.sh ${{ github.sha }}
