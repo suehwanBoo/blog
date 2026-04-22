@@ -76,6 +76,9 @@ jobs:
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
           aws-region: ap-northeast-2
+          unset-current-credentials: true
+          retry-max-attempts: 2
+          action-timeout-s: 20
 
       - name: CloudFront Invalidation
         run: |
