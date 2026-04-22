@@ -58,3 +58,13 @@ jobs:
           tags: |
             ghcr.io/suehwanboo/blog:${{ github.sha }}
             ghcr.io/suehwanboo/blog:latest
+  deploy: # self host test
+    needs: build
+    runs-on: self-hosted
+    steps:
+      - name: Check runner
+        run: |
+          whoami
+          pwd
+          docker --version
+          docker ps
