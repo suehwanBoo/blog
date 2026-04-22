@@ -13,8 +13,8 @@ export type RadioButtonProps = Omit<
 
 export default function RadioButton({
   id,
-  checked,
-  disabled,
+  checked = false,
+  disabled = false,
   ariaLabel,
   name,
   ...rest
