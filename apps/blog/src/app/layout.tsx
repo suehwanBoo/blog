@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { ThemeScript } from "./ThemeScript";
+import { themeVars } from "@boo/theme";
 
 const Pretendard = localFont({
   src: "../../../../packages/font/assets/PretendardVariable.woff2",
@@ -24,7 +25,7 @@ export default function RootLayout({
       <head>
         <ThemeScript />
       </head>
-      <body>{children}</body>
+      <body style={{ background: themeVars.color.background }}>{children}</body>
     </html>
   );
 }

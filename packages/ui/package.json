@@ -25,13 +25,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@vanilla-extract/css": "^1.20.1",
     "@boo/font": "workspace:*",
-    "@boo/theme": "workspace:*"
+    "@boo/theme": "workspace:*",
+    "@vanilla-extract/css": "^1.20.1",
+    "@vanilla-extract/recipes": "^0.5.7"
   },
   "peerDependencies": {
     "react": "^18 || ^19",
     "react-dom": "^18 || ^19"
-  },
-  "devDependencies": {}
+  }
 }
