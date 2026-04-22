@@ -71,6 +71,7 @@ jobs:
         run: |
           cd /home/ubuntu/blog
           sudo ./deploy.sh ${{ github.sha }}
+          
       - name: AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -78,7 +79,6 @@ jobs:
           aws-region: ap-northeast-2
           unset-current-credentials: true
           retry-max-attempts: 2
-          action-timeout-s: 20
 
       - name: CloudFront Invalidation
         run: |
