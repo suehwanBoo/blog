@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { getTheme } from "@/utils/server/getTheme";
-import clsx from "clsx";
+import { ThemeScript } from "./ThemeScript";
 
 const Pretendard = localFont({
   src: "../../../../packages/font/assets/PretendardVariable.woff2",
@@ -15,14 +14,16 @@ export const metadata: Metadata = {
   description: "not yet.",
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const Theme = await getTheme();
   return (
-    <html lang="ko" className={clsx([Pretendard.className, Theme.className])}>
+    <html lang="ko" className={Pretendard.className} suppressHydrationWarning>
+      <head>
+        <ThemeScript />
+      </head>
       <body>{children}</body>
     </html>
   );
