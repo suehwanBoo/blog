@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { ThemeScript } from "./ThemeScript";
-import { themeVars } from "@boo/theme";
+import { themeVars } from "@boo/ui";
 
 const Pretendard = localFont({
   src: "../../../../packages/font/assets/PretendardVariable.woff2",

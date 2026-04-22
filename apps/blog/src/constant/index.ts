@@ -1,4 +1,4 @@
-import { darkTheme, lightTheme } from "@boo/theme";
+import { darkTheme, lightTheme } from "@boo/ui";
 
 // theme
 export const THEME_KEY = "theme";

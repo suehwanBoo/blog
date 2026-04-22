@@ -1,0 +1,9 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "moduleResolution": "bundler",
+    "paths": {
+      "@boo/ui": ["../packages/ui/src/index.ts"]
+    }
+  }
+}

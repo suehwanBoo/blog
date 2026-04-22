@@ -13,6 +13,5 @@
       "vitest/globals"
     ]
   },
-  "include": ["src"],
-  "external": ["@boo/theme"]
+  "include": ["src"]
 }

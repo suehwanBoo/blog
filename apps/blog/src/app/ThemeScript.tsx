@@ -1,5 +1,5 @@
 import { THEME_KEY } from "@/constant";
-import { darkTheme, lightTheme } from "@boo/theme";
+import { darkTheme, lightTheme } from "@boo/ui";
 
 const script = `
 (function () {

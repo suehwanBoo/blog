@@ -17,6 +17,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@boo/font": "workspace:*",
+    "@boo/ui": "workspace:*",
     "@storybook/addon-a11y": "^10.3.5",
     "@storybook/addon-docs": "^10.3.5",
     "@storybook/react-vite": "^10.3.5",
@@ -24,8 +26,6 @@
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.1",
-    "@boo/font": "workspace:*",
-    "@boo/theme": "workspace:*",
     "@types/node": "^25.6.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
@@ -36,6 +36,7 @@
     "turbo": "^2.9.6",
     "typescript": "^6.0.2",
     "vite": "^8.0.4",
+    "vite-plugin-lib-inject-css": "^2.2.2",
     "vite-tsconfig-paths": "^6.1.1",
     "vitest": "^4.1.4"
   }

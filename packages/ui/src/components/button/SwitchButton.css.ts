@@ -1,5 +1,5 @@
-import { themeVars } from "@boo/theme";
 import { recipe } from "@vanilla-extract/recipes";
+import { themeVars } from "../../theme/theme.css";
 
 export const switchRecipe = recipe({
   base: {

@@ -2,7 +2,7 @@
 
 import { THEME_KEY } from "@/constant";
 import { Theme } from "@/types";
-import { darkTheme, lightTheme } from "@boo/theme";
+import { darkTheme, lightTheme } from "@boo/ui";
 import {
   createContext,
   PropsWithChildren,
