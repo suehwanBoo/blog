@@ -61,6 +61,11 @@ jobs:
   deploy:
     needs: build
     runs-on: self-hosted
+
+    permissions:
+      id-token: write
+      contents: read
+    
     steps:
       - name: Deploy blue-green
         run: |
