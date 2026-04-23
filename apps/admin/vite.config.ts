@@ -12,7 +12,13 @@ const isDev = process.env.NODE_ENV !== "production";
 const alias = {
   ...publicAlias,
   ...(isDev
-    ? { "@boo/ui": path.resolve(__dirname, "../../packages/ui/src/index.ts") }
+    ? {
+        "@boo/ui": path.resolve(__dirname, "../../packages/ui/src/index.ts"),
+        "@boo/ui/client": path.resolve(
+          __dirname,
+          "../../packages/ui/src/client.ts",
+        ),
+      }
     : {}),
 };
 

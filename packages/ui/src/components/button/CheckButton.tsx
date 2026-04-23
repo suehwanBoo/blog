@@ -1,6 +1,7 @@
 import type { InputHTMLAttributes } from "react";
 import { checkbox, checkIconRecipe } from "./CheckButton.css";
 import { hiddenInputStyle, inputWrapperStyle } from "./common.css";
+import clsx from "clsx";
 
 export type CheckButtonProps = Omit<
   InputHTMLAttributes<HTMLInputElement>,
@@ -21,12 +22,13 @@ export default function CheckButton({
   return (
     <label className={inputWrapperStyle} htmlFor={id}>
       <input
+        {...rest}
         type="checkbox"
-        className={hiddenInputStyle}
+        className={clsx(hiddenInputStyle, rest.className)}
         aria-label={ariaLabel}
         disabled={disabled}
+        checked={checked}
         id={id}
-        {...rest}
       />
       <div className={checkbox({ checked, disabled })} aria-hidden="true">
         <Check checked={checked} />

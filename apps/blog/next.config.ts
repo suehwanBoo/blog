@@ -14,7 +14,7 @@ const nextConfig: NextConfig = {
   },
   output: "standalone",
   outputFileTracingRoot: path.join(__dirname, "../../"),
-  transpilePackages: ["@boo/ui", "@boo/font"],
+  transpilePackages: ["@boo/font"],
 };
 
 export default withVanillaExtract(nextConfig);

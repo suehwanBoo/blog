@@ -4,9 +4,17 @@ import react from "@vitejs/plugin-react";
 import { vanillaExtractPlugin } from "@vanilla-extract/vite-plugin";
 import path from "node:path";
 import { libInjectCss } from "vite-plugin-lib-inject-css";
+import dts from "vite-plugin-dts";
 
 export default defineConfig({
-  plugins: [react(), vanillaExtractPlugin(), libInjectCss()],
+  plugins: [
+    react(),
+    vanillaExtractPlugin(),
+    libInjectCss(),
+    dts({
+      insertTypesEntry: true,
+    }),
+  ],
   test: {
     environment: "jsdom",
     globals: true,
@@ -23,9 +31,13 @@ export default defineConfig({
     sourcemap: true,
     emptyOutDir: true,
     lib: {
-      entry: path.resolve(__dirname, "./src/index.ts"),
+      entry: {
+        index: path.resolve(__dirname, "./src/index.ts"),
+        client: path.resolve(__dirname, "./src/client.ts"),
+      },
       formats: ["es", "cjs"],
-      fileName: (format) => (format === "es" ? "index.js" : "index.cjs"),
+      fileName: (format, entryName) =>
+        format === "es" ? `${entryName}.js` : `${entryName}.cjs`,
       cssFileName: "style",
     },
     rollupOptions: {

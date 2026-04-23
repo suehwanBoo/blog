@@ -1,5 +1,6 @@
 import type { ButtonHTMLAttributes } from "react";
 import { thumbRecipe, switchRecipe } from "./SwitchButton.css";
+import clsx from "clsx";
 
 export interface SwitchButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   ariaLabel: string;
@@ -18,13 +19,13 @@ export default function SwitchButton({
 
   return (
     <button
+      {...props}
       role="switch"
       aria-label={ariaLabel}
       aria-checked={checked}
-      className={switchClassName}
+      className={clsx(switchClassName, props.className)}
       disabled={disabled}
       type={type}
-      {...props}
     >
       <div className={thumbClassName} />
     </button>

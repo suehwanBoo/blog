@@ -8,9 +8,7 @@
     "./load": "./load.ts",
     "./assets": "./assets/index.ts"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "scripts": {},
   "sideEffects": [
     "./load.ts",
     "./face.css.ts"
