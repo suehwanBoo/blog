@@ -19,7 +19,7 @@ export default function Button({
   children,
   ...rest
 }: ButtonProps) {
-  const disabled = state === "disabled";
+  const disabled = rest.disabled || state === "disabled";
   return (
     <button
       {...rest}

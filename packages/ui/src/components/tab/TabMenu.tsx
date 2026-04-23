@@ -27,7 +27,12 @@ const MenuWrapper = ({ children, ...rest }: WrapperProps) => {
 const Button = ({ active, children, line, ...rest }: ButtonProps) => {
   const className = tabRecipe({ active, line });
   return (
-    <button {...rest} role="tab" className={clsx(className, rest.className)}>
+    <button
+      {...rest}
+      role="tab"
+      aria-selected={active}
+      className={clsx(className, rest.className)}
+    >
       {children}
     </button>
   );
