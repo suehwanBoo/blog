@@ -13,7 +13,12 @@ const alias = {
   ...publicAlias,
   ...(isDev
     ? { "@boo/ui": path.resolve(__dirname, "../../packages/ui/src/index.ts") }
-    : {}),
+    : {
+        "@boo/ui/client": path.resolve(
+          __dirname,
+          "../../packages/ui/src/client.ts",
+        ),
+      }),
 };
 
 // https://vite.dev/config/

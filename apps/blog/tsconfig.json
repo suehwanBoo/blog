@@ -20,7 +20,8 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@boo/ui": ["../../packages/ui/src/index.ts"]
+      "@boo/ui": ["../../packages/ui/src/index.ts"],
+      "@boo/ui/client": ["../../packages/ui/src/client.ts"]
     }
   },
   "include": [

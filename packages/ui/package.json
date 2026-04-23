@@ -11,6 +11,11 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
+    },
+    "./client": {
+      "types": "./dist/client.d.ts",
+      "import": "./dist/client.js",
+      "require": "./dist/client.cjs"
     }
   },
   "sideEffects": [
@@ -29,10 +34,13 @@
   "license": "ISC",
   "dependencies": {
     "@boo/font": "workspace:*",
+    "@boo/hooks": "workspace:*",
     "@vanilla-extract/css": "^1.20.1",
-    "@vanilla-extract/recipes": "^0.5.7"
+    "@vanilla-extract/recipes": "^0.5.7",
+    "clsx": "^2.1.1"
   },
   "devDependencies": {
+    "vite-plugin-dts": "^4.5.4",
     "vite-plugin-lib-inject-css": "^2.2.2"
   },
   "peerDependencies": {

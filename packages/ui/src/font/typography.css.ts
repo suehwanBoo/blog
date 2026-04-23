@@ -1,5 +1,5 @@
+import { pretendardFamily } from "@boo/font";
 import { styleVariants } from "@vanilla-extract/css";
-import { pretendardFamily } from ".";
 
 export const typography = styleVariants({
   h1: {
