@@ -5,8 +5,7 @@
   "description": "",
   "exports": {
     ".": "./index.ts",
-    "./load": "./load.ts",
-    "./assets": "./assets/index.ts"
+    "./load": "./load.ts"
   },
   "scripts": {},
   "sideEffects": [
