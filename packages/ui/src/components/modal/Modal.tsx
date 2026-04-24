@@ -10,7 +10,7 @@ type ModalProps = PropsWithChildren &
 
 type TitleProps = {
   title: string;
-  closeHandler: () => void;
+  closeHandler?: () => void;
 };
 
 const Modal = Object.assign(
