@@ -4,9 +4,18 @@ import { ThemeScript } from "./ThemeScript";
 import { themeVars } from "@boo/ui";
 
 const Pretendard = localFont({
-  src: "../../../../packages/font/assets/PretendardVariable.woff2",
+  src: [
+    {
+      path: "../../../../packages/font/assets/Pretendard-Regular.subset.woff2",
+      weight: "400",
+    },
+    {
+      path: "../../../../packages/font/assets/Pretendard-Bold.subset.woff2",
+      weight: "700",
+    },
+  ],
   display: "swap",
-  weight: "100 900",
+  weight: "400",
   style: "normal",
 });
 

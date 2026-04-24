@@ -1,2 +1,1 @@
-export const pretendardFamily =
-  '"Pretendard Variable", "Pretendard", system-ui, sans-serif';
+export const pretendardFamily = '"Pretendard", system-ui, sans-serif';

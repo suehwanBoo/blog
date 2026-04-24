@@ -1,10 +1,17 @@
 import { globalFontFace } from "@vanilla-extract/css";
+import pretendardRegular from "./assets/Pretendard-Regular.subset.woff2";
+import pretendardBold from "./assets/Pretendard-Bold.subset.woff2";
 
-import pretendardWoff2 from "./assets/PretendardVariable.woff2";
+globalFontFace("Pretendard", {
+  src: `url(${pretendardRegular}) format("woff2")`,
+  fontWeight: "400",
+  fontStyle: "normal",
+  fontDisplay: "swap",
+});
 
-globalFontFace("Pretendard Variable", {
-  src: `url(${pretendardWoff2}) format("woff2-variations")`,
-  fontWeight: "100 900",
+globalFontFace("Pretendard", {
+  src: `url(${pretendardBold}) format("woff2")`,
+  fontWeight: "700",
   fontStyle: "normal",
   fontDisplay: "swap",
 });

@@ -1,6 +1,5 @@
 "use client";
 
-import { useTheme } from "@/context/theme-context";
 import { CheckButton, RadioButton, SwitchButton } from "@boo/ui";
 import { useState } from "react";
 import { Pagination, Select } from "@boo/ui/client";
@@ -8,18 +7,14 @@ import { Pagination, Select } from "@boo/ui/client";
 type OptionType = { label: string; value: string };
 
 export default function Test() {
-  const { mounted, theme, toggleTheme } = useTheme();
   const [checked, setChecked] = useState(true);
   const [radioValue, setRadioValue] = useState<"one" | "two">("two");
   const checkChange = () => setChecked((prev) => !prev);
   const [page, setPage] = useState(1);
   const [selectValue, setSelectValue] = useState<OptionType | null>(null);
 
-  if (!mounted) return <button>로딩중</button>;
-
   return (
     <div style={{ display: "flex", gap: "10px" }}>
-      <button onClick={toggleTheme}>{theme} 전환</button>
       <SwitchButton
         ariaLabel="스위치 테스트"
         checked={checked}
