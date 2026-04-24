@@ -27,7 +27,7 @@ export default function SearchInput({
         className={clsx(SearchInputStyle.input({ size }), className)}
       />
       <button
-        aria-label="검색"
+        aria-label="search"
         type="submit"
         className={SearchInputStyle.button({ disabled })}
         disabled={disabled}
