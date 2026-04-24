@@ -1,4 +1,4 @@
-import { style } from "@vanilla-extract/css";
+import { keyframes, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import { themeVars } from "../../theme/theme.css";
 import { typography } from "../../font/typography.css";
@@ -77,17 +77,52 @@ const trigger = recipe({
   ],
 });
 
-const buttonWrapper = style({
-  all: "unset",
-  position: "absolute",
-  top: "calc(100% + 5px)",
-  left: 0,
-  width: "100%",
-  background: themeVars.color.default,
-  borderRadius: 5,
-  border: `1px solid ${themeVars.color.disabled}`,
-  overflow: "hidden",
-  zIndex: 10,
+const selectMenuIn = keyframes({
+  from: {
+    opacity: 0,
+    transform: "translateY(-4px) scale(0.98)",
+  },
+  to: {
+    opacity: 1,
+    transform: "translateY(0) scale(1)",
+  },
+});
+
+const selectMenuOut = keyframes({
+  from: {
+    opacity: 1,
+    transform: "translateY(0) scale(1)",
+  },
+  to: {
+    opacity: 0,
+    transform: "translateY(-4px) scale(0.98)",
+  },
+});
+
+const buttonWrapper = recipe({
+  base: {
+    all: "unset",
+    position: "absolute",
+    top: "calc(100% + 5px)",
+    left: 0,
+    width: "100%",
+    background: themeVars.color.default,
+    borderRadius: 5,
+    border: `1px solid ${themeVars.color.disabled}`,
+    overflow: "hidden",
+    transformOrigin: "top",
+    zIndex: 10,
+  },
+  variants: {
+    open: {
+      true: {
+        animation: `${selectMenuIn} 0.2s ease-out`,
+      },
+      false: {
+        animation: `${selectMenuOut} 0.2s ease-out forwards`,
+      },
+    },
+  },
 });
 
 const buttonLi = style({

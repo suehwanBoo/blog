@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { ThemeScript } from "./ThemeScript";
 import { themeVars } from "@boo/ui";
+import "../../styles/reset.css";
 
 const Pretendard = localFont({
   src: [

@@ -15,6 +15,7 @@ const config: StorybookConfig = {
   async viteFinal(config) {
     config.resolve = {
       alias: {
+        "@boo/ui/reset.css": "../packages/ui/src/reset.css.ts",
         "@boo/ui": "../packages/ui/src/index.ts",
       },
     };
