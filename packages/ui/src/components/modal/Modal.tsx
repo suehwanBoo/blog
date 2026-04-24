@@ -10,6 +10,7 @@ type ModalProps = PropsWithChildren &
 
 type TitleProps = {
   title: string;
+  closeHandler: () => void;
 };
 
 const Modal = Object.assign(
@@ -32,7 +33,7 @@ const Modal = Object.assign(
   { Header, Body, Footer },
 );
 
-function Header({ title }: TitleProps) {
+function Header({ title, closeHandler }: TitleProps) {
   return (
     <div className={ModalStyle.header}>
       <h3 className={ModalStyle.title}>{title || "-"}</h3>
@@ -40,6 +41,7 @@ function Header({ title }: TitleProps) {
         type="button"
         aria-label="close modal"
         className={ModalStyle.button}
+        onClick={closeHandler}
       >
         <CancelIcon />
       </button>
