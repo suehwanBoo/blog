@@ -11,6 +11,10 @@ export const themeVars = createThemeContract({
     clicked: null,
     background: null,
     default: null,
+    alertDefault: null,
+    alertDagner: null,
+    alertSuccess: null,
+    alertWarning: null,
   },
   space: {
     none: null,
@@ -67,6 +71,10 @@ export const lightTheme = createTheme(themeVars, {
     clicked: "#F2F4FF",
     background: "#F8F9FD",
     default: "#FFFFFF",
+    alertDefault: "#2e1f20",
+    alertDagner: "#f35746",
+    alertSuccess: "#19af66",
+    alertWarning: "#f8bf00",
   },
   space: {
     none: "0",
@@ -122,6 +130,10 @@ export const darkTheme = createTheme(themeVars, {
     clicked: "#2A2E45",
     background: "#1E1E1E",
     default: "#121212",
+    alertDefault: "#e8e7e7",
+    alertDagner: "#ffb1a9",
+    alertSuccess: "#96f3c6",
+    alertWarning: "#fce38e",
   },
   space: {
     none: "0",

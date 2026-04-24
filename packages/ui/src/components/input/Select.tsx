@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from "react";
+import { useMemo, useState, type ReactNode } from "react";
 import { SelectStyles } from "./Select.css";
 import { useClickOutside } from "@boo/hooks";
 
@@ -26,21 +26,21 @@ export default function Select<O extends OptionType<unknown>>({
   placeholder,
   ariaLabel,
 }: SelectProps<O>) {
-  const [open, setOpen] = useState(false);
-  const ref = useClickOutside<HTMLDivElement>(() => setOpen(false));
-  const text = value?.label || placeholder || "-";
+  const { open, close, mounted, toggle, setMounted } = useSelectState();
 
-  const longestText = [
+  const longest = useLongestText([
     placeholder || "",
     ...options.map((option) => option.label),
     "-",
-  ]
-    .filter(Boolean)
-    .reduce((a, b) => (a.length >= b.length ? a : b));
+  ]);
+
+  const ref = useClickOutside<HTMLDivElement>(close);
+  const text = value?.label || placeholder || "-";
+
   return (
     <div className={SelectStyles.wrapper} ref={ref}>
       <span className={SelectStyles.sizer} aria-hidden>
-        <span>{longestText}</span>
+        <span>{longest}</span>
         <DirectionSvg open={false} />
       </span>
       <button
@@ -53,13 +53,20 @@ export default function Select<O extends OptionType<unknown>>({
           open,
         })}
         disabled={disabled}
-        onClick={() => setOpen((prev) => !prev)}
+        onClick={toggle}
       >
         <span>{text}</span>
         <DirectionSvg open={open} />
       </button>
-      {open && (
-        <ul className={SelectStyles.buttonWrapper} aria-label={ariaLabel}>
+      {mounted && (
+        <ul
+          className={SelectStyles.buttonWrapper({ open })}
+          aria-label={ariaLabel}
+          onAnimationEnd={(e) => {
+            if (e.currentTarget !== e.target) return;
+            if (!open) setMounted(false);
+          }}
+        >
           {options.map((props, idx) => (
             <li key={props.label} className={SelectStyles.buttonLi}>
               <button
@@ -69,7 +76,7 @@ export default function Select<O extends OptionType<unknown>>({
                 })}
                 onClick={() => {
                   onChange(props);
-                  setOpen(false);
+                  close();
                 }}
               >
                 {render(props)}
@@ -101,3 +108,28 @@ const DirectionSvg = ({ open }: { open: boolean }) => {
     </svg>
   );
 };
+
+function useSelectState() {
+  const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  const close = () => {
+    setOpen(false);
+  };
+
+  const toggle = () => {
+    if (open) {
+      close();
+    } else {
+      setMounted(true);
+      setOpen(true);
+    }
+  };
+  return { open, mounted, close, toggle, setMounted };
+}
+
+function useLongestText(arr: Array<string>) {
+  return useMemo(() => {
+    return arr.filter(Boolean).reduce((a, b) => (a.length >= b.length ? a : b));
+  }, [...arr]);
+}

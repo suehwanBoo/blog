@@ -1,6 +1,7 @@
 import { Preview } from "@storybook/react-vite";
 import "@boo/font/load";
-import { darkTheme, lightTheme, themeVars } from "@boo/ui";
+import { darkTheme, lightTheme } from "@boo/ui";
+import "./reset.css";
 
 const preview: Preview = {
   parameters: {

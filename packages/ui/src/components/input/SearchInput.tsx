@@ -1,4 +1,4 @@
-import type { InputHTMLAttributes } from "react";
+import { forwardRef, type InputHTMLAttributes } from "react";
 import Input from "./Input";
 import { SearchInputStyle } from "./SearchInput.css";
 import type { RecipeVariants } from "@vanilla-extract/recipes";
@@ -9,34 +9,31 @@ type SearchInputProps = Omit<
   "type" | "size"
 > &
   Required<RecipeVariants<typeof SearchInputStyle.input>>;
-
-export default function SearchInput({
-  size,
-  className,
-  disabled,
-  ...rest
-}: SearchInputProps) {
-  return (
-    <div className={SearchInputStyle.wrapper}>
-      <Input
-        {...rest}
-        type="search"
-        role="searchbox"
-        disabled={disabled}
-        aria-label={rest["aria-label"] ?? "search"}
-        className={clsx(SearchInputStyle.input({ size }), className)}
-      />
-      <button
-        aria-label="search"
-        type="submit"
-        className={SearchInputStyle.button({ disabled })}
-        disabled={disabled}
-      >
-        <SearchIcon />
-      </button>
-    </div>
-  );
-}
+const SearchInput = forwardRef<HTMLInputElement | null, SearchInputProps>(
+  ({ size, className, disabled, ...rest }, ref) => {
+    return (
+      <div className={SearchInputStyle.wrapper}>
+        <Input
+          {...rest}
+          ref={ref}
+          type="search"
+          role="searchbox"
+          disabled={disabled}
+          aria-label={rest["aria-label"] ?? "search"}
+          className={clsx(SearchInputStyle.input({ size }), className)}
+        />
+        <button
+          aria-label="search"
+          type="submit"
+          className={SearchInputStyle.button({ disabled })}
+          disabled={disabled}
+        >
+          <SearchIcon />
+        </button>
+      </div>
+    );
+  },
+);
 
 function SearchIcon() {
   return (
@@ -66,3 +63,5 @@ function SearchIcon() {
     </svg>
   );
 }
+
+export default SearchInput;

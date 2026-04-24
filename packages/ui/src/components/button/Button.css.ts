@@ -55,6 +55,11 @@ export const buttonRecipe = recipe({
         color: themeVars.color.subtitle,
         cursor: "not-allowed",
       },
+      danger: {
+        background: themeVars.color.alertDagner,
+        border: `1px solid ${themeVars.color.alertDagner}`,
+        color: themeVars.color.default,
+      },
     },
   },
 });
