@@ -13,7 +13,6 @@ export default function HomeLayout({ children }: PropsWithChildren) {
       <Header>
         <Navbar />
       </Header>
-      <div style={{ height: "200vh" }}></div>
       {children}
     </>
   );
