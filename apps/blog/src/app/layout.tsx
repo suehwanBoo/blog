@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { ThemeScript } from "./ThemeScript";
+import { ThemeScript } from "../scripts/ThemeScript";
 import { themeVars } from "@boo/ui";
 import "../../styles/reset.css";
 
@@ -21,7 +21,7 @@ const Pretendard = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Blog",
+  title: "FE-Boo | 프론트엔드 기술 블로그",
   description: "not yet.",
 };
 

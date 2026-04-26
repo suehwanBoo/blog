@@ -22,6 +22,7 @@ const input = recipe({
       [iconWidth]: "24px",
       [iconHeight]: "24px",
     },
+    boxSizing: "border-box",
     minHeight: iconHeight,
     "::-webkit-search-cancel-button": {
       display: "none",
