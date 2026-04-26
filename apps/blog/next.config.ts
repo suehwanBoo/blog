@@ -12,6 +12,9 @@ const nextConfig: NextConfig = {
   typescript: {
     tsconfigPath: isProd ? "tsconfig.build.json" : "tsconfig.json",
   },
+  images: {
+    unoptimized: true,
+  },
   output: "standalone",
   outputFileTracingRoot: path.join(__dirname, "../../"),
   transpilePackages: ["@boo/font"],
