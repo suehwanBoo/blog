@@ -5,6 +5,7 @@ import {
   GithubAuthProvider,
   GoogleAuthProvider,
   onAuthStateChanged,
+  signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
   type Auth,
@@ -23,8 +24,12 @@ export const loginWithGithub = (auth: Auth) => {
   return signInWithPopup(auth, proivder);
 };
 
-export const loginWithEmail = (auth: Auth, email: string, password: string) => {
-  return createUserWithEmailAndPassword(auth, email, password);
+export const signupWithEmail = (
+  auth: Auth,
+  email: string,
+  password: string,
+) => {
+  return signInWithEmailAndPassword(auth, email, password);
 };
 
 export const logout = (auth: Auth) => signOut(auth);
