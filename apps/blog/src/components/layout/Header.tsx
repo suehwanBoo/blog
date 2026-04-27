@@ -1,14 +1,26 @@
 "use client";
 import { useEffect, useRef, useState, type PropsWithChildren } from "react";
-// import { headerRecipe } from "./Header.css";
-import { themeVars } from "@boo/ui";
 import { headerRecipe } from "./Header.css";
 
 const ON_THE_TOP = 100;
 const THRESHOLD = 10;
 
 export default function Header({ children }: PropsWithChildren) {
-  console.log(themeVars.color.active);
+  const show = useHandleScroll({
+    ON_THE_TOP,
+    THRESHOLD,
+  });
+
+  return <header className={headerRecipe({ show })}>{children}</header>;
+}
+
+function useHandleScroll({
+  ON_THE_TOP,
+  THRESHOLD,
+}: {
+  ON_THE_TOP: number;
+  THRESHOLD: number;
+}) {
   const [show, setShow] = useState(true);
   const lastScrollY = useRef(0);
 
@@ -35,5 +47,5 @@ export default function Header({ children }: PropsWithChildren) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  return <header className={headerRecipe({ show })}>{children}</header>;
+  return show;
 }

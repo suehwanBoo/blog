@@ -3,9 +3,9 @@ import { createVanillaExtractPlugin } from "@vanilla-extract/next-plugin";
 import path from "node:path";
 
 const isProd = process.env.NODE_ENV === "production";
-const withVanillaExtract = createVanillaExtractPlugin({
-  unstable_turbopack: { mode: "auto" },
-});
+const withVanillaExtract = createVanillaExtractPlugin();
+
+const transpilePackages = isProd ? ["@boo/font"] : ["@boo/font", "@boo/ui"];
 
 const nextConfig: NextConfig = {
   /* config options here */
@@ -17,7 +17,7 @@ const nextConfig: NextConfig = {
   },
   output: "standalone",
   outputFileTracingRoot: path.join(__dirname, "../../"),
-  transpilePackages: ["@boo/font"],
+  transpilePackages: transpilePackages,
 };
 
 export default withVanillaExtract(nextConfig);

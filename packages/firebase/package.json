@@ -1,0 +1,17 @@
+{
+  "name": "@boo/firebase",
+  "version": "1.0.0",
+  "description": "",
+  "main": "init.ts",
+  "exports": {
+    ".": "./init.ts",
+    "./auth": "./auth.ts"
+  },
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "firebase": "^12.12.1"
+  }
+}
