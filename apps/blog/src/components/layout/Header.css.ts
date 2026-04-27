@@ -26,7 +26,3 @@ export const headerRecipe = recipe({
     },
   },
 });
-
-export const headerStyle = style({
-  background: themeVars.color.active,
-});

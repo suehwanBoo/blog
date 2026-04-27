@@ -1,0 +1,19 @@
+{
+  "name": "@boo/firebase",
+  "version": "1.0.0",
+  "description": "",
+  "main": "init.ts",
+  "exports": {
+    ".": "./init.ts",
+    "./auth": "./auth.ts"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "firebase": "^12.12.1"
+  }
+}
