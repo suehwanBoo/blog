@@ -10,7 +10,7 @@ export default defineConfig({
   plugins: [
     react(),
     vanillaExtractPlugin(),
-    libInjectCss(),
+    // libInjectCss(),
     dts({
       insertTypesEntry: true,
     }),

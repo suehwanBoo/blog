@@ -1,6 +1,5 @@
 import type { FirebaseApp } from "firebase/app";
 import {
-  createUserWithEmailAndPassword,
   getAuth,
   GithubAuthProvider,
   GoogleAuthProvider,
