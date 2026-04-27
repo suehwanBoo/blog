@@ -1,6 +1,6 @@
 {
-  "name": "MyWebSite",
-  "short_name": "MySite",
+  "name": "FE-BOO",
+  "short_name": "FEBOO",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",
