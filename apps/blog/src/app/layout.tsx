@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import { ThemeScript } from "../scripts/ThemeScript";
 import { themeVars } from "@boo/ui";
 import "../../styles/reset.css";
+import "@boo/ui/styles.css";
 
 const Pretendard = localFont({
   src: [

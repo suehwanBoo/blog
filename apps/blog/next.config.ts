@@ -5,7 +5,9 @@ import path from "node:path";
 const isProd = process.env.NODE_ENV === "production";
 const withVanillaExtract = createVanillaExtractPlugin();
 
-const transpilePackages = isProd ? ["@boo/font"] : ["@boo/font", "@boo/ui"];
+const transpilePackages = isProd
+  ? ["@boo/font", "@boo/firebase"]
+  : ["@boo/font", "@boo/ui", "@boo/firebase"];
 
 const nextConfig: NextConfig = {
   /* config options here */

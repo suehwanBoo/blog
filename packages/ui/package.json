@@ -16,7 +16,8 @@
       "types": "./dist/client.d.ts",
       "import": "./dist/client.js",
       "require": "./dist/client.cjs"
-    }
+    },
+    "./styles.css": "./dist/style.css"
   },
   "sideEffects": [
     "**/*.css"
