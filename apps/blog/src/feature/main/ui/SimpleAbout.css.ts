@@ -46,7 +46,15 @@ const divider = style({
 
 const form = style({
   display: "flex",
+  width: "100%",
   gap: 4,
+});
+
+const input = style({
+  minWidth: 0,
+  maxWidth: 220,
+  width: "100%",
+  flex: 1,
 });
 
 const hint = style([
@@ -66,4 +74,5 @@ export const simpleAboutStyles = {
   form,
   hint,
   subscribeSection,
+  input,
 };

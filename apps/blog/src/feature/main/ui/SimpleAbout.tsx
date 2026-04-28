@@ -42,12 +42,17 @@ function Subscribe() {
     <div className={styles.subscribeSection}>
       <DecorateTitle title="Join Our Newsletter" />
       <form className={styles.form}>
-        <Input placeholder="email" aria-label="email" />
+        <Input
+          placeholder="email"
+          aria-label="email"
+          className={styles.input}
+        />
         <Button
           type="submit"
           ariaLabel="email submit"
           size="large"
           state="active"
+          className=""
         >
           Submit
         </Button>

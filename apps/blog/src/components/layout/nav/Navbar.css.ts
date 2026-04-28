@@ -10,10 +10,15 @@ const topWrapper = style({
 });
 
 const buttonWrapper = style({
-  display: "flex",
-  height: "100%",
-  alignItems: "center",
-  gap: 8,
+  display: "none",
+  "@media": {
+    "screen and (min-width: 1024px)": {
+      display: "flex",
+      height: "100%",
+      alignItems: "center",
+      gap: 8,
+    },
+  },
 });
 
 const bottomWrapper = style({
