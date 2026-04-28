@@ -7,7 +7,8 @@ const script = `
     var DARK = 'dark';
     var LIGHT = 'light';
 
-    var stored = localStorage.getItem(${THEME_KEY});
+    var stored = localStorage.getItem(${JSON.stringify(THEME_KEY)});
+    console.log(stored ? "저장됨" : "안됨")
     var systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     var theme = stored === DARK || stored === LIGHT
       ? stored
