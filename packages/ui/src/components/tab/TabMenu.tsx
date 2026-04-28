@@ -1,7 +1,10 @@
-import type {
-  ButtonHTMLAttributes,
-  HtmlHTMLAttributes,
-  PropsWithChildren,
+import {
+  cloneElement,
+  isValidElement,
+  type ButtonHTMLAttributes,
+  type HtmlHTMLAttributes,
+  type PropsWithChildren,
+  type ReactElement,
 } from "react";
 import { tabRecipe, tabWrapper } from "./TabMenu.css";
 import type { RecipeVariants } from "@vanilla-extract/recipes";
@@ -10,11 +13,13 @@ import clsx from "clsx";
 type WrapperProps = Required<PropsWithChildren> &
   HtmlHTMLAttributes<HTMLDivElement>;
 
-type ButtonRecipeProps = Required<RecipeVariants<typeof tabRecipe>>;
+type ButtonRecipeProps = RecipeVariants<typeof tabRecipe>;
 
 type ButtonProps = Required<PropsWithChildren> &
   Omit<ButtonHTMLAttributes<HTMLButtonElement>, "role"> &
-  ButtonRecipeProps;
+  ButtonRecipeProps & {
+    asChild?: boolean;
+  };
 
 const MenuWrapper = ({ children, ...rest }: WrapperProps) => {
   return (
@@ -24,15 +29,31 @@ const MenuWrapper = ({ children, ...rest }: WrapperProps) => {
   );
 };
 
-const Button = ({ active, children, line, ...rest }: ButtonProps) => {
-  const className = tabRecipe({ active, line });
+const Button = ({
+  active,
+  children,
+  line,
+  asChild = false,
+  ...rest
+}: ButtonProps) => {
+  const className = clsx(tabRecipe({ active, line }), rest.className);
+
+  if (asChild) {
+    if (!isValidElement(children)) {
+      throw new Error(
+        "Button with asChild expects a single React element child.",
+      );
+    }
+    return cloneElement(children as ReactElement<any>, {
+      ...rest,
+      className,
+      role: "tab",
+      "aria-selected": active,
+      "aria-current": active ? "page" : undefined,
+    });
+  }
   return (
-    <button
-      {...rest}
-      role="tab"
-      aria-selected={active}
-      className={clsx(className, rest.className)}
-    >
+    <button {...rest} role="tab" aria-selected={active} className={className}>
       {children}
     </button>
   );

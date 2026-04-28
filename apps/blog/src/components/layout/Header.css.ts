@@ -8,9 +8,9 @@ export const headerRecipe = recipe({
     zIndex: 50,
     width: "100%",
     transition: "transform 0.3s ease, opacity 0.3s ease",
-    padding: `18px 24px`,
     borderBottom: `1px solid ${themeVars.color.active}`,
     boxShadow: "0px 4px 10px 0px rgba(0,0,0,0.1)",
+    background: themeVars.color.background,
   },
   variants: {
     show: {

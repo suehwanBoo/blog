@@ -8,27 +8,32 @@ export const tabWrapper = style({
 });
 
 export const tabRecipe = recipe({
-  base: [
-    typography.body2b,
-    {
-      all: "unset",
-      background: "inherit",
-      padding: 12,
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-    },
-  ],
+  base: {
+    all: "unset",
+    background: "inherit",
+    padding: 12,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    cursor: "pointer",
+  },
+
   variants: {
     active: {
-      true: {
-        color: themeVars.color.primary,
-        borderBottom: `2px solid ${themeVars.color.primary}`,
-      },
-      false: {
-        color: themeVars.color.title,
-        borderBottom: `1px solid ${themeVars.color.disabled}`,
-      },
+      true: [
+        typography.body2b,
+        {
+          color: themeVars.color.primary,
+          borderBottom: `2px solid ${themeVars.color.primary}`,
+        },
+      ],
+      false: [
+        typography.body2r,
+        {
+          color: themeVars.color.title,
+          borderBottom: `1px solid ${themeVars.color.disabled}`,
+        },
+      ],
     },
     line: {
       true: {
