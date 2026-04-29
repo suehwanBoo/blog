@@ -4,6 +4,8 @@ import clsx from "clsx";
 import { popularStyle as styles } from "./PopularPost.css";
 import View from "@/components/ui/View";
 import Like from "@/components/ui/Like";
+import Tags from "@/components/ui/Tags";
+import CopyLink from "@/components/ui/CopyLink";
 
 const mockCardList: (CardProps & { id: number })[] = [
   {
@@ -16,6 +18,9 @@ const mockCardList: (CardProps & { id: number })[] = [
       width: 1000,
       height: 668,
     },
+    content:
+      "Like to know the secrets of transforming a 2-14 team into a 3x Super Bowl winning Dynasty?",
+    tags: ["Performance", "UI"],
   },
   {
     id: 2,
@@ -27,24 +32,20 @@ const mockCardList: (CardProps & { id: number })[] = [
       width: 1000,
       height: 668,
     },
-  },
-  {
-    id: 3,
-    date: "17 Jan 2022",
-    title: "Build your API",
-    meta: { likes: 100, views: 200 },
-    thumbnail: {
-      src: "test_img.webp",
-      width: 1000,
-      height: 668,
-    },
+    content: "some content",
+    tags: ["Performance", "UI"],
   },
 ];
 
 export default function PopularPost() {
   return (
-    <section className={clsx(gridItem({ desktop: 6 }), styles.section)}>
-      <h3 className={styles.title}>Popular Post</h3>
+    <section
+      className={clsx(gridItem({ desktop: 6 }), styles.section)}
+      aria-labelledby="popular-post-title"
+    >
+      <h3 id="popular-post-title" className={styles.title}>
+        Popular Post
+      </h3>
       <div>
         {mockCardList.map((card) => (
           <Card {...card} key={card.id} />
@@ -62,13 +63,15 @@ type CardProps = {
   };
   title: string;
   date: string;
+  content: string;
+  tags: Array<string>;
   meta: {
     views: number;
     likes: number;
   };
 };
 
-function Card({ thumbnail, title, date, meta }: CardProps) {
+function Card({ thumbnail, title, date, meta, tags, content }: CardProps) {
   return (
     <article className={clsx(styles.cardWrapper, styles.divider)}>
       <div className={styles.thumbnailBox}>
@@ -82,12 +85,17 @@ function Card({ thumbnail, title, date, meta }: CardProps) {
       </div>
       <div className={styles.cardContent}>
         <div className={styles.cardBody}>
+          <Tags tags={tags} />
           <h4 className={clsx(typography.sub1b, styles.cardTitle)}>{title}</h4>
-          <p className={typography.body1r}>{date}</p>
+          <p className={styles.cardDescription}>{content}</p>
+          <p className={styles.cardDate}>{date}</p>
         </div>
-        <div className={styles.cardMeta}>
-          <View views={meta.views} />
-          <Like likes={meta.likes} />
+        <div className={styles.cardMetaBox}>
+          <div className={styles.cardMeta}>
+            <View views={meta.views} />
+            <Like likes={meta.likes} />
+          </div>
+          <CopyLink />
         </div>
       </div>
     </article>

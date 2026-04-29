@@ -17,8 +17,6 @@ const title = style([
 const cardWrapper = style({
   width: "100%",
   display: "flex",
-  maxHeight: 130,
-  alignItems: "center",
   gap: 16,
 });
 
@@ -44,11 +42,12 @@ const divider = style({
 });
 
 const thumbnailBox = style({
-  height: 114,
+  height: 133,
   width: 152,
   background: "gray",
   borderRadius: 4,
   overflow: "hidden",
+  flexShrink: 0,
 });
 
 const cardContent = style({
@@ -57,9 +56,11 @@ const cardContent = style({
   flexDirection: "column",
   justifyContent: "space-between",
   minWidth: 0,
+  width: "100%",
 });
 
 const cardBody = style({
+  minWidth: 0,
   color: themeVars.color.subtitle,
 });
 
@@ -70,10 +71,38 @@ const cardTitle = style({
   textOverflow: "ellipsis",
 });
 
+const cardDescription = style([
+  typography.body2r,
+  {
+    display: "-webkit-box",
+    WebkitBoxOrient: "vertical",
+    WebkitLineClamp: 2,
+    overflow: "hidden",
+  },
+]);
+
+const cardDate = style([
+  typography.cap1r,
+  {
+    paddingTop: 6,
+    color: themeVars.color.subtitle,
+  },
+]);
+
+const cardMetaBox = style({
+  display: "flex",
+  width: "100%",
+  alignItems: "center",
+  justifyContent: "space-between",
+  color: themeVars.color.subtitle,
+  borderTop: `1px solid ${themeVars.color.clicked}`,
+  paddingTop: 4,
+});
+
 const cardMeta = style({
   display: "flex",
   gap: 12,
-  color: themeVars.color.subtitle,
+  alignItems: "center",
 });
 
 const thumbnail = style({
@@ -91,6 +120,9 @@ export const popularStyle = {
   cardContent,
   cardBody,
   cardMeta,
+  cardMetaBox,
   cardTitle,
   thumbnail,
+  cardDescription,
+  cardDate,
 };

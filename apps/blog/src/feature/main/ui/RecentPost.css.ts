@@ -17,7 +17,7 @@ const title = style([
 const cardWrapper = style({
   position: "relative",
   borderRadius: 8,
-  height: 373,
+  height: 283,
 });
 
 const cardContent = style({
@@ -27,7 +27,7 @@ const cardContent = style({
   background: `rgba(0,0,0,0.5)`,
   backdropFilter: "blur(5px)",
   width: "100%",
-  height: "93px",
+  height: "85px",
   bottom: "0",
   position: "absolute",
   justifyContent: "space-between",
