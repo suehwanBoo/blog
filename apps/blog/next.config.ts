@@ -20,6 +20,9 @@ const nextConfig: NextConfig = {
   output: "standalone",
   outputFileTracingRoot: path.join(__dirname, "../../"),
   transpilePackages: transpilePackages,
+  experimental: {
+    validateRSCRequestHeaders: true,
+  },
 };
 
 export default withVanillaExtract(nextConfig);
