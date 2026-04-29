@@ -1,7 +1,13 @@
 import MainPage from "@/feature/main";
-import type { OrderValue } from "@/feature/post/constants";
+import { ORDERS, type OrderValue } from "@/feature/post/constants";
 import { isValidOrderValue } from "@/feature/post/utils/parseOrder";
 import { notFound } from "next/navigation";
+
+export const dynamicParams = false;
+
+export function generateStaticParams(): { order: OrderValue }[] {
+  return ORDERS.map(({ value }) => ({ order: value }));
+}
 
 export default async function HomePage({
   params,
