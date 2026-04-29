@@ -14,6 +14,14 @@ const POST_URL = "/post" as const;
 
 export function proxy(request: NextRequest) {
   const url = request.nextUrl.clone();
+
+  const isRscRequest =
+    request.headers.get("rsc") === "1" || url.searchParams.has("_rsc");
+
+  if (isRscRequest) {
+    return NextResponse.next();
+  }
+
   if (url.pathname === HOME_URL) {
     const orderQuery = url.searchParams.get(ORDER_QUERY_KEY) ?? DEFAULT_ORDER;
     if (!isValidOrderValue(orderQuery)) {
