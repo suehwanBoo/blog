@@ -128,7 +128,7 @@ const mockCardList: (CardProps & { id: number })[] = [
     title: "Build your API",
     meta: { likes: 100, views: 200 },
     thumbnail: {
-      src: "test_img.jpg",
+      src: "test_img.webp",
       width: 1000,
       height: 668,
     },
@@ -140,7 +140,7 @@ const mockCardList: (CardProps & { id: number })[] = [
     title: "Build your API",
     meta: { likes: 100, views: 200 },
     thumbnail: {
-      src: "test_img.jpg",
+      src: "test_img.webp",
       width: 1000,
       height: 668,
     },
@@ -153,7 +153,7 @@ const mockCardList: (CardProps & { id: number })[] = [
     title: "Build your API",
     meta: { likes: 100, views: 200 },
     thumbnail: {
-      src: "test_img.jpg",
+      src: "test_img.webp",
       width: 1000,
       height: 668,
     },
@@ -165,7 +165,7 @@ const mockCardList: (CardProps & { id: number })[] = [
     title: "Build your API",
     meta: { likes: 100, views: 200 },
     thumbnail: {
-      src: "test_img.jpg",
+      src: "test_img.webp",
       width: 1000,
       height: 668,
     },
@@ -178,7 +178,7 @@ const mockCardList: (CardProps & { id: number })[] = [
     title: "Build your API",
     meta: { likes: 100, views: 200 },
     thumbnail: {
-      src: "test_img.jpg",
+      src: "test_img.webp",
       width: 1000,
       height: 668,
     },
@@ -190,7 +190,7 @@ const mockCardList: (CardProps & { id: number })[] = [
     title: "Build your API",
     meta: { likes: 100, views: 200 },
     thumbnail: {
-      src: "test_img.jpg",
+      src: "test_img.webp",
       width: 1000,
       height: 668,
     },
@@ -203,7 +203,7 @@ const mockCardList: (CardProps & { id: number })[] = [
     title: "Build your API",
     meta: { likes: 100, views: 200 },
     thumbnail: {
-      src: "test_img.jpg",
+      src: "test_img.webp",
       width: 1000,
       height: 668,
     },
@@ -215,7 +215,7 @@ const mockCardList: (CardProps & { id: number })[] = [
     title: "Build your API",
     meta: { likes: 100, views: 200 },
     thumbnail: {
-      src: "test_img.jpg",
+      src: "test_img.webp",
       width: 1000,
       height: 668,
     },

@@ -11,7 +11,7 @@ const mockRecentCard: CardProps = {
   title: "Migrating to Linear 101",
   meta: { likes: 100, views: 200 },
   thumbnail: {
-    src: "test_img.jpg",
+    src: "test_img.webp",
     width: 1000,
     height: 668,
   },
