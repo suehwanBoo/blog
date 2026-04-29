@@ -10,7 +10,7 @@ export default async function Post({
   params: Promise<{ query: ProxyPostType }>;
 }) {
   const query = (await params).query;
-
+  if (!query || query.length !== 2) notFound();
   if (!isValidTag(query[0]) || !isValidOrderValue(query[1])) notFound();
 
   return <PostPage postParams={query} />;
