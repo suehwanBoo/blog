@@ -4,6 +4,7 @@ import { TabMenu } from "@boo/ui";
 import Link from "next/link";
 import { navStyle as styles } from "./Navbar.css";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const menus = [
   { href: "/", label: "Home", exact: true },
@@ -17,19 +18,23 @@ function isActive(pathname: string, href: string, exact?: boolean) {
 }
 export default function BottomMenu() {
   const pathname = usePathname();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <TabMenu className={styles.bottomWrapper} role="tablist">
-      {menus.map(({ label, href, exact }) => (
-        <TabMenu.Button
-          key={href}
-          active={isActive(pathname, href, exact)}
-          line={false}
-          asChild
-        >
-          <Link href={href}>{label}</Link>
-        </TabMenu.Button>
-      ))}
+      {menus.map(({ label, href, exact }) => {
+        const active = mounted && isActive(pathname, href, exact);
+
+        return (
+          <TabMenu.Button key={href} active={active} line={false} asChild>
+            <Link href={href}>{label}</Link>
+          </TabMenu.Button>
+        );
+      })}
     </TabMenu>
   );
 }
