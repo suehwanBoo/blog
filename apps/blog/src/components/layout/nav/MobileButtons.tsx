@@ -5,6 +5,8 @@ import { mobileButtonStyles as styles } from "./MobileButton.css";
 import Link from "next/link";
 import { useTheme } from "@/context/theme-context";
 import useScrollLock from "@/hooks/useScrollLock";
+import { useOverlay } from "@boo/ui/client";
+import AuthModal from "@/feature/auth/components/ui/AuthModal";
 
 type MenuState = {
   open: boolean;
@@ -36,6 +38,7 @@ export default function MobileButtons() {
 
 function MobileMenu({ open, close }: MenuState) {
   const { theme, toggleTheme } = useTheme();
+  const overlays = useOverlay();
   const themeWord = theme === "dark" ? "Set Lightmode" : "Set Darkmode";
 
   return (
@@ -44,9 +47,18 @@ function MobileMenu({ open, close }: MenuState) {
       className={styles.mobileMenu({ open })}
       aria-hidden={!open}
     >
-      <Link href={"/signin"} className={styles.link} onClick={close}>
+      <button
+        type="button"
+        className={styles.link}
+        onClick={() => {
+          close();
+          overlays.open((overlay) => <AuthModal close={overlay.close} />, {
+            closeOnBackdrop: false,
+          });
+        }}
+      >
         Sign in
-      </Link>
+      </button>
       <Link href={"/subscribe"} className={styles.link} onClick={close}>
         Subscribe
       </Link>

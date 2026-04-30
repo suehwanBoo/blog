@@ -5,6 +5,7 @@ const overlayRoot = style({
   position: "fixed",
   inset: 0,
   pointerEvents: "none",
+  zIndex: 9999,
 });
 
 const overlayLayer = style({
@@ -37,10 +38,9 @@ const backdrop = recipe({
 });
 const modalPositioner = style({
   position: "relative",
-  width: "min(calc(100vw - 32px), 480px)",
+  maxWidth: "calc(100vw - 32px)",
   maxHeight: "calc(100dvh - 32px)",
   overflow: "auto",
-  borderRadius: 16,
 });
 
 export const modalControllerStyle = {

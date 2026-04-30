@@ -4,6 +4,7 @@ import { ThemeScript } from "../scripts/ThemeScript";
 import { themeVars } from "@boo/ui";
 import "../../styles/reset.css";
 import "@boo/ui/styles.css";
+import { OverlayProvider } from "@boo/ui/client";
 
 const Pretendard = localFont({
   src: [
@@ -36,7 +37,11 @@ export default function RootLayout({
       <head>
         <ThemeScript />
       </head>
-      <body style={{ background: themeVars.color.background }}>{children}</body>
+      <OverlayProvider>
+        <body style={{ background: themeVars.color.background }}>
+          {children}
+        </body>
+      </OverlayProvider>
     </html>
   );
 }
