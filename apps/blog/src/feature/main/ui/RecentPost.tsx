@@ -4,14 +4,15 @@ import { recentPostStyles as styles } from "./RecentPost.css";
 import clsx from "clsx";
 import { skeleton } from "@/components/ui/skeleton.css";
 import Tags from "@/components/ui/Tags";
+import testImage from "@/assets/test_img.webp";
 
 const mockRecentCard: CardProps = {
   date: "17 Jan 2022",
   title: "Migrating to Linear 101",
   thumbnail: {
-    src: "test_img.webp",
-    width: 1000,
-    height: 668,
+    src: testImage.src,
+    width: testImage.width,
+    height: testImage.height,
   },
   tags: ["Performance", "UI"],
 };
