@@ -1,7 +1,24 @@
 import { Preview } from "@storybook/react-vite";
 import "@boo/font/load";
 import { darkTheme, lightTheme } from "@boo/ui";
+import { useEffect, type PropsWithChildren } from "react";
 import "./reset.css";
+
+function ThemeDecorator({
+  children,
+  themeClass,
+}: PropsWithChildren<{ themeClass: string }>) {
+  useEffect(() => {
+    document.body.classList.remove(lightTheme, darkTheme);
+    document.body.classList.add(themeClass);
+
+    return () => {
+      document.body.classList.remove(themeClass);
+    };
+  }, [themeClass]);
+
+  return <div className={themeClass}>{children}</div>;
+}
 
 const preview: Preview = {
   parameters: {
@@ -36,9 +53,9 @@ const preview: Preview = {
       const themeClass =
         context.globals.theme === "dark" ? darkTheme : lightTheme;
       return (
-        <div className={themeClass}>
+        <ThemeDecorator themeClass={themeClass}>
           <Story />
-        </div>
+        </ThemeDecorator>
       );
     },
   ],
