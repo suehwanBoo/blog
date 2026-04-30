@@ -11,7 +11,7 @@ describe("SearchInput", () => {
     expect(searchBox).toHaveAttribute("type", "search");
     expect(searchBox).toHaveAttribute("aria-label", "search");
 
-    expect(screen.getByRole("button", { name: "검색" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "search" })).toBeInTheDocument();
   });
 
   it("uses a custom label and forwards the disabled state", () => {
@@ -26,7 +26,7 @@ describe("SearchInput", () => {
     );
 
     const wrapper = screen.getByRole("searchbox", { name: "Search posts" });
-    const button = screen.getByRole("button", { name: "검색" });
+    const button = screen.getByRole("button", { name: "search" });
 
     expect(wrapper).toBeDisabled();
     expect(wrapper).toHaveAttribute("placeholder", "Search posts");
