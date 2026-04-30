@@ -40,6 +40,7 @@ export default function ModalLayer({
         })}
         type="button"
         aria-label="close modal"
+        disabled={!overlay.options.closeOnBackdrop}
         onClick={() => {
           if (!overlay.options.closeOnBackdrop) return;
           closeTop(overlay.id, index);
@@ -49,8 +50,6 @@ export default function ModalLayer({
       <div
         ref={modalRef}
         className={styles.modalPositioner}
-        role="dialog"
-        aria-modal={isTop}
         onClick={(event) => event.stopPropagation()}
         onKeyDown={(event) => {
           if (!isTop) return;
