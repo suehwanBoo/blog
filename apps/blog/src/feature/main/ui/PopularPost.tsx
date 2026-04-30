@@ -6,6 +6,7 @@ import View from "@/components/ui/View";
 import Like from "@/components/ui/Like";
 import Tags from "@/components/ui/Tags";
 import CopyLink from "@/components/ui/CopyLink";
+import testImage from "@/assets/test_img.webp";
 
 const mockCardList: (CardProps & { id: number })[] = [
   {
@@ -14,9 +15,9 @@ const mockCardList: (CardProps & { id: number })[] = [
     title: "Build your API",
     meta: { likes: 100, views: 200 },
     thumbnail: {
-      src: "test_img.webp",
-      width: 1000,
-      height: 668,
+      src: testImage.src,
+      width: testImage.width,
+      height: testImage.height,
     },
     content:
       "Like to know the secrets of transforming a 2-14 team into a 3x Super Bowl winning Dynasty?",
@@ -28,9 +29,9 @@ const mockCardList: (CardProps & { id: number })[] = [
     title: "Build your API",
     meta: { likes: 100, views: 200 },
     thumbnail: {
-      src: "test_img.webp",
-      width: 1000,
-      height: 668,
+      src: testImage.src,
+      width: testImage.width,
+      height: testImage.height,
     },
     content: "some content",
     tags: ["Performance", "UI"],

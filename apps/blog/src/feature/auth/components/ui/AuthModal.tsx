@@ -8,6 +8,7 @@ import {
   isAuthErrorCode,
   isFirebaseError,
 } from "../../utils";
+import appLogo from "@/assets/icon-72x60.png";
 
 export default function AuthModal({ close }: { close: () => void }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -30,12 +31,7 @@ export default function AuthModal({ close }: { close: () => void }) {
       <Modal.Header title="로그인" closeHandler={close} />
       <Modal.Body className={styles.authBody}>
         <div className={styles.authDescription}>
-          <img
-            src={"../../../../icon1.png"}
-            alt="app-logo"
-            width={36}
-            height={36}
-          />
+          <img src={appLogo.src} alt="app-logo" width={36} height={30} />
           <div className={styles.welcome}>
             <p>환영합니다.</p>
             <p>소셜 계정으로 간편하게 로그인하세요.</p>
