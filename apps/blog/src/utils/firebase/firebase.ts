@@ -19,7 +19,7 @@ export const firebaseApp = createFirebaseApp({
 
 export const firebaseAuth = createfirebaseAuth(firebaseApp);
 
-type LoginKey = "google" | "github";
+export type LoginKey = "google" | "github";
 
 export const getLogin = (platform: LoginKey) => {
   const loginMap = {

@@ -20,13 +20,15 @@ function emit() {
   listeners.forEach((listener) => listener());
 }
 
+const EMPTY_OVERLAY_MAP = new Map<OverlayId, OverlayItem>();
+
 export const overlayStore = {
   getSnapShot() {
     return overlays;
   },
 
   getServerSnapshot() {
-    return new Map<OverlayId, OverlayItem>();
+    return EMPTY_OVERLAY_MAP;
   },
 
   subscribe(listener: Listener) {

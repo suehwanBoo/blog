@@ -1,6 +1,7 @@
 import { Button, SearchInput } from "@boo/ui";
 import { navStyle as styles } from "./Navbar.css";
 import ThemeButton from "./ThemeButton";
+import AuthButton from "@/feature/auth/components/ui/AuthButton";
 
 export default function DesktopButtons() {
   return (
@@ -10,9 +11,7 @@ export default function DesktopButtons() {
       <Button size="large" ariaLabel="subscribe" state="active">
         Subscribe
       </Button>
-      <Button size="large" ariaLabel="Sign in" state="default">
-        Sign in
-      </Button>
+      <AuthButton />
     </div>
   );
 }
