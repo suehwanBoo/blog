@@ -9,10 +9,31 @@ const transpilePackages = isProd
   ? ["@boo/font", "@boo/firebase"]
   : ["@boo/font", "@boo/ui", "@boo/firebase"];
 
+const oneDayCacheControl =
+  "public, max-age=86400, s-maxage=86400, stale-while-revalidate=604800";
+
 const nextConfig: NextConfig = {
   /* config options here */
   async headers() {
     return [
+      {
+        source: "/icon0.svg",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: oneDayCacheControl,
+          },
+        ],
+      },
+      {
+        source: "/icon1.png",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: oneDayCacheControl,
+          },
+        ],
+      },
       {
         source: "/manifest.json",
         headers: [
