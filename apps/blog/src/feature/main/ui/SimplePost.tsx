@@ -9,7 +9,7 @@ import CopyLink from "@/components/ui/CopyLink";
 import Tags from "@/components/ui/Tags";
 import useClientOrder from "../hooks/useClientOrder";
 import { ORDERS, type OrderValue } from "@/feature/post/constants";
-import testImage from "@/assets/test_img.webp";
+import testImageSmall from "@/assets/test_img_m.webp";
 import { gridItem } from "@/styles/layout.css";
 
 export default function SimplePost({
@@ -104,9 +104,9 @@ const mockCardList: (CardProps & { id: number })[] = [
     title: "Build your API",
     meta: { likes: 100, views: 200 },
     thumbnail: {
-      src: testImage.src,
-      width: testImage.width,
-      height: testImage.height,
+      src: testImageSmall.src,
+      width: testImageSmall.width,
+      height: testImageSmall.height,
     },
     content: "short content",
     tags: ["Performacne", "UI"],
@@ -117,9 +117,9 @@ const mockCardList: (CardProps & { id: number })[] = [
     title: "Build your API",
     meta: { likes: 100, views: 200 },
     thumbnail: {
-      src: testImage.src,
-      width: testImage.width,
-      height: testImage.height,
+      src: testImageSmall.src,
+      width: testImageSmall.width,
+      height: testImageSmall.height,
     },
     content:
       "some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content ",
@@ -131,9 +131,9 @@ const mockCardList: (CardProps & { id: number })[] = [
     title: "Build your API",
     meta: { likes: 100, views: 200 },
     thumbnail: {
-      src: testImage.src,
-      width: testImage.width,
-      height: testImage.height,
+      src: testImageSmall.src,
+      width: testImageSmall.width,
+      height: testImageSmall.height,
     },
     content: "short content",
     tags: ["Performacne", "UI"],
@@ -144,9 +144,9 @@ const mockCardList: (CardProps & { id: number })[] = [
     title: "Build your API",
     meta: { likes: 100, views: 200 },
     thumbnail: {
-      src: testImage.src,
-      width: testImage.width,
-      height: testImage.height,
+      src: testImageSmall.src,
+      width: testImageSmall.width,
+      height: testImageSmall.height,
     },
     content:
       "some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content ",
@@ -158,9 +158,9 @@ const mockCardList: (CardProps & { id: number })[] = [
     title: "Build your API",
     meta: { likes: 100, views: 200 },
     thumbnail: {
-      src: testImage.src,
-      width: testImage.width,
-      height: testImage.height,
+      src: testImageSmall.src,
+      width: testImageSmall.width,
+      height: testImageSmall.height,
     },
     tags: ["Performacne", "UI"],
     content: "short content",
@@ -171,9 +171,9 @@ const mockCardList: (CardProps & { id: number })[] = [
     title: "Build your API",
     meta: { likes: 100, views: 200 },
     thumbnail: {
-      src: testImage.src,
-      width: testImage.width,
-      height: testImage.height,
+      src: testImageSmall.src,
+      width: testImageSmall.width,
+      height: testImageSmall.height,
     },
     tags: ["Performacne", "UI"],
     content:
@@ -185,9 +185,9 @@ const mockCardList: (CardProps & { id: number })[] = [
     title: "Build your API",
     meta: { likes: 100, views: 200 },
     thumbnail: {
-      src: testImage.src,
-      width: testImage.width,
-      height: testImage.height,
+      src: testImageSmall.src,
+      width: testImageSmall.width,
+      height: testImageSmall.height,
     },
     tags: ["Performacne", "UI"],
     content: "short content",
@@ -198,9 +198,9 @@ const mockCardList: (CardProps & { id: number })[] = [
     title: "Build your API",
     meta: { likes: 100, views: 200 },
     thumbnail: {
-      src: testImage.src,
-      width: testImage.width,
-      height: testImage.height,
+      src: testImageSmall.src,
+      width: testImageSmall.width,
+      height: testImageSmall.height,
     },
     tags: ["Performacne", "UI"],
     content:
