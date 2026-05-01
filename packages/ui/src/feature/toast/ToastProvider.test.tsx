@@ -1,8 +1,8 @@
 import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import useToast from "./hooks/useToast";
 import { toastStore } from "./store/toast";
 import ToastProvider from "./context/ToastProvider";
+import { useToast } from "./hooks/useToast";
 
 function ToastTrigger() {
   const toast = useToast();

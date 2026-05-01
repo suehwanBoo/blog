@@ -18,6 +18,7 @@ type MessageProps = {
   onCancel?: (() => void) | undefined;
   visible?: boolean | undefined;
   onExitComplete?: (() => void) | undefined;
+  enterAnimationMs?: number | undefined;
   exitAnimationMs?: number | undefined;
 } & HTMLAttributes<HTMLDivElement> &
   StateProps;
@@ -40,7 +41,9 @@ const Message = forwardRef<HTMLDivElement | null, MessageProps>(
       visible = true,
       onExitComplete,
       className,
-      exitAnimationMs = 3000,
+      enterAnimationMs = 300,
+      exitAnimationMs = 300,
+      style,
       ...rest
     },
     ref,
@@ -55,8 +58,9 @@ const Message = forwardRef<HTMLDivElement | null, MessageProps>(
         className={clsx(MessageStyle.wrapper({ state, visible }), className)}
         style={
           {
-            ...rest.style,
-            "--message-exit-duration": `${exitAnimationMs ?? 300}ms`,
+            ...style,
+            "--message-enter-duration": `${enterAnimationMs}ms`,
+            "--message-exit-duration": `${exitAnimationMs}ms`,
           } as React.CSSProperties
         }
         onAnimationEnd={() => {

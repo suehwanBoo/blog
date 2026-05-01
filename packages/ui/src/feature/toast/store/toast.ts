@@ -11,8 +11,6 @@ function emit() {
   listeners.forEach((listener) => listener());
 }
 
-const MAX_TOAST_COUNT = 3;
-
 export const toastStore = {
   getSnapshot() {
     return toasts;
@@ -27,11 +25,12 @@ export const toastStore = {
     return () => listeners.delete(listener);
   },
 
-  apply(info: Toast) {
+  apply(info: Toast, options?: { maxCount: number }) {
     const id = crypto.randomUUID();
+    const maxCount = options?.maxCount ?? 3;
     toasts = new Map(toasts);
 
-    if (toasts.size >= MAX_TOAST_COUNT) {
+    if (toasts.size >= maxCount) {
       const oldestId = toasts.keys().next().value as ToastId | undefined;
 
       if (oldestId) {

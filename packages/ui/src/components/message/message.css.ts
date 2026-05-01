@@ -52,7 +52,7 @@ const wrapper = recipe({
     },
     visible: {
       true: {
-        animation: `${enter} 0.3s ease-out`,
+        animation: `${enter} var(--message-enter-duration) ease-out`,
       },
       false: {
         animation: `${exit} var(--message-exit-duration) ease-in forwards`,

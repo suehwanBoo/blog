@@ -21,4 +21,6 @@ export type ToastController = {
   close: (id: ToastId) => void;
   remove: (id: ToastId) => void;
   removeAll: () => void;
+  enterAnimationMs: number;
+  exitAnimationMs: number;
 };
