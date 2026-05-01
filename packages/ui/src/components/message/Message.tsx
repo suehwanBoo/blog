@@ -41,9 +41,10 @@ const Message = forwardRef<HTMLDivElement | null, MessageProps>(
       visible = true,
       onExitComplete,
       className,
+      onAnimationEnd,
+      style,
       enterAnimationMs = 300,
       exitAnimationMs = 300,
-      style,
       ...rest
     },
     ref,
@@ -63,7 +64,9 @@ const Message = forwardRef<HTMLDivElement | null, MessageProps>(
             "--message-exit-duration": `${exitAnimationMs}ms`,
           } as React.CSSProperties
         }
-        onAnimationEnd={() => {
+        onAnimationEnd={(e) => {
+          onAnimationEnd?.(e);
+          if (e.target !== e.currentTarget) return;
           if (!visible) {
             onExitComplete?.();
           }
