@@ -4,3 +4,4 @@ export { default as Pagination } from "./components/page/Pagination";
 export { default as Select } from "./components/input/Select";
 
 export * from "./feature/overlay/index";
+export * from "./feature/toast/index";
