@@ -1,6 +1,5 @@
 "use client";
 
-import { gridItem } from "@/app/(main)/layout.css";
 import { simplePostStyles as styles } from "./SimplePost.css";
 import { Select } from "@boo/ui/client";
 import clsx from "clsx";
@@ -11,6 +10,7 @@ import Tags from "@/components/ui/Tags";
 import useClientOrder from "../hooks/useClientOrder";
 import { ORDERS, type OrderValue } from "@/feature/post/constants";
 import testImage from "@/assets/test_img.webp";
+import { gridItem } from "@/styles/layout.css";
 
 export default function SimplePost({
   initialOrderValue,

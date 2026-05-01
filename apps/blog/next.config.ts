@@ -44,15 +44,6 @@ const nextConfig: NextConfig = {
         ],
       },
       {
-        source: "/manifest.json",
-        headers: [
-          {
-            key: "Cache-Control",
-            value: "public, max-age=3600, stale-while-revalidate=86400",
-          },
-        ],
-      },
-      {
         source: "/web-app-manifest-192x192.png",
         headers: [
           {
@@ -83,6 +74,7 @@ const nextConfig: NextConfig = {
   transpilePackages: transpilePackages,
   experimental: {
     validateRSCRequestHeaders: true,
+    inlineCss: true,
   },
 };
 

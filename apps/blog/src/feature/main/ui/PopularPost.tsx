@@ -1,4 +1,3 @@
-import { gridItem } from "@/app/(main)/layout.css";
 import { typography } from "@boo/ui";
 import clsx from "clsx";
 import { popularStyle as styles } from "./PopularPost.css";
@@ -7,6 +6,7 @@ import Like from "@/components/ui/Like";
 import Tags from "@/components/ui/Tags";
 import CopyLink from "@/components/ui/CopyLink";
 import testImage from "@/assets/test_img.webp";
+import { gridItem } from "@/styles/layout.css";
 
 const mockCardList: (CardProps & { id: number })[] = [
   {
