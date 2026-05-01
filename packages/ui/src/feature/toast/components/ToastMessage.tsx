@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import Message from "../../../components/message/Message";
 import type { ToastItem } from "../types";
-import { useInternalToast } from "../hooks/useToast";
 
 type ToastMessageProps = {
   toast: ToastItem;
@@ -14,9 +13,13 @@ export default function ToastMessage({
   onRemove,
   toast,
 }: ToastMessageProps) {
-  const { enterAnimationMs, exitAnimationMs } = useInternalToast();
   useToastTimeout(toast.id, toast.visible, toast.duration, onClose);
-  useToastExitFallback(toast.id, toast.visible, exitAnimationMs, onRemove);
+  useToastExitFallback(
+    toast.id,
+    toast.visible,
+    toast.exitAnimationMs ?? 300,
+    onRemove,
+  );
 
   return (
     <Message
@@ -27,8 +30,8 @@ export default function ToastMessage({
       visible={toast.visible}
       onCancel={toast.closable ? () => onClose(toast.id) : undefined}
       onExitComplete={() => onRemove(toast.id)}
-      enterAnimationMs={enterAnimationMs}
-      exitAnimationMs={exitAnimationMs}
+      enterAnimationMs={toast.enterAnimationMs ?? 300}
+      exitAnimationMs={toast.exitAnimationMs ?? 300}
     />
   );
 }
