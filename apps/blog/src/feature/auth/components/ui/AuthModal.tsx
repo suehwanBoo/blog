@@ -2,30 +2,12 @@ import { Modal } from "@boo/ui";
 import { AUTH_GROUP, type AuthGroup } from "../../constant";
 import { authButtonStyles as styles } from "./AuthButton.css";
 import { useState, type ButtonHTMLAttributes } from "react";
-import { getLogin, type LoginKey } from "@/utils/firebase/firebase";
-import {
-  AUTH_ERROR_HANDLER,
-  isAuthErrorCode,
-  isFirebaseError,
-} from "../../utils";
 import appLogo from "@/assets/icon-72x60.png";
+import { loginWith } from "../../utils";
 
 export default function AuthModal({ close }: { close: () => void }) {
   const [isLoading, setIsLoading] = useState(false);
-  const loginWith = async (key: LoginKey) => {
-    if (isLoading) return;
-    setIsLoading(true);
-    try {
-      await getLogin(key)();
-      close();
-    } catch (err) {
-      if (isFirebaseError(err) && isAuthErrorCode(err.code)) {
-        AUTH_ERROR_HANDLER[err.code]();
-      }
-    } finally {
-      setIsLoading(false);
-    }
-  };
+
   return (
     <Modal ariaLabel="auth modal" className={styles.wrapper}>
       <Modal.Header title="로그인" closeHandler={close} />
@@ -40,11 +22,25 @@ export default function AuthModal({ close }: { close: () => void }) {
         <div className={styles.buttonGroup}>
           <SocialButton
             {...AUTH_GROUP.google}
-            onClick={() => loginWith("google")}
+            onClick={() =>
+              loginWith({
+                key: "google",
+                isLoading,
+                setIsLoading,
+                close,
+              })
+            }
           />
           <SocialButton
             {...AUTH_GROUP.github}
-            onClick={() => loginWith("github")}
+            onClick={() =>
+              loginWith({
+                key: "github",
+                isLoading,
+                setIsLoading,
+                close,
+              })
+            }
           />
         </div>
       </Modal.Body>

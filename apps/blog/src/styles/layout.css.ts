@@ -1,7 +1,7 @@
 import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
-export const homeLayout = style({
+export const commonLayout = style({
   margin: "0 auto",
   maxWidth: 1024,
   width: "100%",

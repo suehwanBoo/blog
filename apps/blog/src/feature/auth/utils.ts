@@ -1,9 +1,3 @@
-import {
-  AUTH_ERROR_CODE_SET,
-  AuthErrorCode,
-  FirebaseError,
-} from "@boo/firebase/auth";
-
 export const AUTH_ERROR_HANDLER: Record<AuthErrorCode, () => void> = {
   "auth/popup-closed-by-user": () => {},
   "auth/popup-blocked": () => alert("팝업 차단됨"),
@@ -16,10 +10,59 @@ export const AUTH_ERROR_HANDLER: Record<AuthErrorCode, () => void> = {
   "auth/network-request-failed": () => alert("네트워크 오류가 발생했습니다."),
 };
 
-export function isFirebaseError(error: unknown): error is { code: string } {
-  return error instanceof FirebaseError;
-}
+export const AuthErrorCode = {
+  POPUP_CLOSED: "auth/popup-closed-by-user",
+  POPUP_BLOCKED: "auth/popup-blocked",
+  CANCELLED: "auth/cancelled-popup-request",
+  ACCOUNT_EXISTS: "auth/account-exists-with-different-credential",
+  OPERATION_NOT_ALLOWED: "auth/operation-not-allowed",
+  UNAUTHORIZED_DOMAIN: "auth/unauthorized-domain",
+  NETWORK_ERROR: "auth/network-request-failed",
+} as const;
 
+export const AUTH_ERROR_CODE_SET = new Set<string>(
+  Object.values(AuthErrorCode),
+);
+
+export type AuthErrorCode = (typeof AuthErrorCode)[keyof typeof AuthErrorCode];
+
+export function isFirebaseError(error: unknown): error is { code: string } {
+  return (
+    typeof error === "object" &&
+    error !== null &&
+    "code" in error &&
+    typeof error.code === "string"
+  );
+}
 export function isAuthErrorCode(code: unknown): code is AuthErrorCode {
   return typeof code === "string" && AUTH_ERROR_CODE_SET.has(code);
+}
+
+export async function loginWith({
+  key,
+  isLoading,
+  setIsLoading,
+  close,
+}: {
+  key: "github" | "google";
+  isLoading: boolean;
+  setIsLoading: (loading: boolean) => void;
+  close: () => void;
+}) {
+  if (isLoading) return;
+
+  setIsLoading(true);
+
+  try {
+    const { getLogin } = await import("@/utils/firebase/firebase");
+
+    await getLogin(key)();
+    close();
+  } catch (err) {
+    if (isFirebaseError(err) && isAuthErrorCode(err.code)) {
+      AUTH_ERROR_HANDLER[err.code]();
+    }
+  } finally {
+    setIsLoading(false);
+  }
 }

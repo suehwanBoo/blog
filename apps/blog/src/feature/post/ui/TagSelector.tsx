@@ -1,10 +1,10 @@
 "use client";
 
-import { gridItem } from "@/app/(main)/layout.css";
 import { tagSelectorStyles as styles } from "./TagSelector.css";
 import clsx from "clsx";
 import { TAG_LABELS, TAGS, type Tag } from "../constants";
 import useClientSelectedTag from "../hooks/useClientSelectedTag";
+import { gridItem } from "@/styles/layout.css";
 
 type TagSelectorProps = {
   initialTagState: Tag;

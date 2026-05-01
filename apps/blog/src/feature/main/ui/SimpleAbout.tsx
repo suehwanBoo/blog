@@ -1,4 +1,4 @@
-import { gridItem } from "@/app/(main)/layout.css";
+import { gridItem } from "@/styles/layout.css";
 import { simpleAboutStyles as styles } from "./SimpleAbout.css";
 import { Button, Input, typography } from "@boo/ui";
 import clsx from "clsx";
