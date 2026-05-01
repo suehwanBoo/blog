@@ -16,10 +16,10 @@ type MessageProps = {
   content: string;
   icon: boolean;
   onCancel?: (() => void) | undefined;
-  visible?: boolean | undefined;
-  onExitComplete?: (() => void) | undefined;
-  enterAnimationMs?: number | undefined;
-  exitAnimationMs?: number | undefined;
+  visible?: boolean;
+  onExitComplete?: () => void;
+  enterAnimationMs?: number;
+  exitAnimationMs?: number;
 } & HTMLAttributes<HTMLDivElement> &
   StateProps;
 

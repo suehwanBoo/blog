@@ -2,7 +2,8 @@ type ToastVariant = "default" | "success" | "danger" | "warning";
 
 export type ToastId = string;
 
-export type ToastItem = Toast & {
+export type ToastItem = Omit<Required<Toast>, "title"> & {
+  title?: string;
   id: ToastId;
   createdAt: number;
   visible: boolean;

@@ -17,7 +17,7 @@ export default function ToastMessage({
   useToastExitFallback(
     toast.id,
     toast.visible,
-    toast.exitAnimationMs ?? 300,
+    toast.exitAnimationMs,
     onRemove,
   );
 
@@ -25,13 +25,13 @@ export default function ToastMessage({
     <Message
       title={toast.title}
       content={toast.description}
-      state={toast.variant ?? "default"}
+      state={toast.variant}
       icon
       visible={toast.visible}
-      onCancel={toast.closable ? () => onClose(toast.id) : undefined}
+      enterAnimationMs={toast.enterAnimationMs}
+      exitAnimationMs={toast.exitAnimationMs}
       onExitComplete={() => onRemove(toast.id)}
-      enterAnimationMs={toast.enterAnimationMs ?? 300}
-      exitAnimationMs={toast.exitAnimationMs ?? 300}
+      onCancel={toast.closable ? () => onClose(toast.id) : undefined}
     />
   );
 }
