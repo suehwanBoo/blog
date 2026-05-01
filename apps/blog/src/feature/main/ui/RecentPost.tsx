@@ -60,17 +60,19 @@ function RecentCard({ thumbnail, title, date, tags }: CardProps) {
 
   return (
     <article className={clsx(styles.cardWrapper, skeleton({ loading: false }))}>
-      <img
-        src={desktop.src}
-        srcSet={`${mobile.src} ${mobile.width}w, ${desktop.src} ${desktop.width}w`}
-        sizes={`(max-width: 768px) ${mobile.width}px, ${desktop.width}px`}
-        alt="thumbnail"
-        className={styles.thumbnail}
-        width={desktop.width}
-        height={desktop.height}
-        fetchPriority="high"
-      />
-
+      <picture className={styles.thumbnailPicture}>
+        <source media="(max-width: 767px)" srcSet={mobile.src} />
+        <img
+          src={desktop.src}
+          alt="thumbnail"
+          className={styles.thumbnail}
+          width={desktop.width}
+          height={desktop.height}
+          fetchPriority="high"
+          loading="eager"
+          decoding="async"
+        />
+      </picture>
       <div className={styles.cardContent}>
         <Tags tags={tags} style={{ color: "#a9c5ff" }} />
         <h4 className={clsx(typography.sub1b, styles.cardTitle)}>{title}</h4>

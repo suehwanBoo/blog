@@ -5,7 +5,7 @@ import View from "@/components/ui/View";
 import Like from "@/components/ui/Like";
 import Tags from "@/components/ui/Tags";
 import CopyLink from "@/components/ui/CopyLink";
-import testImage from "@/assets/test_img.webp";
+import testImage from "@/assets/test_img_m.webp";
 import { gridItem } from "@/styles/layout.css";
 
 const mockCardList: (CardProps & { id: number })[] = [

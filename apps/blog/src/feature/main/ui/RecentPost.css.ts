@@ -20,6 +20,12 @@ const cardWrapper = style({
   height: 283,
 });
 
+const thumbnailPicture = style({
+  display: "block",
+  width: "100%",
+  height: "100%",
+});
+
 const cardContent = style({
   display: "flex",
   flexDirection: "column",
@@ -43,6 +49,7 @@ const cardMeta = style({
 const thumbnail = style({
   width: "100%",
   height: "100%",
+  aspectRatio: "847 / 566",
   objectFit: "cover",
 });
 
@@ -57,6 +64,7 @@ export const recentPostStyles = {
   cardWrapper,
   cardContent,
   cardMeta,
+  thumbnailPicture,
   thumbnail,
   cardTitle,
   title,
