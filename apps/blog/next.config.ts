@@ -74,7 +74,6 @@ const nextConfig: NextConfig = {
   transpilePackages: transpilePackages,
   experimental: {
     validateRSCRequestHeaders: true,
-    inlineCss: true,
   },
 };
 
