@@ -3,17 +3,27 @@ import { themeVars } from "../../theme/theme.css";
 import { keyframes, style } from "@vanilla-extract/css";
 import { typography } from "../../font/typography.css";
 
-const fadeIn = keyframes({
-  from: {
+const enter = keyframes({
+  "0%": {
     opacity: 0,
     transform: "translateY(-8px) scale(0.98)",
   },
-  to: {
+  "100%": {
     opacity: 1,
     transform: "translateY(0) scale(1)",
   },
 });
 
+const exit = keyframes({
+  "0%": {
+    opacity: 1,
+    transform: "translateY(0) scale(1)",
+  },
+  "100%": {
+    opacity: 0,
+    transform: "translateY(-8px) scale(0.98)",
+  },
+});
 const wrapper = recipe({
   base: {
     display: "flex",
@@ -23,7 +33,7 @@ const wrapper = recipe({
     gap: 20,
     color: themeVars.color.default,
     borderRadius: 8,
-    animation: `${fadeIn} 0.3s ease-out`,
+    pointerEvents: "auto",
   },
   variants: {
     state: {
@@ -38,6 +48,14 @@ const wrapper = recipe({
       },
       warning: {
         background: themeVars.color.alertWarning,
+      },
+    },
+    visible: {
+      true: {
+        animation: `${enter} 0.3s ease-out`,
+      },
+      false: {
+        animation: `${exit} var(--message-exit-duration) ease-in forwards`,
       },
     },
   },

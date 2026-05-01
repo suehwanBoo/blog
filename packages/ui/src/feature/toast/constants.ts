@@ -1,0 +1,1 @@
+export const TOAST_EXIT_ANIMATION_MS = 300;

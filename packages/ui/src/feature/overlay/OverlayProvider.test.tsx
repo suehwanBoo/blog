@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { act, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, describe, expect, it } from "vitest";
 import OverlayProvider from "./context/OverlayProvider";
@@ -14,7 +14,7 @@ function OverlayTrigger() {
         type="button"
         onClick={() =>
           overlay.open(({ close }) => (
-            <div>
+            <div role="dialog">
               <h2>First overlay</h2>
               <button type="button" onClick={close}>
                 Close first
@@ -30,7 +30,7 @@ function OverlayTrigger() {
         onClick={() =>
           overlay.open(
             () => (
-              <div>
+              <div role="dialog">
                 <h2>Locked overlay</h2>
               </div>
             ),
@@ -56,7 +56,9 @@ function renderOverlay() {
 }
 
 afterEach(() => {
-  overlayStore.closeAll();
+  act(() => {
+    overlayStore.closeAll();
+  });
   document.body.style.overflow = "";
 });
 
@@ -145,7 +147,7 @@ describe("OverlayProvider", () => {
     await user.click(screen.getByRole("button", { name: "Close all" }));
 
     await waitFor(() => {
-      expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+      expect(screen.queryAllByRole("dialog", { hidden: true })).toHaveLength(0);
     });
   });
 });

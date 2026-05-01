@@ -12,10 +12,13 @@ type StateProps = {
 };
 
 type MessageProps = {
-  title?: string;
+  title?: string | undefined;
   content: string;
   icon: boolean;
-  onCancel: () => void;
+  onCancel?: (() => void) | undefined;
+  visible?: boolean | undefined;
+  onExitComplete?: (() => void) | undefined;
+  exitAnimationMs?: number | undefined;
 } & HTMLAttributes<HTMLDivElement> &
   StateProps;
 
@@ -27,28 +30,56 @@ const IconMapper = {
 } satisfies Record<State, ComponentType>;
 
 const Message = forwardRef<HTMLDivElement | null, MessageProps>(
-  ({ title, content, icon, onCancel, state, ...rest }, ref) => {
+  (
+    {
+      title,
+      content,
+      icon,
+      onCancel,
+      state,
+      visible = true,
+      onExitComplete,
+      className,
+      exitAnimationMs = 3000,
+      ...rest
+    },
+    ref,
+  ) => {
     const Icon = IconMapper[state];
     return (
       <div
         {...rest}
         ref={ref}
+        data-visible={!!visible}
         role={state === "danger" ? "alert" : "status"}
-        className={clsx(MessageStyle.wrapper({ state }))}
+        className={clsx(MessageStyle.wrapper({ state, visible }), className)}
+        style={
+          {
+            ...rest.style,
+            "--message-exit-duration": `${exitAnimationMs ?? 300}ms`,
+          } as React.CSSProperties
+        }
+        onAnimationEnd={() => {
+          if (!visible) {
+            onExitComplete?.();
+          }
+        }}
       >
         {icon && <Icon />}
         <div className={MessageStyle.contentWrapper}>
           {title && <h4 className={MessageStyle.title}>{title}</h4>}
           <p className={MessageStyle.content}>{content || "-"}</p>
         </div>
-        <button
-          type="button"
-          aria-label="close message"
-          onClick={onCancel}
-          className={MessageStyle.cancel}
-        >
-          <CancelIcon />
-        </button>
+        {onCancel && (
+          <button
+            type="button"
+            aria-label="close message"
+            onClick={onCancel}
+            className={MessageStyle.cancel}
+          >
+            <CancelIcon />
+          </button>
+        )}
       </div>
     );
   },
