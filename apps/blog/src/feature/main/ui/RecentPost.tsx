@@ -61,16 +61,16 @@ function RecentCard({ thumbnail, title, date, tags }: CardProps) {
   return (
     <article className={clsx(styles.cardWrapper, skeleton({ loading: false }))}>
       <picture className={styles.thumbnailPicture}>
-        <source media="(max-width: 767px)" srcSet={mobile.src} />
+        <source media="(min-width: 500px)" srcSet={desktop.src} />
         <img
-          src={desktop.src}
+          src={mobile.src}
           alt="thumbnail"
           className={styles.thumbnail}
           width={desktop.width}
           height={desktop.height}
           fetchPriority="high"
           loading="eager"
-          decoding="async"
+          decoding="sync"
         />
       </picture>
       <div className={styles.cardContent}>
