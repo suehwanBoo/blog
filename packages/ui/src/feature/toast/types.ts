@@ -14,6 +14,8 @@ export type Toast = {
   variant?: ToastVariant;
   duration?: number;
   closable?: boolean;
+  enterAnimationMs?: number;
+  exitAnimationMs?: number;
 };
 
 export type ToastController = {
@@ -21,6 +23,4 @@ export type ToastController = {
   close: (id: ToastId) => void;
   remove: (id: ToastId) => void;
   removeAll: () => void;
-  enterAnimationMs: number;
-  exitAnimationMs: number;
 };

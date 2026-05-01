@@ -45,6 +45,8 @@ export const toastStore = {
       variant: "default",
       duration: 3000,
       closable: true,
+      enterAnimationMs: 300,
+      exitAnimationMs: 300,
       ...info,
     };
 
