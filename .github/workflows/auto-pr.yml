@@ -82,53 +82,104 @@ jobs:
         if: steps.pr-context.outputs.skip == 'true'
         run: echo "${{ steps.pr-context.outputs.skip_reason }}"
 
-      - name: Generate PR title and body with Codex
+      - name: Generate PR title and body
         if: steps.pr-context.outputs.skip == 'false'
-        id: codex
-        uses: openai/codex-action@v1
-        with:
-          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
-          sandbox: read-only
-          output-file: codex-pr-draft.txt
-          prompt: |
-            You are writing a pull request title and body for this repository.
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_MODEL: gpt-4.1-mini
+        run: |
+          set -euo pipefail
 
-            IMPORTANT:
-            - Write the entire output in Korean.
-            - Do NOT mix English except for code, file names, or technical identifiers.
-            - Section headers (Summary, Why, Changes, Test Plan) must remain in English.
+          python3 <<'PY'
+          import json
+          import os
+          import urllib.error
+          import urllib.request
+          from pathlib import Path
 
-            Read pr-context.md and analyze only the summarized changes in the current branch compared with origin/main.
-            Use only the prepared summary in pr-context.md as your source of truth.
-            Do not run or rely on full git diff output.
-            The workflow already skipped this task if changed files exceeded 20 or changed lines exceeded 800.
+          api_key = os.environ["OPENAI_API_KEY"]
+          model = os.environ.get("OPENAI_MODEL", "gpt-4.1-mini")
+          pr_context = Path("pr-context.md").read_text(encoding="utf-8").strip()
 
-            Write only facts that are directly visible from the prepared summary.
-            Do not infer intent, product impact, test results, or manual verification that is not visible in the diff.
-            If the reason for the change is not directly visible from the diff, write "Not visible from diff" in the Why section.
-            If tests or verification are not visible in the diff, write "Not verified by automation" in the Test Plan.
-            Keep the output concise. Do not exceed 200 words.
+          prompt = f"""You are writing a pull request title and body for this repository.
 
-            The output format must be exactly:
+          IMPORTANT:
+          - Write the entire output in Korean.
+          - Do NOT mix English except for code, file names, or technical identifiers.
+          - Section headers (Summary, Why, Changes, Test Plan) must remain in English.
 
-            TITLE:
-            <concise PR title>
+          Analyze only this prepared summary of the current branch compared with origin/main.
+          Use only the prepared summary below as your source of truth.
+          Do not ask for or rely on full git diff output.
+          The workflow already skipped this task if changed files exceeded 20 or changed lines exceeded 800.
 
-            BODY:
-            ## Summary
-            - key changes
+          Write only facts that are directly visible from the prepared summary.
+          Do not infer intent, product impact, test results, or manual verification that is not visible in the summary.
+          If the reason for the change is not directly visible from the summary, write "Not visible from diff" in the Why section.
+          If tests or verification are not visible in the summary, write "Not verified by automation" in the Test Plan.
+          Keep the output concise. Do not exceed 200 words.
 
-            ## Why
-            - reason for the change
+          The output format must be exactly:
 
-            ## Changes
-            - main implementation details
+          TITLE:
+          <concise PR title>
 
-            ## Test Plan
-            - tests or manual verification confirmed from the diff
-            - if unavailable, write "Not verified by automation"
+          BODY:
+          ## Summary
+          - key changes
 
-      - name: Parse Codex output
+          ## Why
+          - reason for the change
+
+          ## Changes
+          - main implementation details
+
+          ## Test Plan
+          - tests or manual verification confirmed from the summary
+          - if unavailable, write "Not verified by automation"
+
+          Prepared summary:
+          {pr_context}
+          """
+
+          payload = {
+              "model": model,
+              "input": prompt,
+              "max_output_tokens": 500,
+              "text": {"format": {"type": "text"}},
+          }
+
+          request = urllib.request.Request(
+              "https://api.openai.com/v1/responses",
+              data=json.dumps(payload).encode("utf-8"),
+              headers={
+                  "Authorization": f"Bearer {api_key}",
+                  "Content-Type": "application/json",
+              },
+              method="POST",
+          )
+
+          try:
+              with urllib.request.urlopen(request, timeout=60) as response:
+                  data = json.loads(response.read().decode("utf-8"))
+          except urllib.error.HTTPError as error:
+              body = error.read().decode("utf-8", errors="replace")
+              raise SystemExit(f"OpenAI API request failed: {error.code} {body}")
+
+          texts = []
+          for item in data.get("output", []):
+              for content in item.get("content", []):
+                  if content.get("type") == "output_text":
+                      texts.append(content.get("text", ""))
+
+          output = "\n".join(texts).strip()
+          if not output:
+              raise SystemExit(f"OpenAI API returned no output text: {json.dumps(data)[:1000]}")
+
+          Path("codex-pr-draft.txt").write_text(output + "\n", encoding="utf-8")
+          PY
+
+      - name: Parse generated PR draft
         if: steps.pr-context.outputs.skip == 'false'
         run: |
           set -euo pipefail
@@ -141,16 +192,16 @@ jobs:
           match = re.search(r"^TITLE:\s*\n(?P<title>.+?)\n\s*BODY:\s*\n(?P<body>.+)\s*$", output, re.S | re.M)
 
           if not match:
-              raise SystemExit("Codex output did not match the required TITLE/BODY format.")
+              raise SystemExit("Generated PR draft did not match the required TITLE/BODY format.")
 
           title = match.group("title").strip()
           body = match.group("body").strip()
 
           if not title:
-              raise SystemExit("Codex output title is empty.")
+              raise SystemExit("Generated PR title is empty.")
 
           if not body:
-              raise SystemExit("Codex output body is empty.")
+              raise SystemExit("Generated PR body is empty.")
 
           Path("pr-title.txt").write_text(title + "\n", encoding="utf-8")
           Path("pr-body.md").write_text(body + "\n", encoding="utf-8")
