@@ -1,15 +1,19 @@
 import { Modal } from "@boo/ui";
 import { authButtonStyles as styles } from "./AuthButton.css";
-import { useState, type ButtonHTMLAttributes } from "react";
+import { type ButtonHTMLAttributes } from "react";
 import appLogo from "@/assets/icon-72x60.png";
 import { AUTH_GROUP, type AuthGroup } from "../constant";
-import { loginWith } from "../utils";
+import useFirebaseLogin from "../hooks/useFirebaseLogin";
 
 export default function AuthModal({ close }: { close: () => void }) {
-  const [isLoading, setIsLoading] = useState(false);
-
+  const { isLoading, login } = useFirebaseLogin(close);
   return (
     <Modal ariaLabel="auth modal" className={styles.wrapper}>
+      {isLoading && (
+        <div className={styles.loading}>
+          <div className={styles.spinner}></div>
+        </div>
+      )}
       <Modal.Header title="로그인" closeHandler={close} />
       <Modal.Body className={styles.authBody}>
         <div className={styles.authDescription}>
@@ -22,25 +26,11 @@ export default function AuthModal({ close }: { close: () => void }) {
         <div className={styles.buttonGroup}>
           <SocialButton
             {...AUTH_GROUP.google}
-            onClick={() =>
-              loginWith({
-                key: "google",
-                isLoading,
-                setIsLoading,
-                close,
-              })
-            }
+            onClick={() => login("google")}
           />
           <SocialButton
             {...AUTH_GROUP.github}
-            onClick={() =>
-              loginWith({
-                key: "github",
-                isLoading,
-                setIsLoading,
-                close,
-              })
-            }
+            onClick={() => login("github")}
           />
         </div>
       </Modal.Body>
