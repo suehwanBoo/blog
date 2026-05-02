@@ -1,9 +1,9 @@
 import { Modal } from "@boo/ui";
-import { AUTH_GROUP, type AuthGroup } from "../../constant";
 import { authButtonStyles as styles } from "./AuthButton.css";
 import { useState, type ButtonHTMLAttributes } from "react";
 import appLogo from "@/assets/icon-72x60.png";
-import { loginWith } from "../../utils";
+import { AUTH_GROUP, type AuthGroup } from "../constant";
+import { loginWith } from "../utils";
 
 export default function AuthModal({ close }: { close: () => void }) {
   const [isLoading, setIsLoading] = useState(false);

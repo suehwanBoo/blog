@@ -4,7 +4,7 @@ import { ThemeScript } from "../scripts/ThemeScript";
 import { themeVars } from "@boo/ui";
 import "../../styles/reset.css";
 import "@boo/ui/styles.css";
-import { OverlayProvider } from "@boo/ui/client";
+import { OverlayProvider, ToastProvider } from "@boo/ui/client";
 
 const Pretendard = localFont({
   src: [
@@ -37,11 +37,13 @@ export default function RootLayout({
       <head>
         <ThemeScript />
       </head>
-      <OverlayProvider>
-        <body style={{ background: themeVars.color.background }}>
-          {children}
-        </body>
-      </OverlayProvider>
+      <ToastProvider maxCount={3}>
+        <OverlayProvider>
+          <body style={{ background: themeVars.color.background }}>
+            {children}
+          </body>
+        </OverlayProvider>
+      </ToastProvider>
     </html>
   );
 }
