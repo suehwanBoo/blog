@@ -1,6 +1,6 @@
 import type { ValueOf } from "@/types";
-import GithubIcon from "./components/ui/GithubIcon";
-import GoogleIcon from "./components/ui/GoogleIcon";
+import GoogleIcon from "./ui/GoogleIcon";
+import GithubIcon from "./ui/GithubIcon";
 
 export const AUTH_GROUP = {
   google: {

@@ -1,7 +1,7 @@
 import { Button, SearchInput } from "@boo/ui";
 import { navStyle as styles } from "./Navbar.css";
 import ThemeButton from "./ThemeButton";
-import AuthButton from "@/feature/auth/components/ui/AuthButton";
+import AuthButton from "@/feature/auth/ui/AuthButton";
 
 export default function DesktopButtons() {
   return (

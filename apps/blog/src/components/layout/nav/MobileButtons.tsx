@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useTheme } from "@/context/theme-context";
 import useScrollLock from "@/hooks/useScrollLock";
 import { useOverlay } from "@boo/ui/client";
-import AuthModal from "@/feature/auth/components/ui/AuthModal";
+import AuthModal from "@/feature/auth/ui/AuthModal";
 
 type MenuState = {
   open: boolean;
