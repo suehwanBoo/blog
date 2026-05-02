@@ -1,0 +1,118 @@
+name: Auto PR
+
+on:
+  push:
+    branches:
+      - "feat/**"
+      - "chore/**"
+      - "fix/**"
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: auto-pr-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  create-or-update-pr:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Fetch main
+        run: git fetch --no-tags origin main
+
+      - name: Generate PR title and body with Codex
+        id: codex
+        uses: openai/codex-action@v1
+        with:
+          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+          sandbox: read-only
+          output-file: codex-pr-draft.txt
+          prompt: |
+            You are writing a pull request title and body for this repository.
+
+            IMPORTANT:
+            - Write the entire output in Korean.
+            - Do NOT mix English except for code, file names, or technical identifiers.
+            - Section headers (Summary, Why, Changes, Test Plan) must remain in English.
+
+            Analyze only the changes in the current branch compared with origin/main.
+            Use these commands as your source of truth:
+              git diff --stat origin/main...HEAD
+              git diff --name-status origin/main...HEAD
+              git diff origin/main...HEAD
+
+            Write only facts that are directly visible from the diff.
+            Do not infer intent, product impact, test results, or manual verification that is not visible in the diff.
+            If the reason for the change is not directly visible from the diff, write "Not visible from diff" in the Why section.
+            If tests or verification are not visible in the diff, write "Not verified by automation" in the Test Plan.
+
+            The output format must be exactly:
+
+            TITLE:
+            <concise PR title>
+
+            BODY:
+            ## Summary
+            - key changes
+
+            ## Why
+            - reason for the change
+
+            ## Changes
+            - main implementation details
+
+            ## Test Plan
+            - tests or manual verification confirmed from the diff
+            - if unavailable, write "Not verified by automation"
+
+      - name: Parse Codex output
+        run: |
+          set -euo pipefail
+
+          python3 <<'PY'
+          import re
+          from pathlib import Path
+
+          output = Path("codex-pr-draft.txt").read_text(encoding="utf-8").strip()
+          match = re.search(r"^TITLE:\s*\n(?P<title>.+?)\n\s*BODY:\s*\n(?P<body>.+)\s*$", output, re.S | re.M)
+
+          if not match:
+              raise SystemExit("Codex output did not match the required TITLE/BODY format.")
+
+          title = match.group("title").strip()
+          body = match.group("body").strip()
+
+          if not title:
+              raise SystemExit("Codex output title is empty.")
+
+          if not body:
+              raise SystemExit("Codex output body is empty.")
+
+          Path("pr-title.txt").write_text(title + "\n", encoding="utf-8")
+          Path("pr-body.md").write_text(body + "\n", encoding="utf-8")
+          PY
+
+      - name: Create or update pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH_NAME: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+
+          title="$(cat pr-title.txt)"
+          existing_pr="$(gh pr list --head "$BRANCH_NAME" --base main --state open --json number --jq '.[0].number')"
+
+          if [ -n "$existing_pr" ]; then
+            gh pr edit "$existing_pr" --title "$title" --body-file pr-body.md
+          else
+            gh pr create --base main --head "$BRANCH_NAME" --title "$title" --body-file pr-body.md
+          fi
