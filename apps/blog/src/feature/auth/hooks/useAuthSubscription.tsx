@@ -7,10 +7,13 @@ export default function useAuthSubscription() {
 
   useEffect(() => {
     let unsubscribe: VoidFunction | undefined;
+    let cancelled = false;
 
     const subscribe = async () => {
       const { subscribeAuthHandler } =
         await import("@/utils/firebase/firebase");
+
+      if (cancelled) return;
 
       unsubscribe = subscribeAuthHandler((user) => {
         if (!user) {
@@ -24,6 +27,7 @@ export default function useAuthSubscription() {
     subscribe();
 
     return () => {
+      cancelled = true;
       unsubscribe?.();
     };
   }, [login, logout]);
