@@ -1,9 +1,11 @@
 import type { FirebaseApp } from "firebase/app";
 import {
+  browserSessionPersistence,
   getAuth,
   GithubAuthProvider,
   GoogleAuthProvider,
   onAuthStateChanged,
+  setPersistence,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
@@ -12,6 +14,10 @@ import {
 } from "firebase/auth";
 
 export const createfirebaseAuth = (app: FirebaseApp) => getAuth(app);
+
+export const setSessionPersistence = (auth: Auth) => {
+  return setPersistence(auth, browserSessionPersistence);
+};
 
 export const loginWithGoogle = (auth: Auth) => {
   const proivder = new GoogleAuthProvider();
@@ -37,5 +43,3 @@ export const subscribeAuth = (
   auth: Auth,
   callback: (user: User | null) => void,
 ) => onAuthStateChanged(auth, callback);
-
-export { FirebaseError } from "firebase/app";

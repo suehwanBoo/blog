@@ -28,8 +28,15 @@ const bottomWrapper = style({
   width: "100%",
 });
 
+const userButtonWrapper = style({
+  display: "flex",
+  gap: 32,
+  color: themeVars.color.title,
+});
+
 export const navStyle = {
   topWrapper,
   buttonWrapper,
   bottomWrapper,
+  userButtonWrapper,
 };

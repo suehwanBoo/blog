@@ -5,9 +5,12 @@ import {
   createfirebaseAuth,
   loginWithGithub,
   loginWithGoogle,
+  setSessionPersistence,
+  subscribeAuth,
 } from "@boo/firebase/auth";
+import type { User } from "@boo/firebase/type";
 
-export const firebaseApp = createFirebaseApp({
+const firebaseApp = createFirebaseApp({
   apiKey: process.env.NEXT_PUBLIC_APIKEY!,
   appId: process.env.NEXT_PUBLIC_APPID!,
   authDomain: process.env.NEXT_PUBLIC_AUTHDOMAIN!,
@@ -17,15 +20,18 @@ export const firebaseApp = createFirebaseApp({
   measurementId: process.env.NEXT_PUBLIC_MEASUREMENTID!,
 });
 
-export const firebaseAuth = createfirebaseAuth(firebaseApp);
+const firebaseAuth = createfirebaseAuth(firebaseApp);
 
 export type LoginKey = "google" | "github";
 
-export const getLogin = (platform: LoginKey) => {
+export const getLoginHandler = async (platform: LoginKey) => {
+  await setSessionPersistence(firebaseAuth);
   const loginMap = {
     google: () => loginWithGoogle(firebaseAuth),
     github: () => loginWithGithub(firebaseAuth),
   };
-
   return loginMap[platform];
 };
+
+export const subscribeAuthHandler = (callback: (user: User | null) => void) =>
+  subscribeAuth(firebaseAuth, callback);

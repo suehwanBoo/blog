@@ -5,7 +5,8 @@
   "main": "init.ts",
   "exports": {
     ".": "./init.ts",
-    "./auth": "./auth.ts"
+    "./auth": "./auth.ts",
+    "./type": "./type.ts"
   },
   "scripts": {},
   "keywords": [],
