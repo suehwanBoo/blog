@@ -1,6 +1,9 @@
+"use client";
+
 import { useToast } from "@boo/ui/client";
 import { useCallback, useRef, useState } from "react";
-import { AUTH_ERROR_HANDLER, isAuthErrorCode, isFirebaseError } from "../utils";
+import { isAuthErrorCode, isFirebaseError } from "../utils";
+import { AUTH_ERROR_MESSAGE } from "../constant";
 
 export default function useFirebaseLogin(close: () => void) {
   const [isLoading, setIsLoading] = useState(false);
@@ -15,12 +18,10 @@ export default function useFirebaseLogin(close: () => void) {
       setIsLoading(true);
 
       try {
-        const { getLogin } = await import("@/utils/firebase/firebase");
-
-        await getLogin(key)();
-
+        const { getLoginHandler } = await import("@/utils/firebase/firebase");
+        const loginFn = await getLoginHandler(key);
+        await loginFn();
         close();
-
         apply({
           description: "로그인 성공",
           variant: "success",
@@ -29,7 +30,7 @@ export default function useFirebaseLogin(close: () => void) {
       } catch (err) {
         const description =
           isFirebaseError(err) && isAuthErrorCode(err.code)
-            ? AUTH_ERROR_HANDLER[err.code]
+            ? AUTH_ERROR_MESSAGE[err.code]
             : "알 수 없는 오류가 발생하였습니다.";
 
         apply({

@@ -1,7 +1,7 @@
 import { themeVars } from "@boo/ui";
 import { style } from "@vanilla-extract/css";
 
-const button = style({
+const anonyButton = style({
   borderRadius: 8,
   width: 48,
   height: 48,
@@ -17,4 +17,14 @@ const button = style({
   color: themeVars.color.primary,
 });
 
-export const themeButtonStyles = { button };
+const userButton = style({
+  cursor: "pointer",
+  margin: 0,
+  padding: 0,
+  background: "transparent",
+  color: themeVars.color.title,
+  border: 0,
+  lineHeight: 0,
+});
+
+export const themeButtonStyles = { anonyButton, userButton };

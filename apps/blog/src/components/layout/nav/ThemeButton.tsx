@@ -3,11 +3,31 @@
 import { useTheme } from "@/context/theme-context";
 import { themeButtonStyles as styles } from "./ThemeButton.css";
 
-export default function ThemeButton() {
+const ThemeButton = Object.assign(() => <></>, {
+  Anonymous,
+  User,
+});
+
+export default ThemeButton;
+
+function Anonymous() {
   const { toggleTheme } = useTheme();
   return (
     <button
-      className={styles.button}
+      className={styles.anonyButton}
+      aria-label="change theme"
+      onClick={toggleTheme}
+    >
+      <Moon />
+    </button>
+  );
+}
+
+function User() {
+  const { toggleTheme } = useTheme();
+  return (
+    <button
+      className={styles.userButton}
       aria-label="change theme"
       onClick={toggleTheme}
     >
