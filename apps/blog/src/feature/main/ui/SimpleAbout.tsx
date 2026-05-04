@@ -1,7 +1,8 @@
 import { gridItem } from "@/styles/layout.css";
 import { simpleAboutStyles as styles } from "./SimpleAbout.css";
-import { Button, Input, typography } from "@boo/ui";
+import { typography } from "@boo/ui";
 import clsx from "clsx";
+import SubscribeForm from "@/feature/subscribe/ui/SubscribeForm";
 
 export default function SimpleAbout() {
   return (
@@ -41,23 +42,7 @@ function Subscribe() {
   return (
     <div className={styles.subscribeSection}>
       <DecorateTitle title="Join Our Newsletter" />
-      <form className={styles.form}>
-        <Input
-          placeholder="email"
-          aria-label="email"
-          className={styles.input}
-        />
-        <Button
-          type="submit"
-          ariaLabel="email submit"
-          size="large"
-          state="active"
-          className=""
-        >
-          Submit
-        </Button>
-      </form>
-      <p className={styles.hint}>*You can unsubscribe anytime</p>
+      <SubscribeForm />
     </div>
   );
 }
