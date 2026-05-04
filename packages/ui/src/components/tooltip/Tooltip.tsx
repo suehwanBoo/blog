@@ -43,6 +43,11 @@ export default function Tooltip({
   const isControlled = open !== undefined;
   const isOpen = !disabled && (isControlled ? open : uncontrolledOpen);
 
+  const canHover = () =>
+    typeof window !== "undefined" &&
+    typeof window.matchMedia === "function" &&
+    window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
   const show = () => {
     if (!isControlled) {
       setUncontrolledOpen(true);
@@ -54,14 +59,19 @@ export default function Tooltip({
       setUncontrolledOpen(false);
     }
   };
-
   const handleMouseEnter = (event: MouseEvent<HTMLSpanElement>) => {
     onMouseEnter?.(event);
+
+    if (!canHover()) return;
+
     show();
   };
 
   const handleMouseLeave = (event: MouseEvent<HTMLSpanElement>) => {
     onMouseLeave?.(event);
+
+    if (!canHover()) return;
+
     hide();
   };
 

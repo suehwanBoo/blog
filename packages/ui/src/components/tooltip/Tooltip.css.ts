@@ -59,12 +59,8 @@ export const tooltipRecipe = recipe({
     },
     open: {
       true: {
-        "@media": {
-          "(hover: hover) and (pointer: fine)": {
-            opacity: 1,
-            visibility: "visible",
-          },
-        },
+        opacity: 1,
+        visibility: "visible",
       },
       false: {},
     },
@@ -73,41 +69,25 @@ export const tooltipRecipe = recipe({
     {
       variants: { placement: "top", open: true },
       style: {
-        "@media": {
-          "(hover: hover) and (pointer: fine)": {
-            transform: "translate(-50%, 0)",
-          },
-        },
+        transform: "translate(-50%, 0)",
       },
     },
     {
       variants: { placement: "right", open: true },
       style: {
-        "@media": {
-          "(hover: hover) and (pointer: fine)": {
-            transform: "translate(0, -50%)",
-          },
-        },
+        transform: "translate(0, -50%)",
       },
     },
     {
       variants: { placement: "bottom", open: true },
       style: {
-        "@media": {
-          "(hover: hover) and (pointer: fine)": {
-            transform: "translate(-50%, 0)",
-          },
-        },
+        transform: "translate(-50%, 0)",
       },
     },
     {
       variants: { placement: "left", open: true },
       style: {
-        "@media": {
-          "(hover: hover) and (pointer: fine)": {
-            transform: "translate(0, -50%)",
-          },
-        },
+        transform: "translate(0, -50%)",
       },
     },
   ],
