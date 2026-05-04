@@ -8,11 +8,7 @@ export { default as Modal } from "./components/modal/Modal";
 export { default as Input } from "./components/input/Input";
 export { default as SearchInput } from "./components/input/SearchInput";
 export { default as TabMenu } from "./components/tab/TabMenu";
-export { default as Tooltip } from "./components/tooltip/Tooltip";
-export type {
-  TooltipPlacement,
-  TooltipProps,
-} from "./components/tooltip/Tooltip";
+
 export { themeVars } from "./theme/theme.css";
 export { lightTheme, darkTheme } from "./theme/theme.css";
 
