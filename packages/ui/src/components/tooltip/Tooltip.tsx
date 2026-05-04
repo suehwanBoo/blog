@@ -1,7 +1,10 @@
 import clsx from "clsx";
 import {
+  type AriaAttributes,
+  cloneElement,
   type FocusEvent,
   type HTMLAttributes,
+  isValidElement,
   type MouseEvent,
   type PropsWithChildren,
   type ReactNode,
@@ -76,13 +79,16 @@ export default function Tooltip({
     <span
       {...rest}
       className={clsx(wrapper, className)}
-      aria-describedby={isOpen ? tooltipId : undefined}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onFocus={handleFocus}
       onBlur={handleBlur}
     >
-      {children}
+      {isValidElement<AriaAttributes>(children)
+        ? cloneElement(children, {
+            "aria-describedby": isOpen ? tooltipId : undefined,
+          })
+        : children}
       <span
         id={tooltipId}
         role="tooltip"
