@@ -34,10 +34,10 @@ const input = recipe({
   variants: {
     size: {
       large: {
-        padding: `20px  calc(20px + ${iconWidth} + 10px) 20px 20px`,
+        padding: `20px  calc(20px + ${iconWidth} + 10px) 20px 20px !important`,
       },
       small: {
-        padding: `12px  calc(20px + ${iconWidth} + 10px) 12px 20px`,
+        padding: `12px  calc(20px + ${iconWidth} + 10px) 12px 20px !important`,
       },
     },
   },

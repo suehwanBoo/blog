@@ -4,8 +4,8 @@ import { navStyle as styles } from "./Navbar.css";
 import ThemeButton from "./ThemeButton";
 import { useAuthStore } from "@/store/store";
 import Search from "./Search";
-import UserButton from "./UserButton";
 import Subscribe from "@/feature/subscribe/ui/Subscribe";
+import AuthButton from "@/feature/auth/ui/AuthButton";
 
 export default function DesktopButtons() {
   const { auth } = useAuthStore();
@@ -22,7 +22,7 @@ function AnonyUserButtons() {
       <ThemeButton.Anonymous />
       <Search.Input />
       <Subscribe.Anonymous />
-      <UserButton.Signin />
+      <AuthButton.Signin />
     </>
   );
 }
@@ -33,7 +33,7 @@ function UserButtons() {
       <ThemeButton.User />
       <Search.Button />
       <Subscribe.User />
-      <UserButton.Logout />
+      <AuthButton.Logout />
     </div>
   );
 }

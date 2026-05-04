@@ -14,7 +14,7 @@ const buttonWrapper = style({
   "@media": {
     "screen and (min-width: 1024px)": {
       display: "flex",
-      height: "100%",
+      height: "48px",
       alignItems: "center",
       gap: 8,
     },
