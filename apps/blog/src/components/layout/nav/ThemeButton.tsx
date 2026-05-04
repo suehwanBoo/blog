@@ -2,6 +2,7 @@
 
 import { useTheme } from "@/context/theme-context";
 import { themeButtonStyles as styles } from "./ThemeButton.css";
+import { Tooltip } from "@boo/ui/client";
 
 const ThemeButton = Object.assign(() => <></>, {
   Anonymous,
@@ -11,28 +12,34 @@ const ThemeButton = Object.assign(() => <></>, {
 export default ThemeButton;
 
 function Anonymous() {
-  const { toggleTheme } = useTheme();
+  const { toggleTheme, theme } = useTheme();
+  const word = theme === "dark" ? "라이트 모드" : "다크 모드";
   return (
-    <button
-      className={styles.anonyButton}
-      aria-label="change theme"
-      onClick={toggleTheme}
-    >
-      <Moon />
-    </button>
+    <Tooltip content={`${word}로 변경`} placement="bottom">
+      <button
+        className={styles.anonyButton}
+        aria-label="change theme"
+        onClick={toggleTheme}
+      >
+        <Moon />
+      </button>
+    </Tooltip>
   );
 }
 
 function User() {
-  const { toggleTheme } = useTheme();
+  const { toggleTheme, theme } = useTheme();
+  const word = theme === "dark" ? "라이트 모드" : "다크 모드";
   return (
-    <button
-      className={styles.userButton}
-      aria-label="change theme"
-      onClick={toggleTheme}
-    >
-      <Moon />
-    </button>
+    <Tooltip content={`${word}로 변경`} placement="bottom">
+      <button
+        className={styles.userButton}
+        aria-label="change theme"
+        onClick={toggleTheme}
+      >
+        <Moon />
+      </button>
+    </Tooltip>
   );
 }
 

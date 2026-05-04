@@ -1,5 +1,6 @@
 import { SearchInput } from "@boo/ui";
 import { searchStyles as styles } from "./Search.css";
+import { Tooltip } from "@boo/ui/client";
 
 const Search = Object.assign(() => <></>, {
   Input: Input,
@@ -16,9 +17,11 @@ function Input() {
 
 function SearchButton() {
   return (
-    <button aria-label="all-search" className={styles.button}>
-      <SearchIcon />
-    </button>
+    <Tooltip content="검색" placement="bottom">
+      <button aria-label="all-search" className={styles.button}>
+        <SearchIcon />
+      </button>
+    </Tooltip>
   );
 }
 
