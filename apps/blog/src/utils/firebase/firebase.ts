@@ -5,6 +5,7 @@ import {
   createfirebaseAuth,
   loginWithGithub,
   loginWithGoogle,
+  logout,
   setSessionPersistence,
   subscribeAuth,
 } from "@boo/firebase/auth";
@@ -35,3 +36,5 @@ export const getLoginHandler = async (platform: LoginKey) => {
 
 export const subscribeAuthHandler = (callback: (user: User | null) => void) =>
   subscribeAuth(firebaseAuth, callback);
+
+export const logoutHandler = () => logout(firebaseAuth);

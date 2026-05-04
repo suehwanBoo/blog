@@ -5,13 +5,17 @@ import { mobileButtonStyles as styles } from "./MobileButton.css";
 import Link from "next/link";
 import { useTheme } from "@/context/theme-context";
 import useScrollLock from "@/hooks/useScrollLock";
-import { useOverlay } from "@boo/ui/client";
+import { useOverlay, useToast } from "@boo/ui/client";
 import AuthModal from "@/feature/auth/ui/AuthModal";
+import SubscribeModal from "@/feature/subscribe/ui/SubscribeModal";
+import { useAuthStore } from "@/store/store";
 
 type MenuState = {
   open: boolean;
   close: () => void;
 };
+
+type CloseProps = Pick<MenuState, "close">;
 
 export default function MobileButtons() {
   const [open, setOpen] = useState(false);
@@ -38,7 +42,6 @@ export default function MobileButtons() {
 
 function MobileMenu({ open, close }: MenuState) {
   const { theme, toggleTheme } = useTheme();
-  const overlays = useOverlay();
   const themeWord = theme === "dark" ? "Set Lightmode" : "Set Darkmode";
 
   return (
@@ -47,21 +50,8 @@ function MobileMenu({ open, close }: MenuState) {
       className={styles.mobileMenu({ open })}
       aria-hidden={!open}
     >
-      <button
-        type="button"
-        className={styles.link}
-        onClick={() => {
-          close();
-          overlays.open((overlay) => <AuthModal close={overlay.close} />, {
-            closeOnBackdrop: false,
-          });
-        }}
-      >
-        Sign in
-      </button>
-      <Link href={"/subscribe"} className={styles.link} onClick={close}>
-        Subscribe
-      </Link>
+      <LoginButton close={close} />
+      <SubscribeButton close={close} />
       <Link
         href={"https://github.com/suehwanBoo/blog"}
         className={styles.link}
@@ -82,5 +72,76 @@ function MobileMenu({ open, close }: MenuState) {
         {themeWord}
       </button>
     </div>
+  );
+}
+
+function LoginButton({ close }: CloseProps) {
+  const { auth } = useAuthStore();
+  const { open } = useOverlay();
+  const { apply } = useToast();
+
+  const logout = async () => {
+    try {
+      const { logoutHandler } = await import("@/utils/firebase/firebase");
+      await logoutHandler();
+      close();
+      apply({
+        description: "로그아웃 성공",
+        variant: "success",
+        closable: true,
+      });
+    } catch {
+      apply({
+        title: "로그아웃 오류",
+        description: "새로고침 후 다시 시도해주세요.",
+        variant: "danger",
+        closable: true,
+      });
+    }
+  };
+
+  if (!auth)
+    return (
+      <button
+        type="button"
+        className={styles.link}
+        onClick={() => {
+          close();
+          open(({ close }) => <AuthModal close={close} />, {
+            closeOnBackdrop: false,
+          });
+        }}
+      >
+        Sign in
+      </button>
+    );
+
+  return (
+    <button
+      type="button"
+      className={styles.link}
+      onClick={() => {
+        logout();
+      }}
+    >
+      Logout
+    </button>
+  );
+}
+
+function SubscribeButton({ close }: CloseProps) {
+  const { open } = useOverlay();
+
+  return (
+    <button
+      type="button"
+      className={styles.link}
+      onClick={() => {
+        close();
+        open(({ close }) => <SubscribeModal close={close} />);
+      }}
+    >
+      Subscribe
+    </button>
   );
 }
