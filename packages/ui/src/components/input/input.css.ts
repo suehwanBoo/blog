@@ -1,6 +1,7 @@
 import { recipe } from "@vanilla-extract/recipes";
 import { themeVars } from "../../theme/theme.css";
 import { typography } from "../../font/typography.css";
+import { keyframes, style } from "@vanilla-extract/css";
 
 export const inputRecipe = recipe({
   base: [
@@ -37,4 +38,15 @@ export const inputRecipe = recipe({
       false: {},
     },
   },
+});
+
+const blink = keyframes({
+  from: {
+    opacity: 0,
+  },
+  to: { opacity: 1 },
+});
+
+export const preventMobileAction = style({
+  animation: `${blink} 0.01s`,
 });
