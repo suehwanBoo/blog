@@ -1,6 +1,8 @@
 import { SearchInput } from "@boo/ui";
 import { searchStyles as styles } from "./Search.css";
-import { Tooltip } from "@boo/ui/client";
+import { Tooltip, useOverlay } from "@boo/ui/client";
+import SearchOverlay from "@/feature/search/ui/SearchOverlay";
+import { useRef, type SubmitEvent } from "react";
 
 const Search = Object.assign(() => <></>, {
   Input: Input,
@@ -10,15 +12,37 @@ const Search = Object.assign(() => <></>, {
 export default Search;
 
 function Input() {
+  const { open } = useOverlay();
+  const ref = useRef<HTMLInputElement | null>(null);
+
+  const submitHandler = (e: SubmitEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    open(({ close }) => (
+      <SearchOverlay close={close} initValue={ref.current?.value || ""} />
+    ));
+  };
+
   return (
-    <SearchInput size="small" placeholder="검색" aria-label="all-search" />
+    <form onSubmit={submitHandler}>
+      <SearchInput
+        size="small"
+        placeholder="검색"
+        aria-label="all-search"
+        ref={ref}
+      />
+    </form>
   );
 }
 
 function SearchButton() {
+  const { open } = useOverlay();
   return (
     <Tooltip content="검색" placement="bottom">
-      <button aria-label="all-search" className={styles.button}>
+      <button
+        aria-label="all-search"
+        className={styles.button}
+        onClick={() => open(({ close }) => <SearchOverlay close={close} />)}
+      >
         <SearchIcon />
       </button>
     </Tooltip>

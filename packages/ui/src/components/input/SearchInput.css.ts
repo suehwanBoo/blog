@@ -3,7 +3,6 @@ import { recipe } from "@vanilla-extract/recipes";
 import { themeVars } from "../../theme/theme.css";
 
 const wrapper = style({
-  width: "fit-content",
   height: "fit-content",
   minWidth: "0",
   position: "relative",
