@@ -38,8 +38,6 @@ const backdrop = recipe({
 });
 const modalPositioner = style({
   position: "relative",
-  maxWidth: "calc(100vw - 32px)",
-  maxHeight: "calc(100dvh - 32px)",
   overflow: "auto",
 });
 

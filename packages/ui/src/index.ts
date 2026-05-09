@@ -12,4 +12,6 @@ export { default as TabMenu } from "./components/tab/TabMenu";
 export { themeVars } from "./theme/theme.css";
 export { lightTheme, darkTheme } from "./theme/theme.css";
 
+export { iosFocusHandler, iosBlurHandler } from "./components/input/utils";
+
 export const BUILD_TARGET = "src";

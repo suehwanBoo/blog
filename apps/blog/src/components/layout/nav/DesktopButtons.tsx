@@ -3,9 +3,9 @@
 import { navStyle as styles } from "./Navbar.css";
 import ThemeButton from "./ThemeButton";
 import { useAuthStore } from "@/store/store";
-import Search from "./Search";
 import Subscribe from "@/feature/subscribe/ui/Subscribe";
 import AuthButton from "@/feature/auth/ui/AuthButton";
+import Search from "@/feature/search/ui/Search";
 
 export default function DesktopButtons() {
   const { auth } = useAuthStore();
