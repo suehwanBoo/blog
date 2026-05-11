@@ -3,6 +3,8 @@ import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
 const mobileButtonWrapper = style({
+  display: "flex",
+  gap: 16,
   "@media": {
     "screen and (min-width: 1024px)": {
       display: "none",

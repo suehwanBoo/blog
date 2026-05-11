@@ -10,6 +10,7 @@ export const copyLinkStyle = style({
   color: themeVars.color.subtitle,
   cursor: "pointer",
   transition: "opacity 0.2s ease, transform 0.15s ease",
+  zIndex: 1,
 
   selectors: {
     "&:hover": {

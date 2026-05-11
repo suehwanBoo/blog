@@ -6,8 +6,10 @@ import Tags from "@/components/ui/Tags";
 import testImage from "@/assets/test_img.webp";
 import testMobileImage from "@/assets/test_img_m.webp";
 import { gridItem } from "@/styles/layout.css";
+import ClickableCardOverlay from "@/components/layout/ClickableCardOverlay";
 
 const mockRecentCard: CardProps = {
+  id: 5,
   date: "17 Jan 2022",
   title: "Migrating to Linear 101",
   thumbnail: {
@@ -34,7 +36,12 @@ export default function RecentPost() {
       <h3 id="latest-post-title" className={styles.title}>
         Latest Post
       </h3>
-      <RecentCard {...mockRecentCard} />
+      <ClickableCardOverlay
+        href={`page/${mockRecentCard.id}`}
+        label={`link to ${mockRecentCard.title}`}
+      >
+        <RecentCard {...mockRecentCard} />
+      </ClickableCardOverlay>
     </section>
   );
 }
@@ -46,6 +53,7 @@ type ImageSource = {
 };
 
 type CardProps = {
+  id: number;
   thumbnail: {
     desktop: ImageSource;
     mobile: ImageSource;
