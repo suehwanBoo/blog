@@ -5,6 +5,7 @@ import lightLogoWebp from "@/assets/FullLogox2.webp";
 import darkLogoPng from "@/assets/FullLogox2_dark.png";
 import darkLogoWebp from "@/assets/FullLogox2_dark.webp";
 import { useTheme } from "@/context/theme-context";
+import Link from "next/link";
 
 export default function Logo() {
   const { theme } = useTheme();
@@ -13,15 +14,17 @@ export default function Logo() {
   const png = theme === "light" ? lightLogoPng : darkLogoPng;
 
   return (
-    <picture style={{ display: "block", lineHeight: "0" }}>
-      <source srcSet={webp.src} type="image/webp" />
-      <img
-        src={png.src}
-        width={142}
-        height={42}
-        alt="full-logo"
-        decoding="async"
-      />
-    </picture>
+    <Link href="/" aria-label="link to home">
+      <picture style={{ display: "block", lineHeight: "0" }}>
+        <source srcSet={webp.src} type="image/webp" />
+        <img
+          src={png.src}
+          width={142}
+          height={42}
+          alt="full-logo"
+          decoding="async"
+        />
+      </picture>
+    </Link>
   );
 }
