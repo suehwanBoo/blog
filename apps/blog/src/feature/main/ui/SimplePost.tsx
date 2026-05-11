@@ -11,6 +11,7 @@ import useClientOrder from "../hooks/useClientOrder";
 import { ORDERS, type OrderValue } from "@/feature/post/constants";
 import testImageSmall from "@/assets/test_img_m.webp";
 import { gridItem } from "@/styles/layout.css";
+import ClickableCardOverlay from "@/components/layout/ClickableCardOverlay";
 
 export default function SimplePost({
   initialOrderValue,
@@ -60,7 +61,14 @@ function CardList() {
   return (
     <>
       {mockCardList.map((card) => (
-        <Card {...card} key={card.id} />
+        <ClickableCardOverlay
+          href={`page/${card.id}`}
+          label={`link to ${card.title}`}
+          divider={true}
+          key={card.id}
+        >
+          <Card {...card} />
+        </ClickableCardOverlay>
       ))}
     </>
   );
@@ -68,7 +76,7 @@ function CardList() {
 
 function Card({ date, meta, thumbnail, title, content, tags }: CardProps) {
   return (
-    <article className={clsx(styles.card, styles.divider)}>
+    <article className={styles.card}>
       <div className={styles.cardContent}>
         <div className={styles.cardBody}>
           <Tags tags={tags} />

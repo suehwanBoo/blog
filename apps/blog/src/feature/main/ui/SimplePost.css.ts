@@ -1,6 +1,8 @@
 import { themeVars, typography } from "@boo/ui";
 import { style } from "@vanilla-extract/css";
 
+const CARD_HEIGHT = 137;
+
 const wrapper = style({
   display: "flex",
   flexDirection: "column",
@@ -25,17 +27,9 @@ const card = style({
   padding: "12px 0",
 });
 
-const divider = style({
-  selectors: {
-    "& + &": {
-      borderTop: `1px solid ${themeVars.color.active}`,
-    },
-  },
-});
-
 const thumbnailBox = style({
   width: 151,
-  height: 137,
+  height: CARD_HEIGHT,
   borderRadius: 4,
   overflow: "hidden",
   flexShrink: 0,
@@ -52,7 +46,7 @@ const cardContent = style({
   flexDirection: "column",
   width: "100%",
   flex: 1,
-  height: "100%",
+  height: CARD_HEIGHT,
   justifyContent: "space-between",
 });
 
@@ -119,5 +113,4 @@ export const simplePostStyles = {
   cardMetaBox,
   cardDate,
   cardMeta,
-  divider,
 };

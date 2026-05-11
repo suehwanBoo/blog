@@ -9,6 +9,7 @@ import { useOverlay, useToast } from "@boo/ui/client";
 import AuthModal from "@/feature/auth/ui/AuthModal";
 import SubscribeModal from "@/feature/subscribe/ui/SubscribeModal";
 import { useAuthStore } from "@/store/store";
+import Search from "@/feature/search/ui/Search";
 
 type MenuState = {
   open: boolean;
@@ -26,6 +27,7 @@ export default function MobileButtons() {
   return (
     <>
       <div className={styles.mobileButtonWrapper}>
+        <Search.Button w={20} h={20} />
         <button
           type="button"
           className={styles.hamburgerButton({ open })}

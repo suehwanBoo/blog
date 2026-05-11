@@ -7,6 +7,7 @@ import Tags from "@/components/ui/Tags";
 import CopyLink from "@/components/ui/CopyLink";
 import testImage from "@/assets/test_img_m.webp";
 import { gridItem } from "@/styles/layout.css";
+import ClickableCardOverlay from "@/components/layout/ClickableCardOverlay";
 
 const mockCardList: (CardProps & { id: number })[] = [
   {
@@ -47,9 +48,16 @@ export default function PopularPost() {
       <h3 id="popular-post-title" className={styles.title}>
         Popular Post
       </h3>
-      <div>
+      <div className={styles.content}>
         {mockCardList.map((card) => (
-          <Card {...card} key={card.id} />
+          <ClickableCardOverlay
+            href={`page/${card.id}`}
+            label={`link to ${card.title}`}
+            key={card.id}
+            divider={true}
+          >
+            <Card {...card} />
+          </ClickableCardOverlay>
         ))}
       </div>
     </section>
@@ -57,6 +65,7 @@ export default function PopularPost() {
 }
 
 type CardProps = {
+  id: number;
   thumbnail: {
     src: string;
     width?: number;
@@ -74,7 +83,7 @@ type CardProps = {
 
 function Card({ thumbnail, title, date, meta, tags, content }: CardProps) {
   return (
-    <article className={clsx(styles.cardWrapper, styles.divider)}>
+    <article className={styles.cardWrapper}>
       <div className={styles.thumbnailBox}>
         <img
           src={thumbnail.src}

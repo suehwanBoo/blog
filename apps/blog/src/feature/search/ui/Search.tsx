@@ -34,7 +34,9 @@ function Input() {
   );
 }
 
-function SearchButton() {
+type IconSizeProps = { w?: number; h?: number };
+
+function SearchButton({ w = 24, h = 24 }: IconSizeProps) {
   const { open } = useOverlay();
   return (
     <Tooltip content="검색" placement="bottom">
@@ -43,17 +45,17 @@ function SearchButton() {
         className={styles.button}
         onClick={() => open(({ close }) => <SearchOverlay close={close} />)}
       >
-        <SearchIcon />
+        <SearchIcon w={w} h={h} />
       </button>
     </Tooltip>
   );
 }
 
-function SearchIcon() {
+function SearchIcon({ w, h }: { w?: number; h?: number }) {
   return (
     <svg
-      width="24"
-      height="24"
+      width={w}
+      height={h}
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

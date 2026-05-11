@@ -4,7 +4,6 @@ import { style } from "@vanilla-extract/css";
 const section = style({
   display: "flex",
   flexDirection: "column",
-  gap: 8,
 });
 
 const title = style([
@@ -14,31 +13,17 @@ const title = style([
   },
 ]);
 
+const content = style({
+  display: "flex",
+  flexDirection: "column",
+  gap: 8,
+});
+
 const cardWrapper = style({
   width: "100%",
   display: "flex",
   gap: 16,
-});
-
-const divider = style({
-  selectors: {
-    "&:first-child": {
-      paddingBottom: 8,
-    },
-
-    "&:last-child": {
-      paddingTop: 8,
-    },
-
-    "&:not(:first-child):not(:last-child)": {
-      paddingTop: 8,
-      paddingBottom: 8,
-    },
-
-    "& + &": {
-      borderTop: `1px solid ${themeVars.color.active}`,
-    },
-  },
+  paddingTop: 8,
 });
 
 const thumbnailBox = style({
@@ -115,7 +100,7 @@ export const popularStyle = {
   section,
   title,
   cardWrapper,
-  divider,
+  content,
   thumbnailBox,
   cardContent,
   cardBody,
