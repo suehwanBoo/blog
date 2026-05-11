@@ -27,5 +27,14 @@ export const gridItem = recipe({
       8: { "@media": { "(min-width: 768px)": { gridColumn: "span 8" } } },
       12: { "@media": { "(min-width: 768px)": { gridColumn: "span 12" } } },
     },
+    center: {
+      true: {
+        alignSelf: "center",
+      },
+      false: {},
+    },
+  },
+  defaultVariants: {
+    center: false,
   },
 });

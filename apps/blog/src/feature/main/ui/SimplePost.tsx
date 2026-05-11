@@ -62,7 +62,7 @@ function CardList() {
     <>
       {mockCardList.map((card) => (
         <ClickableCardOverlay
-          href={`page/${card.id}`}
+          href={`/page/${card.id}`}
           label={`link to ${card.title}`}
           divider={true}
           key={card.id}
