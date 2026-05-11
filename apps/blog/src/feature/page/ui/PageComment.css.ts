@@ -7,7 +7,7 @@ const wrapper = style({
   flexDirection: "column",
   gap: 12,
   "@media": {
-    "(max-width: 767px)": {
+    "(max-width: 1024px)": {
       paddingBottom: 92,
     },
   },

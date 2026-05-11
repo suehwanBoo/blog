@@ -21,7 +21,7 @@ const inputWrapper = style({
   },
 });
 
-const TEXTAREA_MIN_HEIGHT = 48;
+const TEXTAREA_MIN_HEIGHT = 49;
 const TEXTAREA_MAX_HEIGHT = 62;
 
 const textarea = style([
@@ -31,7 +31,7 @@ const textarea = style([
     height: TEXTAREA_MIN_HEIGHT,
     minHeight: TEXTAREA_MIN_HEIGHT,
     maxHeight: TEXTAREA_MAX_HEIGHT,
-    padding: "14px",
+    padding: "13px",
     boxSizing: "border-box",
     lineHeight: "18px",
     resize: "none",
