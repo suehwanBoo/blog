@@ -4,11 +4,13 @@ import { useCallback, useRef, useState } from "react";
 import { getLoginHandler, isAuthErrorCode, isFirebaseError } from "../utils";
 import { AUTH_ERROR_MESSAGE } from "../constant";
 import { useToast } from "@boo/ui/client";
+import { useNavigate } from "react-router";
 
 export default function useFirebaseLogin() {
   const [isLoading, setIsLoading] = useState(false);
   const isLoggingInRef = useRef(false);
   const { apply } = useToast();
+  const navigate = useNavigate();
 
   const login = useCallback(
     async (key: "github" | "google") => {
@@ -25,6 +27,7 @@ export default function useFirebaseLogin() {
           variant: "success",
           closable: true,
         });
+        navigate("/editor");
       } catch (err) {
         const description =
           isFirebaseError(err) && isAuthErrorCode(err.code)

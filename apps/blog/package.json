@@ -14,7 +14,7 @@
     "@boo/firebase": "workspace:",
     "@boo/hooks": "workspace:",
     "@boo/ui": "workspace:",
-    "@hookform/resolvers": "^5.2.2",
+    "@hookform/resolvers": "5.2.0",
     "@vanilla-extract/css": "^1.20.1",
     "@vanilla-extract/recipes": "^0.5.7",
     "clsx": "^2.1.1",
@@ -22,7 +22,7 @@
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "react-hook-form": "^7.75.0",
-    "zod": "^4.4.2",
+    "zod": "4.1.5",
     "zustand": "^5.0.12"
   },
   "devDependencies": {
