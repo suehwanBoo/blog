@@ -13,11 +13,15 @@ const alias = {
   ...publicAlias,
   ...(isDev
     ? {
-        "@boo/ui": path.resolve(__dirname, "../../packages/ui/src/index.ts"),
+        "@boo/ui/styles.css": path.resolve(
+          __dirname,
+          "../../packages/ui/src/dummy.css",
+        ),
         "@boo/ui/client": path.resolve(
           __dirname,
           "../../packages/ui/src/client.ts",
         ),
+        "@boo/ui": path.resolve(__dirname, "../../packages/ui/src/index.ts"),
       }
     : {}),
 };

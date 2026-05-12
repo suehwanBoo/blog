@@ -12,8 +12,9 @@
     "moduleResolution": "bundler",
     "paths": {
       "@/*": ["./src/*"],
-      "@boo/ui": ["../../packages/ui/src/index.ts"],
-      "@boo/ui/client": ["../../packages/ui/src/client.ts"]
+      "@boo/ui/client": ["../../packages/ui/src/client.ts"],
+      "@boo/ui/styles.css": ["../../packages/ui/src/dummy.css"],
+      "@boo/ui": ["../../packages/ui/src/index.ts"]
     },
 
     /* Bundler mode */
