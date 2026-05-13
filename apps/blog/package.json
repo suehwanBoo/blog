@@ -14,6 +14,7 @@
     "@boo/firebase": "workspace:",
     "@boo/hooks": "workspace:",
     "@boo/ui": "workspace:",
+    "@boo/editor": "workspace:",
     "@hookform/resolvers": "5.2.0",
     "@vanilla-extract/css": "^1.20.1",
     "@vanilla-extract/recipes": "^0.5.7",

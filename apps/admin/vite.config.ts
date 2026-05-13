@@ -22,6 +22,14 @@ const alias = {
           "../../packages/ui/src/client.ts",
         ),
         "@boo/ui": path.resolve(__dirname, "../../packages/ui/src/index.ts"),
+        "@boo/editor/styles.css": path.resolve(
+          __dirname,
+          "../../packages/editor/src/dummy.css",
+        ),
+        "@boo/editor": path.resolve(
+          __dirname,
+          "../../packages/editor/src/index.ts",
+        ),
       }
     : {}),
 };

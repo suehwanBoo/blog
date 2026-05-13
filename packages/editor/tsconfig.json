@@ -1,0 +1,20 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "moduleResolution": "bundler",
+    "rootDir": "src",
+    "outDir": "dist",
+    "paths": {
+      "@boo/ui/client": ["../../ui/src/client.ts"],
+      "@boo/ui/styles.css": ["../../ui/src/dummy.css"],
+      "@boo/ui": ["../../ui/src/index.ts"]
+    },
+    "types": [
+      "@testing-library/dom",
+      "@testing-library/jest-dom",
+      "@testing-library/react",
+      "vitest/globals"
+    ]
+  },
+  "include": ["src"]
+}

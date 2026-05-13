@@ -12,6 +12,8 @@
     "moduleResolution": "bundler",
     "paths": {
       "@/*": ["./src/*"],
+      "@boo/editor/styles.css": ["../../packages/editor/src/dummy.css"],
+      "@boo/editor": ["../../packages/editor/src/index.ts"],
       "@boo/ui/client": ["../../packages/ui/src/client.ts"],
       "@boo/ui/styles.css": ["../../packages/ui/src/dummy.css"],
       "@boo/ui": ["../../packages/ui/src/index.ts"]
@@ -26,5 +28,5 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"]
+  "include": ["src", "../../packages/editor/src"]
 }
