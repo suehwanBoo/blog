@@ -1,7 +1,6 @@
 import clsx from "clsx";
 import type { LinkCardProps } from "../types";
 import { linkCardStyles as styles } from "./LinkCard.css";
-import { Button } from "@boo/ui";
 
 function getHostName(url: string) {
   try {
@@ -16,32 +15,28 @@ export default function LinkCard({ metadata, className }: LinkCardProps) {
   const title = metadata.title || metadata.url;
 
   return (
-    <Button ariaLabel="asd" size="medium" state="active">
-      <a
-        className={clsx(styles.root, className)}
-        href={metadata.url}
-        target="_blank"
-        rel="noreferrer"
-      >
-        <div className={styles.content}>
-          {siteName ? (
-            <span className={styles.siteName}>{siteName}</span>
-          ) : null}
-          <p className={styles.title}>{title}</p>
-          {metadata.description ? (
-            <p className={styles.description}>{metadata.description}</p>
-          ) : null}
-          <span className={styles.url}>{metadata.url}</span>
-        </div>
-        {metadata.image ? (
-          <img
-            className={styles.image}
-            src={metadata.image}
-            alt=""
-            loading="lazy"
-          />
+    <a
+      className={clsx(styles.root, className)}
+      href={metadata.url}
+      target="_blank"
+      rel="noreferrer"
+    >
+      <div className={styles.content}>
+        {siteName ? <span className={styles.siteName}>{siteName}</span> : null}
+        <p className={styles.title}>{title}</p>
+        {metadata.description ? (
+          <p className={styles.description}>{metadata.description}</p>
         ) : null}
-      </a>
-    </Button>
+        <span className={styles.url}>{metadata.url}</span>
+      </div>
+      {metadata.image ? (
+        <img
+          className={styles.image}
+          src={metadata.image}
+          alt=""
+          loading="lazy"
+        />
+      ) : null}
+    </a>
   );
 }
