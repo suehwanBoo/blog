@@ -1,7 +1,10 @@
 import { themeVars } from "@boo/ui";
-import { globalStyle, style } from "@vanilla-extract/css";
+import { style } from "@vanilla-extract/css";
 
-globalStyle("body", {
+const wrapper = style({
+  display: "flex",
+  width: "100%",
+  minHeight: "100dvh",
   background: themeVars.color.background,
 });
 
@@ -13,4 +16,4 @@ const editor = style({
   borderRadius: 10,
 });
 
-export const editorStyles = { editor };
+export const editorStyles = { wrapper, editor };

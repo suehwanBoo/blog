@@ -10,12 +10,14 @@ export default function Editor() {
   const { auth } = useAuthStore();
   if (!auth) return <AccesDenied />;
   return (
-    <div className={styles.editor}>
-      <TiptapProvider>
-        <PostTitle />
-        <PostMenu />
-        <PostContent />
-      </TiptapProvider>
+    <div className={styles.wrapper}>
+      <div className={styles.editor}>
+        <TiptapProvider>
+          <PostTitle />
+          <PostMenu />
+          <PostContent />
+        </TiptapProvider>
+      </div>
     </div>
   );
 }

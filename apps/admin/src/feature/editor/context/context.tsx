@@ -1,4 +1,8 @@
 import { createContext } from "react";
 import { Editor } from "@tiptap/react";
 
-export const TiptapContext = createContext<Editor | null>(null);
+type TiptapContextValue = {
+  editor: Editor | null;
+};
+
+export const TiptapContext = createContext<TiptapContextValue | null>(null);
