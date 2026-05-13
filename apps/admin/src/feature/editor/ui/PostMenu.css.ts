@@ -13,6 +13,10 @@ const wrapper = style({
 
 const divider = style({
   height: "100%",
+  display: "flex",
+  alignItems: "center",
+  padding: 8,
+  gap: 8,
   selectors: {
     "& + &": {
       borderLeft: `1px solid ${themeVars.color.clicked}`,

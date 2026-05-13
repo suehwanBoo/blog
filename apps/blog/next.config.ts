@@ -7,7 +7,7 @@ const withVanillaExtract = createVanillaExtractPlugin();
 
 const transpilePackages = isProd
   ? ["@boo/font", "@boo/firebase"]
-  : ["@boo/font", "@boo/ui", "@boo/firebase"];
+  : ["@boo/font", "@boo/ui", "@boo/firebase", "@boo/editor"];
 
 const oneDayCacheControl =
   "public, max-age=86400, s-maxage=86400, stale-while-revalidate=604800";

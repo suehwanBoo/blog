@@ -12,9 +12,13 @@
     "test:watch": "vitest"
   },
   "dependencies": {
+    "@boo/editor": "workspace:",
     "@boo/firebase": "workspace:",
     "@boo/hooks": "workspace:",
     "@boo/ui": "workspace:",
+    "@tiptap/extension-highlight": "3.23.1",
+    "@tiptap/extension-horizontal-rule": "^3.23.2",
+    "@tiptap/extension-text-align": "3.23.1",
     "@tiptap/pm": "^3.23.1",
     "@tiptap/react": "^3.23.1",
     "@tiptap/starter-kit": "^3.23.1",

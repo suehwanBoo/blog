@@ -1,6 +1,17 @@
 import { postMenuStyles as styles } from "./PostMenu.css";
 import useToolbarDrag from "../hooks/useToolbarDrag";
 import type { PropsWithChildren } from "react";
+import Heading from "../menus/Heading";
+import TextAlign from "../menus/TextAlign";
+import Italic from "../menus/Italic";
+import UnderLine from "../menus/UnderLine";
+import Bold from "../menus/Bold";
+import Strike from "../menus/Strike";
+import Highlight from "../menus/Highlight";
+import Blockquote from "../menus/Blockquote";
+import OrderList from "../menus/OrderList";
+import HorizontalRule from "../menus/HorizontalRule";
+import BulletList from "../menus/BulletList";
 
 export default function PostMenu() {
   const {
@@ -22,9 +33,54 @@ export default function PostMenu() {
       onPointerCancel={onPointerCancel}
       onClickCapture={onClickCapture}
     >
-      <Divider></Divider>
-      <Divider></Divider>
+      <HeadingMenus />
+      <AlignMenus />
+      <WordMenus />
+      <NodeMenus />
     </div>
+  );
+}
+
+function WordMenus() {
+  return (
+    <Divider>
+      <Italic />
+      <UnderLine />
+      <Bold />
+      <Strike />
+      <Highlight />
+    </Divider>
+  );
+}
+
+function NodeMenus() {
+  return (
+    <Divider>
+      <HorizontalRule />
+      <Blockquote />
+      <BulletList />
+      <OrderList />
+    </Divider>
+  );
+}
+
+function HeadingMenus() {
+  return (
+    <Divider>
+      <Heading value="h2" />
+      <Heading value="h3" />
+      <Heading value="h4" />
+    </Divider>
+  );
+}
+
+function AlignMenus() {
+  return (
+    <Divider>
+      <TextAlign align="left" />
+      <TextAlign align="center" />
+      <TextAlign align="right" />
+    </Divider>
   );
 }
 

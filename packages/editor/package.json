@@ -1,0 +1,44 @@
+{
+  "name": "@boo/editor",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./styles.css": "./dist/style.css"
+  },
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "scripts": {
+    "build": "vite build",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@boo/ui": "workspace:*",
+    "clsx": "^2.1.1",
+    "@vanilla-extract/css": "^1.20.1",
+    "@vanilla-extract/recipes": "^0.5.7"
+  },
+  "peerDependencies": {
+    "@tiptap/core": "^3",
+    "@tiptap/react": "^3",
+    "react": "^18 || ^19",
+    "react-dom": "^18 || ^19"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.0.1",
+    "vite": "^8.0.4",
+    "vite-plugin-dts": "^4.5.4"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
