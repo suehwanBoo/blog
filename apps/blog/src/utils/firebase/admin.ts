@@ -22,8 +22,11 @@ export const hasAdminToken = async (req: NextRequest) => {
     return false;
   }
 
-  const token = authorization.replace("Bearer ", "");
-  const decoded = await getAuth(adminFirebase).verifyIdToken(token);
-  console.log(decoded);
-  return decoded.role === "admin";
+  try {
+    const token = authorization.replace("Bearer ", "");
+    const decoded = await getAuth(adminFirebase).verifyIdToken(token);
+    return decoded.role === "admin";
+  } catch {
+    return false;
+  }
 };
