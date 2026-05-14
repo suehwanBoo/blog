@@ -13,6 +13,7 @@ import OrderList from "../menus/OrderList";
 import HorizontalRule from "../menus/HorizontalRule";
 import BulletList from "../menus/BulletList";
 import OgLink from "../menus/OgLink";
+import OptimizeImage from "../menus/OptimizeImage";
 
 export default function PostMenu() {
   const {
@@ -70,6 +71,7 @@ function CustomMenus() {
   return (
     <Divider>
       <OgLink />
+      <OptimizeImage />
     </Divider>
   );
 }

@@ -3,16 +3,20 @@ import useTiptap from "../hooks/useTiptap";
 import { getOpenGraphMetadata } from "../utils/openGraph";
 import { buttonStyles as styles } from "./Button.css";
 import { useToast } from "@boo/ui/client";
+import { useAuthStore } from "@/store/store";
 
 export default function OgLink() {
   const linkId = useRef(0);
   const { apply } = useToast();
+  const { auth } = useAuthStore();
   const editor = useTiptap();
   const getOgLink = async () => {
     try {
       const link = prompt("링크 입력");
       if (!link) return;
-      const metadata = await getOpenGraphMetadata(link);
+      const token = await auth?.getIdToken();
+      if (!token) throw new Error("Invalid User");
+      const metadata = await getOpenGraphMetadata(link, token);
       if (!metadata) throw new Error("Invalid link");
       editor?.commands.insertComponent({
         id: `og-${linkId.current}`,
