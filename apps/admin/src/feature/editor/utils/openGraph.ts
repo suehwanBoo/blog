@@ -1,7 +1,6 @@
 import type { OpenGraphMetadata } from "@boo/editor";
 
-// const endpoint = import.meta.env.VITE_OPEN_GRAPH_ENDPOINT as string | undefined;
-const endpoint = "http://localhost:3000/api/og";
+const endpoint = import.meta.env.VITE_OPEN_GRAPH_ENDPOINT as string | undefined;
 
 function normalizeUrl(value: string) {
   const trimmed = value.trim();

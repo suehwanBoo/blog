@@ -3,10 +3,23 @@ import og from "open-graph-scraper";
 
 const corsHeaders = {
   // 추후 admin 배포시 url 추가
-  "Access-Control-Allow-Origin": "http://localhost:5173",
+  "Access-Control-Allow-Origin":
+    process.env.ADMIN_ORIGIN ?? "http://localhost:5173",
   "Access-Control-Allow-Methods": "GET, OPTIONS",
   "Access-Control-Allow-Headers": "Content-Type",
 };
+
+const allowedHosts = new Set([
+  "github.com",
+  "www.github.com",
+  "naver.com",
+  "www.naver.com",
+  "developer.mozilla.org",
+  "www.youtube.com",
+  "youtu.be",
+  "vercel.com",
+  "fe-boo.com",
+]);
 
 function json(data: unknown, init?: ResponseInit) {
   return NextResponse.json(data, {
@@ -16,6 +29,10 @@ function json(data: unknown, init?: ResponseInit) {
       ...init?.headers,
     },
   });
+}
+
+function isAllowedHost(hostname: string) {
+  return allowedHosts.has(hostname.toLowerCase());
 }
 
 export async function OPTIONS() {
@@ -35,9 +52,16 @@ export async function GET(req: NextRequest) {
   try {
     const targetUrl = new URL(url);
 
-    if (!["http:", "https:"].includes(targetUrl.protocol)) {
+    if (targetUrl.protocol !== "https:") {
       return json(
         { ok: false, message: "Invalid URL protocol" },
+        { status: 400 },
+      );
+    }
+
+    if (!isAllowedHost(targetUrl.hostname)) {
+      return json(
+        { ok: false, message: "URL host is not allowed" },
         { status: 400 },
       );
     }

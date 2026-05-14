@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useRef } from "react";
 import useTiptap from "../hooks/useTiptap";
 import { getOpenGraphMetadata } from "../utils/openGraph";
 import { buttonStyles as styles } from "./Button.css";
 import { useToast } from "@boo/ui/client";
 
 export default function OgLink() {
-  const [linkId, setLinkId] = useState(0);
+  const linkId = useRef(0);
   const { apply } = useToast();
   const editor = useTiptap();
   const getOgLink = async () => {
@@ -13,17 +13,18 @@ export default function OgLink() {
       const link = prompt("링크 입력");
       if (!link) return;
       const metadata = await getOpenGraphMetadata(link);
+      if (!metadata) throw new Error("Invalid link");
       editor?.commands.insertComponent({
-        id: `og-${linkId}`,
+        id: `og-${linkId.current}`,
         componentName: "og-link",
         props: { metadata },
         profile: "block",
       });
-      setLinkId((prev) => prev + 1);
+      linkId.current += 1;
     } catch {
       apply({
         title: "링크 삽입 오류",
-        description: "예기치 못한 오류가 발생하였습니다.",
+        description: "올바른 링크인지 확인해주세요.",
         variant: "danger",
       });
     }
