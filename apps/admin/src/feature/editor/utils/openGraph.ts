@@ -29,12 +29,17 @@ function getFallbackMetadata(url: string): OpenGraphMetadata {
 
 export async function getOpenGraphMetadata(
   value: string,
+  token: string,
 ): Promise<OpenGraphMetadata | null> {
   const url = normalizeUrl(value);
   if (!url) return null;
   if (!endpoint) return getFallbackMetadata(url);
 
-  const response = await fetch(`${endpoint}?url=${encodeURIComponent(url)}`);
+  const response = await fetch(`${endpoint}?url=${encodeURIComponent(url)}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
   if (!response.ok) return getFallbackMetadata(url);
 
