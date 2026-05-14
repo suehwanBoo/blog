@@ -5,28 +5,30 @@ import { getAuth } from "firebase-admin/auth";
 
 import type { NextRequest } from "next/server";
 
-export const adminFirebase =
-  getApps()[0] ??
-  initializeApp({
+function getAdminFirebase() {
+  const app = getApps()[0];
+  if (app) return app;
+
+  return initializeApp({
     credential: cert({
+      projectId: process.env.ADMIN_FIREBASE_PROJECT_ID!,
       clientEmail: process.env.ADMIN_FIREBASE_CLIENT_EMAIL!,
       privateKey: process.env.ADMIN_FIREBASE_PRIVATE_KEY!,
-      projectId: process.env.ADMIN_FIREBASE_PROJECT_ID!,
     }),
   });
+}
 
-export const hasAdminToken = async (req: NextRequest) => {
-  const authorization = req.headers.get("Authorization");
+export async function hasAdminToken(req: NextRequest) {
+  const authorization = req.headers.get("authorization");
 
-  if (!authorization?.startsWith("Bearer ")) {
-    return false;
-  }
+  if (!authorization?.startsWith("Bearer ")) return false;
 
   try {
     const token = authorization.replace("Bearer ", "");
-    const decoded = await getAuth(adminFirebase).verifyIdToken(token);
+    const decoded = await getAuth(getAdminFirebase()).verifyIdToken(token);
+
     return decoded.role === "admin";
   } catch {
     return false;
   }
-};
+}
