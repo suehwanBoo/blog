@@ -1,6 +1,7 @@
 import type { OpenGraphMetadata } from "@boo/editor";
 
-const endpoint = import.meta.env.VITE_OPEN_GRAPH_ENDPOINT as string | undefined;
+// const endpoint = import.meta.env.VITE_OPEN_GRAPH_ENDPOINT as string | undefined;
+const endpoint = "http://localhost:3000/api/og";
 
 function normalizeUrl(value: string) {
   const trimmed = value.trim();
@@ -34,15 +35,11 @@ export async function getOpenGraphMetadata(
   if (!url) return null;
   if (!endpoint) return getFallbackMetadata(url);
 
-  const response = await fetch(`${endpoint}?url=${encodeURIComponent(url)}`, {
-    headers: {
-      Accept: "application/json",
-    },
-  });
+  const response = await fetch(`${endpoint}?url=${encodeURIComponent(url)}`);
 
   if (!response.ok) return getFallbackMetadata(url);
 
-  const metadata = (await response.json()) as Partial<OpenGraphMetadata>;
+  const metadata = (await response.json()).data as Partial<OpenGraphMetadata>;
 
   return {
     ...getFallbackMetadata(url),

@@ -12,6 +12,7 @@ import Blockquote from "../menus/Blockquote";
 import OrderList from "../menus/OrderList";
 import HorizontalRule from "../menus/HorizontalRule";
 import BulletList from "../menus/BulletList";
+import OgLink from "../menus/OgLink";
 
 export default function PostMenu() {
   const {
@@ -37,6 +38,7 @@ export default function PostMenu() {
       <AlignMenus />
       <WordMenus />
       <NodeMenus />
+      <CustomMenus />
     </div>
   );
 }
@@ -60,6 +62,14 @@ function NodeMenus() {
       <Blockquote />
       <BulletList />
       <OrderList />
+    </Divider>
+  );
+}
+
+function CustomMenus() {
+  return (
+    <Divider>
+      <OgLink />
     </Divider>
   );
 }

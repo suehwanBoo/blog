@@ -4,7 +4,19 @@ import { TiptapContext } from "./context";
 import { useMemo, type PropsWithChildren } from "react";
 import { TextAlign } from "@tiptap/extension-text-align";
 import { Highlight } from "@tiptap/extension-highlight";
-import { HorizontalRule } from "@tiptap/extension-horizontal-rule";
+import {
+  createRegistry,
+  CustomComponentKit,
+  defineComponent,
+} from "@tiptap-block-kit/react";
+import { LinkCard } from "@boo/editor";
+
+const OgLink = defineComponent({
+  name: "og-link",
+  component: LinkCard,
+});
+
+const registry = createRegistry([OgLink]);
 
 export default function TiptapProvider({ children }: PropsWithChildren) {
   const editor = useEditor({
@@ -14,7 +26,9 @@ export default function TiptapProvider({ children }: PropsWithChildren) {
         types: ["heading", "paragraph"],
       }),
       Highlight.configure({ multicolor: false }),
-      HorizontalRule,
+      CustomComponentKit.configure({
+        registry,
+      }),
     ],
     content: "",
   });
