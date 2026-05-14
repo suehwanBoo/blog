@@ -34,15 +34,11 @@ export async function getOpenGraphMetadata(
   if (!url) return null;
   if (!endpoint) return getFallbackMetadata(url);
 
-  const response = await fetch(`${endpoint}?url=${encodeURIComponent(url)}`, {
-    headers: {
-      Accept: "application/json",
-    },
-  });
+  const response = await fetch(`${endpoint}?url=${encodeURIComponent(url)}`);
 
   if (!response.ok) return getFallbackMetadata(url);
 
-  const metadata = (await response.json()) as Partial<OpenGraphMetadata>;
+  const metadata = (await response.json()).data as Partial<OpenGraphMetadata>;
 
   return {
     ...getFallbackMetadata(url),

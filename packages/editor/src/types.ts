@@ -4,7 +4,6 @@ export type OpenGraphMetadata = {
   description?: string;
   image?: string;
   siteName?: string;
-  type?: string;
 };
 
 export type LinkCardProps = {
