@@ -22,7 +22,6 @@ export default function OgLink() {
         id: `og-${linkId.current}`,
         componentName: "og-link",
         props: { metadata },
-        profile: "block",
       });
       linkId.current += 1;
     } catch {

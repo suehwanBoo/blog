@@ -10,17 +10,16 @@ function getHostName(url: string) {
   }
 }
 
-export default function LinkCard({ metadata, className }: LinkCardProps) {
+export default function LinkCard({
+  metadata,
+  className,
+  mode = "view",
+}: LinkCardProps) {
   const siteName = metadata.siteName || getHostName(metadata.url);
   const title = metadata.title || metadata.url;
 
-  return (
-    <a
-      className={clsx(styles.root, className)}
-      href={metadata.url}
-      target="_blank"
-      rel="noreferrer"
-    >
+  const content = (
+    <>
       <div className={styles.content}>
         {siteName ? <span className={styles.siteName}>{siteName}</span> : null}
         <p className={styles.title}>{title}</p>
@@ -33,10 +32,34 @@ export default function LinkCard({ metadata, className }: LinkCardProps) {
         <img
           className={styles.image}
           src={metadata.image}
-          alt=""
+          alt={`${metadata.title}-img`}
           loading="lazy"
         />
       ) : null}
+    </>
+  );
+
+  if (mode === "editor") {
+    return (
+      <div
+        className={clsx(styles.root, className)}
+        contentEditable={false}
+        role="link"
+        aria-label={title}
+      >
+        {content}
+      </div>
+    );
+  }
+
+  return (
+    <a
+      className={clsx(styles.root, className)}
+      href={metadata.url}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      {content}
     </a>
   );
 }
