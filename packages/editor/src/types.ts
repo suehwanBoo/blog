@@ -9,4 +9,5 @@ export type OpenGraphMetadata = {
 export type LinkCardProps = {
   metadata: OpenGraphMetadata;
   className?: string;
+  mode?: "editor" | "view";
 };

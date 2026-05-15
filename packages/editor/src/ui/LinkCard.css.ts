@@ -13,6 +13,7 @@ export const linkCardStyles = {
     background: themeVars.color.default,
     color: themeVars.color.title,
     textDecoration: "none",
+    cursor: "pointer",
     boxShadow: themeVars.shadow.sm,
     transition: `border-color ${themeVars.motion.durationFast} ${themeVars.motion.easingStandard}`,
     selectors: {

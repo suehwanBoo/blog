@@ -35,15 +35,17 @@ export const getPresignedUrl = async (file: File, token: string) => {
     contentType: file.type,
     contentSize: file.size,
   });
-  const data = await fetch(endpoint, {
+  const res = await fetch(endpoint, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${token}`,
     },
     body,
+  }).catch(() => {
+    throw new Error("네트워크 오류가 발생하였습니다.");
   });
-  if (!data.ok) throw new Error("네트워크 오류가 발생하였습니다.");
-  const imgData = (await data.json()) as PresignedResponse;
+  if (!res.ok) throw new Error("이미지 업로드 URL 발급에 실패하였습니다.");
+  const imgData = (await res.json()) as PresignedResponse;
   return imgData;
 };
 
