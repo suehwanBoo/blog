@@ -21,7 +21,7 @@ export default function OgLink() {
       editor?.commands.insertComponent({
         id: `og-${linkId.current}`,
         componentName: "og-link",
-        props: { metadata, mode: "editor" },
+        props: { metadata },
       });
       linkId.current += 1;
     } catch {

@@ -10,7 +10,7 @@ import {
   CustomComponentKit,
   defineComponent,
 } from "@tiptap-block-kit/react";
-import { LinkCard } from "@boo/editor";
+import { LinkCard, type LinkCardProps } from "@boo/editor";
 import { createLowlight } from "lowlight";
 import ts from "highlight.js/lib/languages/typescript";
 import js from "highlight.js/lib/languages/javascript";
@@ -19,7 +19,7 @@ import html from "highlight.js/lib/languages/xml";
 
 const OgLink = defineComponent({
   name: "og-link",
-  component: LinkCard,
+  component: (props: LinkCardProps) => <LinkCard {...props} mode="editor" />,
 });
 
 const registry = createRegistry([OgLink]);
