@@ -16,11 +16,27 @@ export const viewerRoot = style({
 const editorContent = `${editorRoot} > .tiptap`;
 const viewContent = viewerRoot;
 
+const scopeSelectors = (root: string, selector: string, direct = false) =>
+  selector
+    .split(",")
+    .map((part) => {
+      const trimmed = part.trim();
+
+      return direct ? `${root} > ${trimmed}` : `${root} ${trimmed}`;
+    })
+    .join(", ");
+
 const block = (selector: string) =>
-  `${editorContent} > ${selector}, ${viewContent} > ${selector}`;
+  [
+    scopeSelectors(editorContent, selector, true),
+    scopeSelectors(viewContent, selector, true),
+  ].join(", ");
 
 const inline = (selector: string) =>
-  `${editorContent} ${selector}, ${viewContent} ${selector}`;
+  [
+    scopeSelectors(editorContent, selector),
+    scopeSelectors(viewContent, selector),
+  ].join(", ");
 
 globalStyle(editorContent, {
   minHeight: 400,
