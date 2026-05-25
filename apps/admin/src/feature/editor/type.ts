@@ -3,3 +3,8 @@ export type PresignedResponse = {
   publicUrl: string;
   uploadUrl: string;
 };
+
+export type PostMetaProps = {
+  close: () => void;
+  onSuccess: () => void;
+};

@@ -2,9 +2,10 @@ import { useRef } from "react";
 import { buttonStyles as styles } from "./Button.css";
 import useImageUpload from "../hooks/useImageUpload";
 import useTiptap from "../hooks/useTiptap";
+import useIncrementId from "@/hooks/useIncrementId";
 
 export default function OptimizeImage() {
-  const imgId = useRef(0);
+  const imgId = useIncrementId();
   const editor = useTiptap();
   const inputRef = useRef<HTMLInputElement>(null);
   const uploadImage = useImageUpload();
@@ -28,7 +29,6 @@ export default function OptimizeImage() {
           id: `img-${imgId.current}`,
           props: { ...data },
         });
-        imgId.current += 1;
       }
     } finally {
       e.target.value = "";
