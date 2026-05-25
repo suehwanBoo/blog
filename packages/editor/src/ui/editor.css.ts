@@ -38,6 +38,10 @@ const inline = (selector: string) =>
     scopeSelectors(viewContent, selector),
   ].join(", ");
 
+globalStyle(inline("img"), {
+  maxWidth: "100%",
+});
+
 globalStyle(editorContent, {
   minHeight: 400,
   outline: "none",

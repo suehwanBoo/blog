@@ -1,12 +1,12 @@
-import { useRef } from "react";
 import useTiptap from "../hooks/useTiptap";
 import { getOpenGraphMetadata } from "../utils/openGraph";
 import { buttonStyles as styles } from "./Button.css";
 import { useToast } from "@boo/ui/client";
 import { useAuthStore } from "@/store/store";
+import useIncrementId from "@/hooks/useIncrementId";
 
 export default function OgLink() {
-  const linkId = useRef(0);
+  const linkId = useIncrementId();
   const { apply } = useToast();
   const { auth } = useAuthStore();
   const editor = useTiptap();
@@ -23,7 +23,6 @@ export default function OgLink() {
         componentName: "og-link",
         props: { metadata },
       });
-      linkId.current += 1;
     } catch {
       apply({
         title: "링크 삽입 오류",

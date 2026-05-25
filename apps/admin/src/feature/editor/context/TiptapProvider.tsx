@@ -16,6 +16,10 @@ import ts from "highlight.js/lib/languages/typescript";
 import js from "highlight.js/lib/languages/javascript";
 import css from "highlight.js/lib/languages/css";
 import html from "highlight.js/lib/languages/xml";
+import { FormProvider, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { articleSchema, type ArticleType } from "../schema/article";
+import { OverlayProvider } from "@boo/ui/client";
 
 const OgLink = defineComponent({
   name: "og-link",
@@ -38,6 +42,15 @@ lowlight.register("css", css);
 lowlight.register("html", html);
 
 export default function TiptapProvider({ children }: PropsWithChildren) {
+  const form = useForm<ArticleType>({
+    resolver: zodResolver(articleSchema),
+    mode: "onSubmit",
+    defaultValues: {
+      title: "",
+      summary: "",
+      tags: [],
+    },
+  });
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
@@ -54,6 +67,18 @@ export default function TiptapProvider({ children }: PropsWithChildren) {
         lowlight,
       }),
     ],
+    onUpdate: ({ editor }) => {
+      form.setValue("content", editor.getJSON(), {
+        shouldDirty: true,
+        shouldValidate: false,
+      });
+    },
+    onMount: ({ editor }) => {
+      form.setValue("content", editor.getJSON(), {
+        shouldDirty: true,
+        shouldValidate: false,
+      });
+    },
     content: "",
   });
 
@@ -64,6 +89,12 @@ export default function TiptapProvider({ children }: PropsWithChildren) {
     [editor],
   );
   return (
-    <TiptapContext.Provider value={value}>{children}</TiptapContext.Provider>
+    <FormProvider {...form}>
+      <OverlayProvider>
+        <TiptapContext.Provider value={value}>
+          {children}
+        </TiptapContext.Provider>
+      </OverlayProvider>
+    </FormProvider>
   );
 }

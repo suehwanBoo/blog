@@ -57,7 +57,7 @@ export const putImageToPresignedUrl = async (file: File, url: string) => {
   if (!data.ok) throw new Error("이미지를 저장소에 올리는데 실패하였습니다.");
 };
 
-const convertFileToDataURL = (file: File) =>
+export const convertFileToDataURL = (file: File) =>
   new Promise<string>((resolve, reject) => {
     const fr = new FileReader();
     fr.onload = () => {
@@ -72,7 +72,7 @@ const convertFileToDataURL = (file: File) =>
     fr.readAsDataURL(file);
   });
 
-const loadToImage = (url: string): Promise<HTMLImageElement> =>
+export const loadToImage = (url: string): Promise<HTMLImageElement> =>
   new Promise((res, rej) => {
     const image = new Image();
     image.onload = () => res(image);
