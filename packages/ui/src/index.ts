@@ -10,6 +10,7 @@ export { default as SearchInput } from "./components/input/SearchInput";
 export { default as TabMenu } from "./components/tab/TabMenu";
 
 export { themeVars } from "./theme/theme.css";
+export { COMMON_THEME_CONSTANTS } from "./theme/constant";
 export { lightTheme, darkTheme } from "./theme/theme.css";
 
 export { iosFocusHandler, iosBlurHandler } from "./components/input/utils";
