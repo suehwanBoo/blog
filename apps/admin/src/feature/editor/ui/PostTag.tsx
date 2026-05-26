@@ -86,6 +86,7 @@ function TagInputs({ value }: ControllerRenderProps<ArticleType, "tags">) {
             <button
               aria-label="cancel-tag"
               className={styles.cancel}
+              type="button"
               onClick={() => {
                 setValue(
                   "tags",
