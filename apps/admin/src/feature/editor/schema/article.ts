@@ -1,4 +1,5 @@
 import z from "zod";
+import { TAGS } from "../constant";
 
 const imgSchema = z.object({
   src: z.string().min(1, {
@@ -36,20 +37,9 @@ const mainThumbnailSchema = z.object({
   }),
 });
 
-const tagSchema = z.enum(
-  [
-    "framework",
-    "ui",
-    "architecture",
-    "performance",
-    "troubleshooting",
-    "ux",
-    "infra",
-  ],
-  {
-    error: "알맞는 태그를 입력해주세요.",
-  },
-);
+const tagSchema = z.enum(TAGS, {
+  error: "알맞는 태그를 입력해주세요.",
+});
 
 const contentSchema = z.object({
   type: z.literal("doc"),
@@ -92,9 +82,14 @@ export const articleSchema = z.object({
     .min(1, {
       error: "태그를 1개 이상 입력해주세요.",
     })
-    .refine((tags) => new Set(tags).size === tags.length, {
-      error: "중복된 태그는 사용할 수 없습니다.",
-    }),
+    .refine(
+      (tags) => {
+        return new Set(tags).size === tags.length;
+      },
+      {
+        error: "중복된 태그는 사용할 수 없습니다.",
+      },
+    ),
   content: contentSchema.refine(hasText, {
     error: "본문을 입력해주세요.",
   }),

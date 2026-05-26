@@ -102,16 +102,12 @@ const selectMenuOut = keyframes({
 const buttonWrapper = recipe({
   base: {
     all: "unset",
-    position: "absolute",
-    top: "calc(100% + 5px)",
-    left: 0,
-    width: "100%",
     background: themeVars.color.default,
     borderRadius: 5,
     border: `1px solid ${themeVars.color.disabled}`,
     overflow: "hidden",
     transformOrigin: "top",
-    zIndex: 10,
+    zIndex: themeVars.zIndex.dropdown,
   },
   variants: {
     open: {

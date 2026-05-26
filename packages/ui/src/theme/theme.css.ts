@@ -1,4 +1,5 @@
 import { createTheme, createThemeContract } from "@vanilla-extract/css";
+import { COMMON_THEME_CONSTANTS } from "./constant";
 
 export const themeVars = createThemeContract({
   color: {
@@ -109,14 +110,7 @@ export const lightTheme = createTheme(themeVars, {
     easingStandard: "cubic-bezier(0.2, 0, 0, 1)",
     easingEmphasized: "cubic-bezier(0.2, 0, 0, 1)",
   },
-  zIndex: {
-    base: "0",
-    sticky: "10",
-    dropdown: "1000",
-    overlay: "1100",
-    modal: "1200",
-    toast: "1300",
-  },
+  zIndex: COMMON_THEME_CONSTANTS.zIndex,
 });
 
 export const darkTheme = createTheme(themeVars, {
@@ -168,12 +162,5 @@ export const darkTheme = createTheme(themeVars, {
     easingStandard: "cubic-bezier(0.2, 0, 0, 1)",
     easingEmphasized: "cubic-bezier(0.2, 0, 0, 1)",
   },
-  zIndex: {
-    base: "0",
-    sticky: "10",
-    dropdown: "1000",
-    overlay: "1100",
-    modal: "1200",
-    toast: "1300",
-  },
+  zIndex: COMMON_THEME_CONSTANTS.zIndex,
 });

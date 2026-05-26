@@ -1,10 +1,25 @@
-import { useMemo, useState, type ReactNode } from "react";
+import {
+  useCallback,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+  type CSSProperties,
+  type ReactNode,
+} from "react";
 import { SelectStyles } from "./Select.css";
 import { useClickOutside } from "@boo/hooks";
 
 type OptionType<T> = {
   value: T;
   label: string;
+  visible?: boolean;
+};
+
+type UseFloatingPositionOptions = {
+  open: boolean;
+  gap?: number;
+  placement?: Placement;
 };
 
 type SelectProps<O extends OptionType<unknown>> = {
@@ -15,6 +30,7 @@ type SelectProps<O extends OptionType<unknown>> = {
   disabled?: boolean;
   render: (props: O) => ReactNode;
   ariaLabel: string;
+  floatingOptions?: Omit<UseFloatingPositionOptions, "open">;
 };
 
 export default function Select<O extends OptionType<unknown>>({
@@ -25,6 +41,7 @@ export default function Select<O extends OptionType<unknown>>({
   render,
   placeholder,
   ariaLabel,
+  floatingOptions,
 }: SelectProps<O>) {
   const { open, close, mounted, toggle, setMounted } = useSelectState();
 
@@ -35,6 +52,10 @@ export default function Select<O extends OptionType<unknown>>({
   ]);
 
   const ref = useClickOutside<HTMLDivElement>(close);
+  const { floatingStyle, targetRef } = useFloatingPosition({
+    ...floatingOptions,
+    open: mounted,
+  });
   const text = value?.label || placeholder || "-";
 
   return (
@@ -54,6 +75,7 @@ export default function Select<O extends OptionType<unknown>>({
         })}
         disabled={disabled}
         onClick={toggle}
+        ref={targetRef}
       >
         <span>{text}</span>
         <DirectionSvg open={open} />
@@ -62,27 +84,31 @@ export default function Select<O extends OptionType<unknown>>({
         <ul
           className={SelectStyles.buttonWrapper({ open })}
           aria-label={ariaLabel}
+          style={floatingStyle}
           onAnimationEnd={(e) => {
             if (e.currentTarget !== e.target) return;
             if (!open) setMounted(false);
           }}
         >
-          {options.map((props, idx) => (
-            <li key={props.label} className={SelectStyles.buttonLi}>
-              <button
-                type="button"
-                className={SelectStyles.button({
-                  last: idx === options.length - 1,
-                })}
-                onClick={() => {
-                  onChange(props);
-                  close();
-                }}
-              >
-                {render(props)}
-              </button>
-            </li>
-          ))}
+          {options.map(
+            (props, idx) =>
+              props.visible !== false && (
+                <li key={props.label} className={SelectStyles.buttonLi}>
+                  <button
+                    type="button"
+                    className={SelectStyles.button({
+                      last: idx === options.length - 1,
+                    })}
+                    onClick={() => {
+                      onChange(props);
+                      close();
+                    }}
+                  >
+                    {render(props)}
+                  </button>
+                </li>
+              ),
+          )}
         </ul>
       )}
     </div>
@@ -132,4 +158,60 @@ function useLongestText(arr: Array<string>) {
   return useMemo(() => {
     return arr.filter(Boolean).reduce((a, b) => (a.length >= b.length ? a : b));
   }, [...arr]);
+}
+
+type Placement = "bottom" | "top";
+
+function useFloatingPosition({
+  open,
+  gap = 5,
+  placement = "bottom",
+}: UseFloatingPositionOptions) {
+  const target = useRef<HTMLButtonElement | null>(null);
+  const [style, setStyle] = useState<CSSProperties>({
+    position: "fixed",
+    visibility: "hidden",
+  });
+
+  const updatePosition = useCallback(() => {
+    if (!target.current) return;
+
+    const rect = target.current.getBoundingClientRect();
+
+    setStyle({
+      position: "fixed",
+      visibility: "visible",
+      left: rect.left,
+      top: placement === "bottom" ? rect.bottom + gap : undefined,
+      bottom:
+        placement === "top" ? window.innerHeight - rect.top + gap : undefined,
+      width: rect.width,
+    });
+  }, [gap, placement]);
+
+  useLayoutEffect(() => {
+    if (!open) {
+      setStyle({
+        position: "fixed",
+        visibility: "hidden",
+      });
+      return;
+    }
+
+    updatePosition();
+
+    window.addEventListener("resize", updatePosition);
+    window.addEventListener("scroll", updatePosition, true);
+
+    return () => {
+      window.removeEventListener("resize", updatePosition);
+      window.removeEventListener("scroll", updatePosition, true);
+    };
+  }, [open, updatePosition]);
+
+  return {
+    targetRef: target,
+    floatingStyle: style,
+    updatePosition,
+  };
 }
