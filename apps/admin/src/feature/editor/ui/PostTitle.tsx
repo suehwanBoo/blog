@@ -1,9 +1,9 @@
 import { useFormContext } from "react-hook-form";
 import { postTitleStyles as styles } from "./PostTitle.css";
-import { ARTICLE_CONSTRAINTS, type ArticleType } from "../schema/article";
+import { ARTICLE_CONSTRAINTS, type ArticleFormType } from "../schema/article";
 
 export default function PostTitle() {
-  const { register } = useFormContext<ArticleType>();
+  const { register } = useFormContext<ArticleFormType>();
   return (
     <textarea
       className={styles.title}
