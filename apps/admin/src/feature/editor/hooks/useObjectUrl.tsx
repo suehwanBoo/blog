@@ -6,11 +6,14 @@ export default function useObjectUrl(blob: Blob | null | undefined) {
   useEffect(() => {
     if (!blob) {
       setUrl(null);
+      return;
     }
-    if (blob) {
-      const url = URL.createObjectURL(blob);
-      setUrl(url);
-    }
+    const url = URL.createObjectURL(blob);
+    setUrl(url);
+
+    return () => {
+      URL.revokeObjectURL(url);
+    };
   }, [blob]);
 
   return url;
