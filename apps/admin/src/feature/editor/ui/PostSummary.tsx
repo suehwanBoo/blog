@@ -1,12 +1,12 @@
 import { Button, Input, Modal } from "@boo/ui";
 import { postSummaryStyles as styles } from "./PostSummary.css";
 import { useFormContext } from "react-hook-form";
-import type { ArticleType } from "../schema/article";
+import type { ArticleFormType } from "../schema/article";
 import { useEffect, type SubmitEvent } from "react";
 import type { PostMetaProps } from "../type";
 
 export default function PostSummary({ close, onSuccess }: PostMetaProps) {
-  const { register, trigger, formState } = useFormContext<ArticleType>();
+  const { register, trigger, formState } = useFormContext<ArticleFormType>();
 
   const submitHandler = (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
