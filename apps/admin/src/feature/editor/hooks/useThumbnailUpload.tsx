@@ -1,10 +1,10 @@
 import { useAuthStore } from "@/store/store";
-import {
-  uploadThumbnailVariants,
-  type BlobImageTuple,
-} from "../utils/thumbnail";
+import { uploadThumbnailVariants } from "../utils/thumbnail";
+import type { ArticleFormType } from "../schema/article";
 
-export default function useThumbnailUpload(datas: BlobImageTuple | null) {
+export default function useThumbnailUpload(
+  datas: ArticleFormType["thumbnail"] | null,
+) {
   const { auth } = useAuthStore();
 
   const upload = async () => {

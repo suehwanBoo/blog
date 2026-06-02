@@ -1,3 +1,4 @@
+import type { ArticleFormType, ArticleSubmitType } from "../schema/article";
 import {
   getPresignedUrl,
   putImageToPresignedUrl,
@@ -15,27 +16,11 @@ const SIZES = [
   { width: 320, height: 213 },
 ] as const;
 
-type ImageMeta = {
-  width: number;
-  height: number;
-};
+type BlobImageTuple = ArticleFormType["thumbnail"];
 
-export type BlobImageMeta = { blob: Blob } & ImageMeta;
+type UploadedImage = ArticleSubmitType["thumbnail"]["main"]["sources"][0];
 
-export type UploadedImage = {
-  src: string;
-  width: number;
-  height: number;
-};
-
-export type BlobImageTuple = [
-  BlobImageMeta,
-  BlobImageMeta,
-  BlobImageMeta,
-  BlobImageMeta,
-];
-
-export type UploadImageTuple = [
+type UploadImageTuple = [
   UploadedImage,
   UploadedImage,
   UploadedImage,
@@ -115,7 +100,7 @@ const getThumbnailBlob = async (
     targetHeight,
   );
 
-  return new Promise<BlobImageMeta>((resolve, reject) => {
+  return new Promise<BlobImageTuple[0]>((resolve, reject) => {
     canvas.toBlob((blob) => {
       if (!blob) reject(new Error("이미지 변환 실패"));
       else resolve({ blob: blob, width: targetWidth, height: targetHeight });

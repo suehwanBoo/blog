@@ -2,11 +2,11 @@ import { Button } from "@boo/ui";
 import { postButtonStyles as styles } from "./PostButton.css";
 import { useFormContext } from "react-hook-form";
 import { useOverlay, useToast } from "@boo/ui/client";
-import type { ArticleType } from "../schema/article";
+import type { ArticleFormType } from "../schema/article";
 import PostMetaController from "./PostMetaController";
 
 export default function PostButton() {
-  const { trigger, getFieldState } = useFormContext<ArticleType>();
+  const { trigger, getFieldState } = useFormContext<ArticleFormType>();
   const { apply } = useToast();
   const { open } = useOverlay();
 
