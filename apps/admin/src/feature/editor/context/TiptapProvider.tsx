@@ -18,7 +18,7 @@ import css from "highlight.js/lib/languages/css";
 import html from "highlight.js/lib/languages/xml";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { articleSchema, type ArticleType } from "../schema/article";
+import { articleFormSchema, type ArticleFormType } from "../schema/article";
 import { OverlayProvider } from "@boo/ui/client";
 
 const OgLink = defineComponent({
@@ -42,8 +42,8 @@ lowlight.register("css", css);
 lowlight.register("html", html);
 
 export default function TiptapProvider({ children }: PropsWithChildren) {
-  const form = useForm<ArticleType>({
-    resolver: zodResolver(articleSchema),
+  const form = useForm<ArticleFormType>({
+    resolver: zodResolver(articleFormSchema),
     mode: "onSubmit",
     defaultValues: {
       title: "",
@@ -90,11 +90,9 @@ export default function TiptapProvider({ children }: PropsWithChildren) {
   );
   return (
     <FormProvider {...form}>
-      <OverlayProvider>
-        <TiptapContext.Provider value={value}>
-          {children}
-        </TiptapContext.Provider>
-      </OverlayProvider>
+      <TiptapContext.Provider value={value}>
+        <OverlayProvider>{children}</OverlayProvider>
+      </TiptapContext.Provider>
     </FormProvider>
   );
 }

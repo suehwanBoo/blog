@@ -2,43 +2,21 @@ import { Button, Modal } from "@boo/ui";
 import type { PostMetaProps } from "../type";
 import { useRef, useState, type ChangeEvent, type SubmitEvent } from "react";
 import { postThumbnailStyles as styles } from "./PostThumbnail.css";
-import { makeThumbnailBlob, type BlobImageTuple } from "../utils/thumbnail";
+import { makeThumbnailBlob } from "../utils/thumbnail";
 import { useToast } from "@boo/ui/client";
-import useThumbnailUpload from "../hooks/useThumbnailUpload";
-import { useFormContext } from "react-hook-form";
-import type { ArticleType } from "../schema/article";
-import useRevokeTempUrl from "../hooks/useRevokeTempUrl";
+import { Controller, useFormContext } from "react-hook-form";
+import type { ArticleFormType } from "../schema/article";
+import useObjectUrl from "../hooks/useObjectUrl";
 
 export default function PostThumbnail({ close, onSuccess }: PostMetaProps) {
   const [isloading, setIsLoading] = useState(false);
-  const [thumbnailBlobs, setThumbnailBlobs] = useState<BlobImageTuple | null>(
-    null,
-  );
-  const { setValue, trigger, getFieldState } = useFormContext<ArticleType>();
+  const { trigger, getFieldState, watch } = useFormContext<ArticleFormType>();
   const { apply } = useToast();
-  const upload = useThumbnailUpload(thumbnailBlobs);
+  const thumbBlobs = watch("thumbnail");
   const submitHandler = async (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const data = await upload();
-      setValue(
-        "thumbnail",
-        {
-          main: {
-            alt: "thumbnail",
-            sources: data.slice(0, 3),
-          },
-          sub: {
-            alt: "thumbnail",
-            source: data[3],
-          },
-        },
-        {
-          shouldDirty: true,
-          shouldValidate: false,
-        },
-      );
       const isSuccess = await trigger("thumbnail");
       if (!isSuccess) {
         const err = getFieldState("thumbnail").error;
@@ -57,13 +35,13 @@ export default function PostThumbnail({ close, onSuccess }: PostMetaProps) {
       <Modal.Header closeHandler={close} title="썸네일" />
       <form onSubmit={submitHandler}>
         <Modal.Body>
-          <ThumbnailInput onLoad={setIsLoading} onUpload={setThumbnailBlobs} />
+          <ThumbnailInput onLoad={setIsLoading} />
         </Modal.Body>
         <Modal.Footer>
           <Button
             ariaLabel="next"
             size="large"
-            state={thumbnailBlobs ? "active" : "disabled"}
+            state={thumbBlobs?.length === 4 ? "active" : "disabled"}
             type="submit"
           >
             다음
@@ -76,49 +54,58 @@ export default function PostThumbnail({ close, onSuccess }: PostMetaProps) {
 }
 
 type ThumbnailInputProps = {
-  onUpload: (data: BlobImageTuple | null) => void;
   onLoad: (isLoad: boolean) => void;
 };
 
-function ThumbnailInput({ onUpload, onLoad }: ThumbnailInputProps) {
-  const [imgUrl, setImgUrl] = useState<string | null>(null);
+function ThumbnailInput({ onLoad }: ThumbnailInputProps) {
   const ref = useRef<HTMLInputElement>(null);
+  const { control, watch } = useFormContext<ArticleFormType>();
   const { apply } = useToast();
-  useRevokeTempUrl(imgUrl);
   const onChangeImage = async (e: ChangeEvent<HTMLInputElement>) => {
     try {
       onLoad(true);
       const file = e.target.files?.[0];
       if (!file) return;
       const thumbBlobs = await makeThumbnailBlob(file);
-      const preview = URL.createObjectURL(thumbBlobs[0].blob);
-      setImgUrl(preview);
-      onUpload(thumbBlobs);
+      return thumbBlobs;
     } catch (err) {
       if (err instanceof Error)
         apply({ description: err.message, variant: "danger" });
-      onUpload(null);
     } finally {
       e.target.value = "";
       onLoad(false);
     }
   };
 
+  const blob = watch("thumbnail.0.blob");
+
+  const preview = useObjectUrl(blob);
+
   return (
     <>
       <div className={styles.preview} onClick={() => ref.current?.click()}>
-        {imgUrl ? (
-          <img src={imgUrl} style={{ width: "100%", height: "100%" }} />
+        {preview ? (
+          <img src={preview} style={{ width: "100%", height: "100%" }} />
         ) : (
           <div className={styles.imageAddButton} />
         )}
       </div>
-      <input
-        ref={ref}
-        type="file"
-        accept="image/png,image/jpeg,image/webp"
-        onChange={onChangeImage}
-        hidden
+      <Controller
+        name="thumbnail"
+        control={control}
+        render={({ field }) => (
+          <input
+            ref={ref}
+            type="file"
+            accept="image/png,image/jpeg,image/webp"
+            onChange={async (e) => {
+              const blobs = await onChangeImage(e);
+              if (!blobs) return;
+              field.onChange(blobs);
+            }}
+            hidden
+          />
+        )}
       />
     </>
   );

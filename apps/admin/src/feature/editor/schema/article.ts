@@ -1,10 +1,7 @@
 import z from "zod";
 import { TAGS } from "../constant";
 
-const imgSchema = z.object({
-  src: z.string().min(1, {
-    error: "이미지 src 필드가 누락되었습니다.",
-  }),
+const metaSchema = z.object({
   width: z
     .number({
       error: "이미지의 width 필드가 누락되었습니다.",
@@ -19,6 +16,16 @@ const imgSchema = z.object({
     .min(1, {
       error: "이미지의 height은 1보다 커야합니다.",
     }),
+});
+
+const imgSchema = metaSchema.extend({
+  src: z.string().min(1, {
+    error: "이미지 src 필드가 누락되었습니다.",
+  }),
+});
+
+const blobImgSchema = metaSchema.extend({
+  blob: z.instanceof(Blob),
 });
 
 const altSchema = z.string().min(1, {
@@ -51,7 +58,7 @@ export const ARTICLE_CONSTRAINTS = {
   SUMMARY_MAX_LENGTH: 300,
 } as const;
 
-export const articleSchema = z.object({
+const articleCommonSchema = z.object({
   title: z
     .string()
     .min(1, {
@@ -68,15 +75,6 @@ export const articleSchema = z.object({
     .max(ARTICLE_CONSTRAINTS.SUMMARY_MAX_LENGTH, {
       error: "요약은 300자 이하입니다.",
     }),
-  thumbnail: z.object(
-    {
-      main: mainThumbnailSchema,
-      sub: subThumbnailSchema,
-    },
-    {
-      error: "썸네일 이미지의 포맷을 확인해주세요.",
-    },
-  ),
   tags: z
     .array(tagSchema)
     .min(1, {
@@ -95,7 +93,29 @@ export const articleSchema = z.object({
   }),
 });
 
-export type ArticleType = z.infer<typeof articleSchema>;
+export const articleFormSchema = articleCommonSchema.extend({
+  thumbnail: z.tuple(
+    [blobImgSchema, blobImgSchema, blobImgSchema, blobImgSchema],
+    {
+      error: "알맞지 않은 이미지 형식입니다.",
+    },
+  ),
+});
+
+export const articleSubmitSchema = articleCommonSchema.extend({
+  thumbnail: z.object(
+    {
+      main: mainThumbnailSchema,
+      sub: subThumbnailSchema,
+    },
+    {
+      error: "썸네일 이미지의 포맷을 확인해주세요.",
+    },
+  ),
+});
+
+export type ArticleSubmitType = z.infer<typeof articleSubmitSchema>;
+export type ArticleFormType = z.infer<typeof articleFormSchema>;
 
 function hasText(node: unknown) {
   if (!node || typeof node !== "object") return false;

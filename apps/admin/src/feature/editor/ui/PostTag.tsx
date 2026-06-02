@@ -9,21 +9,22 @@ import {
   type SubmitErrorHandler,
   type SubmitHandler,
 } from "react-hook-form";
-import type { ArticleType } from "../schema/article";
+import type { ArticleFormType } from "../schema/article";
 import { PostTagStyles as styles } from "./PostTag.css";
 
 const OPTION_TAGS = TAGS.map((d) => ({ value: d, label: d }));
 
 export default function PostTag({ close, onSuccess }: PostMetaProps) {
-  const { formState, control, handleSubmit } = useFormContext<ArticleType>();
+  const { formState, control, handleSubmit } =
+    useFormContext<ArticleFormType>();
   const { apply } = useToast();
 
-  const onSubmit: SubmitHandler<ArticleType> = (d) => {
+  const onSubmit: SubmitHandler<ArticleFormType> = (d) => {
     console.log(d);
     onSuccess();
   };
 
-  const onError: SubmitErrorHandler<ArticleType> = (error) => {
+  const onError: SubmitErrorHandler<ArticleFormType> = (error) => {
     const messages = Object.values(error)
       .map((e) => e.message)
       .filter((e) => e !== undefined);
@@ -56,8 +57,8 @@ export default function PostTag({ close, onSuccess }: PostMetaProps) {
   );
 }
 
-function TagInputs({ value }: ControllerRenderProps<ArticleType, "tags">) {
-  const { getValues, setValue } = useFormContext<ArticleType>();
+function TagInputs({ value }: ControllerRenderProps<ArticleFormType, "tags">) {
+  const { getValues, setValue } = useFormContext<ArticleFormType>();
   const selectedTags = getValues("tags");
 
   return (
