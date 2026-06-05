@@ -14,14 +14,17 @@ import { PostTagStyles as styles } from "./PostTag.css";
 
 const OPTION_TAGS = TAGS.map((d) => ({ value: d, label: d }));
 
-export default function PostTag({ close, onSuccess }: PostMetaProps) {
+type PostCompleteProps = { onSuccess: (d: ArticleFormType) => void };
+
+type PostTagProps = Omit<PostMetaProps, "onSuccess"> & PostCompleteProps;
+
+export default function PostTag({ close, onSuccess }: PostTagProps) {
   const { formState, control, handleSubmit } =
     useFormContext<ArticleFormType>();
   const { apply } = useToast();
 
   const onSubmit: SubmitHandler<ArticleFormType> = (d) => {
-    console.log(d);
-    onSuccess();
+    onSuccess(d);
   };
 
   const onError: SubmitErrorHandler<ArticleFormType> = (error) => {

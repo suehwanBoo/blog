@@ -1,6 +1,4 @@
-import { createFirebaseApp } from "@boo/firebase";
 import {
-  createfirebaseAuth,
   loginWithGithub,
   loginWithGoogle,
   setSessionPersistence,
@@ -8,20 +6,9 @@ import {
 } from "@boo/firebase/auth";
 import { AUTH_ERROR_CODE_SET, type AuthErrorCode } from "./constant";
 import { FirebaseError, type User } from "@boo/firebase/type";
+import { firebaseAuth } from "@/firebase";
 
 type LoginKey = "google" | "github";
-
-const firebaseApp = createFirebaseApp({
-  apiKey: import.meta.env.VITE_APIKEY!,
-  appId: import.meta.env.VITE_APPID!,
-  authDomain: import.meta.env.VITE_AUTHDOMAIN!,
-  projectId: import.meta.env.VITE_PROJECTID!,
-  storageBucket: import.meta.env.VITE_STORAGEBUCKET!,
-  messagingSenderId: import.meta.env.VITE_MESSAGINGSENDERID!,
-  measurementId: import.meta.env.VITE_MEASUREMENTID!,
-});
-
-const firebaseAuth = createfirebaseAuth(firebaseApp);
 
 export const getLoginHandler = async (platform: LoginKey) => {
   await setSessionPersistence(firebaseAuth);

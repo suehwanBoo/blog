@@ -45,9 +45,8 @@ export default function TiptapProvider({ children }: PropsWithChildren) {
   const form = useForm<ArticleFormType>({
     resolver: zodResolver(articleFormSchema),
     mode: "onSubmit",
+    reValidateMode: "onChange",
     defaultValues: {
-      title: "",
-      summary: "",
       tags: [],
     },
   });
