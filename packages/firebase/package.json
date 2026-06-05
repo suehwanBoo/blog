@@ -6,6 +6,7 @@
   "exports": {
     ".": "./init.ts",
     "./auth": "./auth.ts",
+    "./firestore": "./firestore.ts",
     "./type": "./type.ts"
   },
   "scripts": {},

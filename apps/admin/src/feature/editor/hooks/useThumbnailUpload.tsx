@@ -2,12 +2,10 @@ import { useAuthStore } from "@/store/store";
 import { uploadThumbnailVariants } from "../utils/thumbnail";
 import type { ArticleFormType } from "../schema/article";
 
-export default function useThumbnailUpload(
-  datas: ArticleFormType["thumbnail"] | null,
-) {
+export default function useThumbnailUpload() {
   const { auth } = useAuthStore();
 
-  const upload = async () => {
+  const upload = async (datas: ArticleFormType["thumbnail"] | null) => {
     if (!auth) throw new Error("업로드 권한이 없습니다.");
     if (!datas || datas.length !== 4)
       throw new Error("이미지 형식이 잘못되었습니다.");

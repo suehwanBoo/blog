@@ -19,8 +19,8 @@ const metaSchema = z.object({
 });
 
 const imgSchema = metaSchema.extend({
-  src: z.string().min(1, {
-    error: "이미지 src 필드가 누락되었습니다.",
+  src: z.url({
+    error: "올바른 URL 형식이 아닙니다.",
   }),
 });
 
@@ -32,17 +32,23 @@ const altSchema = z.string().min(1, {
   error: "썸네일의 alt 태그가 비어있습니다.",
 });
 
-const subThumbnailSchema = z.object({
-  alt: altSchema,
-  source: imgSchema,
-});
+const subThumbnailSchema = z.object(
+  {
+    alt: altSchema,
+    source: imgSchema,
+  },
+  { error: "썸네일 추가에 오류가 발생하였습니다." },
+);
 
-const mainThumbnailSchema = z.object({
-  alt: altSchema,
-  sources: z.array(imgSchema).min(1, {
-    error: "썸네일 이미지의 원본 필드가 비어있습니다.",
-  }),
-});
+const mainThumbnailSchema = z.object(
+  {
+    alt: altSchema,
+    sources: z.array(imgSchema).min(1, {
+      error: "썸네일 이미지의 원본 필드가 비어있습니다.",
+    }),
+  },
+  { error: "썸네일 추가에 오류가 발생하였습니다." },
+);
 
 const tagSchema = z.enum(TAGS, {
   error: "알맞는 태그를 입력해주세요.",
@@ -73,7 +79,7 @@ const articleCommonSchema = z.object({
       error: "글의 요약 필드가 누락되었습니다.",
     })
     .max(ARTICLE_CONSTRAINTS.SUMMARY_MAX_LENGTH, {
-      error: "요약은 300자 이하입니다.",
+      error: "요약은 300자 이하로 작성해주세요.",
     }),
   tags: z
     .array(tagSchema)

@@ -2,20 +2,25 @@ import { Button, Input, Modal } from "@boo/ui";
 import { postSummaryStyles as styles } from "./PostSummary.css";
 import { useFormContext } from "react-hook-form";
 import type { ArticleFormType } from "../schema/article";
-import { useEffect, type SubmitEvent } from "react";
+import { type SubmitEvent } from "react";
 import type { PostMetaProps } from "../type";
 
 export default function PostSummary({ close, onSuccess }: PostMetaProps) {
-  const { register, trigger, formState } = useFormContext<ArticleFormType>();
+  const { watch, register, trigger, formState } =
+    useFormContext<ArticleFormType>();
 
-  const submitHandler = (e: SubmitEvent<HTMLFormElement>) => {
+  const submitHandler = async (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const isValid = await trigger("summary");
+    if (!isValid) return;
     onSuccess();
   };
 
-  useEffect(() => {
-    trigger("summary");
-  }, [trigger]);
+  const summary = watch("summary");
+
+  const summaryError = formState.errors.summary;
+
+  const disabled = !summary || !!summaryError;
 
   return (
     <Modal ariaLabel="글 요약 모달">
@@ -25,21 +30,20 @@ export default function PostSummary({ close, onSuccess }: PostMetaProps) {
           <Input
             {...register("summary", {
               onChange: () => {
-                trigger("summary");
+                if (summaryError) trigger("summary");
               },
             })}
           />
           <Button
             ariaLabel="next-button"
             size="large"
-            state={formState.errors.summary ? "disabled" : "active"}
+            state={disabled ? "disabled" : "active"}
           >
             다음
           </Button>
         </form>
-        <p className={styles.hint({ error: !!formState.errors.summary })}>
-          {formState?.errors?.summary?.message ||
-            "본문의 글을 간략히 설명해주세요."}
+        <p className={styles.hint({ error: !!summaryError })}>
+          {summaryError?.message || "본문의 글을 간략히 설명해주세요."}
         </p>
       </Modal.Body>
       <Modal.Footer></Modal.Footer>
