@@ -39,21 +39,21 @@
 
 ```mermaid
 flowchart LR
-  Reader[독자] --> Blog[Next.js 블로그]
-  Author[작성자] --> Admin[React 관리자]
+  Reader["독자"] --> Blog["Next.js 블로그"]
+  Author["작성자"] --> Admin["React 관리자"]
 
-  Admin --> Auth[Firebase Auth]
+  Admin --> Auth["Firebase Auth"]
   Blog --> Auth
-  Admin -->|ID 토큰| API[Next.js Route Handler]
-  API -->|토큰 검증| FirebaseAdmin[Firebase Admin]
-  API -->|presigned URL 발급| S3[AWS S3]
+  Admin -->|ID 토큰| API["Next.js Route Handler"]
+  API -->|토큰 검증| FirebaseAdmin["Firebase Admin"]
+  API -->|presigned URL 발급| S3["AWS S3"]
   Admin -->|이미지 직접 업로드| S3
 
-  Blog --> UI[@boo/ui]
+  Blog --> UI["@boo/ui"]
   Admin --> UI
-  Blog --> Editor[@boo/editor]
+  Blog --> Editor["@boo/editor"]
   Admin --> Editor
-  Blog --> Shared[@boo/firebase · hooks · font]
+  Blog --> Shared["@boo/firebase · hooks · font"]
   Admin --> Shared
 ```
 
