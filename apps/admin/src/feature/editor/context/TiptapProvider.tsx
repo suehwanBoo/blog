@@ -18,8 +18,11 @@ import css from "highlight.js/lib/languages/css";
 import html from "highlight.js/lib/languages/xml";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { articleFormSchema, type ArticleFormType } from "../schema/article";
 import { OverlayProvider } from "@boo/ui/client";
+import {
+  articleFormSchema,
+  type ArticleFormType,
+} from "@boo/firebase/schema/article";
 
 const OgLink = defineComponent({
   name: "og-link",
@@ -47,6 +50,7 @@ export default function TiptapProvider({ children }: PropsWithChildren) {
     mode: "onSubmit",
     reValidateMode: "onChange",
     defaultValues: {
+      title: "",
       tags: [],
     },
   });

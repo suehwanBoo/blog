@@ -7,13 +7,15 @@
     ".": "./init.ts",
     "./auth": "./auth.ts",
     "./firestore": "./firestore.ts",
-    "./type": "./type.ts"
+    "./type": "./type.ts",
+    "./schema/article": "./schema/article.ts"
   },
   "scripts": {},
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "firebase": "^12.12.1"
+    "firebase": "^12.12.1",
+    "zod": "4.3.0"
   }
 }

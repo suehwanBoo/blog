@@ -4,10 +4,14 @@ import PostThumbnail from "./PostThumbnail";
 import PostTag from "./PostTag";
 import type { PostMetaProps } from "../type";
 import { useFormContext } from "react-hook-form";
-import { articleSubmitSchema, type ArticleFormType } from "../schema/article";
 import useTiptap from "../hooks/useTiptap";
 import useThumbnailUpload from "../hooks/useThumbnailUpload";
 import { useToast } from "@boo/ui/client";
+import useArticleUpload from "../hooks/useArticleUpload";
+import {
+  articleSubmitSchema,
+  type ArticleFormType,
+} from "@boo/firebase/schema/article";
 
 type StepType = 0 | 1 | 2;
 
@@ -25,9 +29,9 @@ export default function PostMetaController({
   };
 
   const resetAllEditor = () => {
-    close();
-    reset();
     editor?.commands.clearContent();
+    reset();
+    close();
   };
   if (step === 0)
     return <PostSummary close={close} onSuccess={() => setStep(1)} />;
@@ -39,6 +43,7 @@ export default function PostMetaController({
 function useUpload() {
   const { apply } = useToast();
   const imgUrlUpload = useThumbnailUpload();
+  const articleUpload = useArticleUpload();
 
   const upload = async (data: ArticleFormType) => {
     const blobThumbnail = data.thumbnail;
@@ -67,8 +72,8 @@ function useUpload() {
         return;
       }
       // firebase 추가 로직
-
-      console.log(parsed.data);
+      const article = parsed.data;
+      await articleUpload(article);
     } catch (err) {
       if (err instanceof Error)
         apply({ description: err.message, variant: "danger" });

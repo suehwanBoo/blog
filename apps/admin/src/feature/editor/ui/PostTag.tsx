@@ -9,8 +9,8 @@ import {
   type SubmitErrorHandler,
   type SubmitHandler,
 } from "react-hook-form";
-import type { ArticleFormType } from "../schema/article";
 import { PostTagStyles as styles } from "./PostTag.css";
+import type { ArticleFormType } from "@boo/firebase/schema/article";
 
 const OPTION_TAGS = TAGS.map((d) => ({ value: d, label: d }));
 
