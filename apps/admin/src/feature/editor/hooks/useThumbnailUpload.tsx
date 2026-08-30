@@ -1,6 +1,6 @@
 import { useAuthStore } from "@/store/store";
 import { uploadThumbnailVariants } from "../utils/thumbnail";
-import type { ArticleFormType } from "../schema/article";
+import type { ArticleFormType } from "@boo/firebase/schema/article";
 
 export default function useThumbnailUpload() {
   const { auth } = useAuthStore();

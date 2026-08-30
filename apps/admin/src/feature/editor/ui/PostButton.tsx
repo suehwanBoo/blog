@@ -2,8 +2,8 @@ import { Button } from "@boo/ui";
 import { postButtonStyles as styles } from "./PostButton.css";
 import { useFormContext } from "react-hook-form";
 import { useOverlay, useToast } from "@boo/ui/client";
-import type { ArticleFormType } from "../schema/article";
 import PostMetaController from "./PostMetaController";
+import type { ArticleFormType } from "@boo/firebase/schema/article";
 
 export default function PostButton() {
   const { trigger, getFieldState } = useFormContext<ArticleFormType>();

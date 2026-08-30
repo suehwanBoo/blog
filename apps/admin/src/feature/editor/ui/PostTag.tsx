@@ -9,16 +9,19 @@ import {
   type SubmitErrorHandler,
   type SubmitHandler,
 } from "react-hook-form";
-import type { ArticleFormType } from "../schema/article";
 import { PostTagStyles as styles } from "./PostTag.css";
+import type { ArticleFormType } from "@boo/firebase/schema/article";
 
 const OPTION_TAGS = TAGS.map((d) => ({ value: d, label: d }));
 
-type PostCompleteProps = { onSuccess: (d: ArticleFormType) => void };
+type PostCompleteProps = {
+  onSuccess: (d: ArticleFormType) => void;
+  isLoading: boolean;
+};
 
 type PostTagProps = Omit<PostMetaProps, "onSuccess"> & PostCompleteProps;
 
-export default function PostTag({ close, onSuccess }: PostTagProps) {
+export default function PostTag({ close, onSuccess, isLoading }: PostTagProps) {
   const { formState, control, handleSubmit } =
     useFormContext<ArticleFormType>();
   const { apply } = useToast();
@@ -50,7 +53,7 @@ export default function PostTag({ close, onSuccess }: PostTagProps) {
           <Button
             ariaLabel="완료"
             size="large"
-            state={formState.errors.tags ? "disabled" : "active"}
+            state={formState.errors.tags || isLoading ? "disabled" : "active"}
           >
             완료
           </Button>

@@ -5,8 +5,8 @@ import { postThumbnailStyles as styles } from "./PostThumbnail.css";
 import { makeThumbnailBlob } from "../utils/thumbnail";
 import { useToast } from "@boo/ui/client";
 import { Controller, useFormContext } from "react-hook-form";
-import type { ArticleFormType } from "../schema/article";
 import useObjectUrl from "../hooks/useObjectUrl";
+import type { ArticleFormType } from "@boo/firebase/schema/article";
 
 export default function PostThumbnail({ close, onSuccess }: PostMetaProps) {
   const [isloading, setIsLoading] = useState(false);

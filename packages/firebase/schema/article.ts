@@ -1,5 +1,14 @@
 import z from "zod";
-import { TAGS } from "../constant";
+
+export const TAGS = [
+  "framework",
+  "ui",
+  "architecture",
+  "performance",
+  "troubleshooting",
+  "ux",
+  "infra",
+] as const;
 
 const metaSchema = z.object({
   width: z

@@ -1,9 +1,9 @@
 import { Button, Input, Modal } from "@boo/ui";
 import { postSummaryStyles as styles } from "./PostSummary.css";
 import { useFormContext } from "react-hook-form";
-import type { ArticleFormType } from "../schema/article";
 import { type SubmitEvent } from "react";
 import type { PostMetaProps } from "../type";
+import type { ArticleFormType } from "@boo/firebase/schema/article";
 
 export default function PostSummary({ close, onSuccess }: PostMetaProps) {
   const { watch, register, trigger, formState } =

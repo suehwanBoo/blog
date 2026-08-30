@@ -1,4 +1,7 @@
-import type { ArticleFormType, ArticleSubmitType } from "../schema/article";
+import type {
+  ArticleFormType,
+  ArticleSubmitType,
+} from "@boo/firebase/schema/article";
 import {
   getPresignedUrl,
   putImageToPresignedUrl,
