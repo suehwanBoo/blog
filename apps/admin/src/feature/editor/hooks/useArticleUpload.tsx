@@ -10,7 +10,7 @@ export default function useArticleUpload() {
     const token = await auth.getIdToken();
     const article = JSON.stringify(data);
     const res = await postArticle(article, token);
-    console.log(res);
+    return res;
   };
 
   return upload;
