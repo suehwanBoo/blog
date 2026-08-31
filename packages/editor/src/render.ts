@@ -62,7 +62,11 @@ const render = renderJSONContentToReactElement<TiptapMark, TiptapNode>({
     paragraph: ({ node, children }: RendererNodeProps) =>
       createElement("p", getTextAlignStyle(node.attrs), children),
     heading: ({ node, children }: RendererNodeProps) =>
-      createElement(`h${getHeadingLevel(node.attrs)}`, getTextAlignStyle(node.attrs), children),
+      createElement(
+        `h${getHeadingLevel(node.attrs)}`,
+        getTextAlignStyle(node.attrs),
+        children,
+      ),
     blockquote: ({ children }: RendererNodeProps) =>
       createElement("blockquote", null, children),
     bulletList: ({ children }: RendererNodeProps) =>
@@ -87,10 +91,14 @@ const render = renderJSONContentToReactElement<TiptapMark, TiptapNode>({
   markMapping: {
     bold: ({ children }: RendererMarkProps) =>
       createElement("strong", null, children),
-    italic: ({ children }: RendererMarkProps) => createElement("em", null, children),
-    strike: ({ children }: RendererMarkProps) => createElement("s", null, children),
-    underline: ({ children }: RendererMarkProps) => createElement("u", null, children),
-    code: ({ children }: RendererMarkProps) => createElement("code", null, children),
+    italic: ({ children }: RendererMarkProps) =>
+      createElement("em", null, children),
+    strike: ({ children }: RendererMarkProps) =>
+      createElement("s", null, children),
+    underline: ({ children }: RendererMarkProps) =>
+      createElement("u", null, children),
+    code: ({ children }: RendererMarkProps) =>
+      createElement("code", null, children),
     highlight: ({ children }: RendererMarkProps) =>
       createElement("mark", null, children),
     link: ({ mark, children }: RendererMarkProps) => {
@@ -149,7 +157,9 @@ function renderCodeBlock(node: TiptapNode) {
   const language = getCodeLanguage(node.attrs?.language);
   const code = getTextContent(node);
   const highlightedCode = language
-    ? renderHighlightedCode(lowlight.highlight(language, code).children as HighlightNode[])
+    ? renderHighlightedCode(
+        lowlight.highlight(language, code).children as HighlightNode[],
+      )
     : code;
 
   return createElement(
@@ -183,11 +193,12 @@ function renderCustomComponent(node: TiptapNode): ReactNode {
   const props = node.attrs?.props;
 
   if (componentName === "og-link") {
-    const metadata = getOpenGraphMetadata(props);
-
-    return metadata
-      ? createElement(LinkCard, { metadata, mode: "view" })
-      : null;
+    if (typeof props === "object" && props !== null && "metadata" in props) {
+      const metadata = getOpenGraphMetadata(props.metadata);
+      return metadata
+        ? createElement(LinkCard, { metadata, mode: "view" })
+        : null;
+    }
   }
 
   if (componentName === "img") {
@@ -250,7 +261,9 @@ function getSafeUrl(value: unknown): string | null {
 
   try {
     const url = new URL(value);
-    return url.protocol === "http:" || url.protocol === "https:" ? url.href : null;
+    return url.protocol === "http:" || url.protocol === "https:"
+      ? url.href
+      : null;
   } catch {
     return null;
   }
