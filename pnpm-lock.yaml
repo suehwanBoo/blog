@@ -250,6 +250,9 @@ importers:
       '@tiptap/react':
         specifier: ^3
         version: 3.23.1(@floating-ui/dom@1.7.6)(@tiptap/core@3.23.1(@tiptap/pm@3.23.1))(@tiptap/pm@3.23.1)(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@tiptap/static-renderer':
+        specifier: 3.23.1
+        version: 3.23.1(@tiptap/core@3.23.1(@tiptap/pm@3.23.1))(@tiptap/pm@3.23.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@vanilla-extract/css':
         specifier: ^1.20.1
         version: 1.20.1
@@ -259,6 +262,12 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
+      highlight.js:
+        specifier: ^11.11.1
+        version: 11.11.1
+      lowlight:
+        specifier: ^3.3.0
+        version: 3.3.0
       react:
         specifier: ^18 || ^19
         version: 19.2.4
@@ -2190,6 +2199,14 @@ packages:
 
   '@tiptap/starter-kit@3.23.1':
     resolution: {integrity: sha512-CURePHQagBaZIDJrHH3of4Nmi0VYGpZ6yBlkdFxFHBxY9aeG2/h5kn+oHo8GbzkSFsRV+9olzRgDTOULVgs8pQ==}
+
+  '@tiptap/static-renderer@3.23.1':
+    resolution: {integrity: sha512-MoidsDKXwrNTDUJtIibY5L5ZaJD/+Nqz5S935glyXjB5FVQEBWoJ1uN80u0RjqrJqz1vEhagsv5ut5aTbLP1tA==}
+    peerDependencies:
+      '@tiptap/core': 3.23.1
+      '@tiptap/pm': 3.23.1
+      react: ^17.0.0 || ^18.0.0 || ^19.0.0
+      react-dom: ^17.0.0 || ^18.0.0 || ^19.0.0
 
   '@tootallnate/once@2.0.1':
     resolution: {integrity: sha512-HqmEUIGRJ5fSXchkVgR5F7qn48bDBzv0kWj/Kfu5e6uci4UlEeng4331LnBkWffb++Ei3FOVLxo8JJWMFBDMeQ==}
@@ -7301,6 +7318,13 @@ snapshots:
       '@tiptap/extension-underline': 3.23.1(@tiptap/core@3.23.1(@tiptap/pm@3.23.1))
       '@tiptap/extensions': 3.23.1(@tiptap/core@3.23.1(@tiptap/pm@3.23.1))(@tiptap/pm@3.23.1)
       '@tiptap/pm': 3.23.1
+
+  '@tiptap/static-renderer@3.23.1(@tiptap/core@3.23.1(@tiptap/pm@3.23.1))(@tiptap/pm@3.23.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+    dependencies:
+      '@tiptap/core': 3.23.1(@tiptap/pm@3.23.1)
+      '@tiptap/pm': 3.23.1
+      react: 19.2.4
+      react-dom: 19.2.4(react@19.2.4)
 
   '@tootallnate/once@2.0.1':
     optional: true
