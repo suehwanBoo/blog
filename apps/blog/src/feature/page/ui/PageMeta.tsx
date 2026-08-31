@@ -1,12 +1,13 @@
 import Tags from "@/components/ui/Tags";
 import { pageMetaStyles as styles } from "./PageMeta.css";
+import type { ArticleSubmitMain } from "../type";
 
-const MockMetaTag = ["Performance", "UI"];
+type PageMetaProps = Pick<ArticleSubmitMain, "tags">;
 
-export default function PageMeta() {
+export default function PageMeta({ tags }: PageMetaProps) {
   return (
     <div className={styles.wrapper}>
-      <Tags tags={MockMetaTag} />
+      <Tags tags={tags} />
       <div className={styles.buttonWrapper}>
         <LikeButton />
         <ShareButton />

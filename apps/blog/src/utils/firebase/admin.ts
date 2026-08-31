@@ -7,7 +7,7 @@ import { getFirestore, Timestamp } from "firebase-admin/firestore";
 import type { NextRequest } from "next/server";
 import type { ArticleSubmitType } from "@boo/firebase/schema/article";
 
-function getAdminFirebase() {
+export function getAdminFirebase() {
   const app = getApps()[0];
   if (app) return app;
 

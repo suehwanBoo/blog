@@ -59,7 +59,7 @@ globalStyle(block("p"), {
   margin: 0,
   color: themeVars.color.title,
   fontSize: 15,
-  lineHeight: "140%",
+  lineHeight: "180%",
 });
 
 globalStyle(block("h2"), {

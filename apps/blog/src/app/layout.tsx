@@ -4,6 +4,7 @@ import { ThemeScript } from "../scripts/ThemeScript";
 import { themeVars } from "@boo/ui";
 import "../../styles/reset.css";
 import "@boo/ui/styles.css";
+import "@boo/editor/styles.css";
 import { OverlayProvider, ToastProvider } from "@boo/ui/client";
 import AuthProvider from "@/feature/auth/AuthProvider";
 

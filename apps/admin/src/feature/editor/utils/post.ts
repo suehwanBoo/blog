@@ -7,8 +7,7 @@ const postArticle = async (json: string, token: string) => {
       Authorization: `Bearer ${token}`,
     },
     body: json,
-  }).catch((err) => {
-    console.log(err);
+  }).catch(() => {
     throw new Error("네트워크 오류가 발생하였습니다.");
   });
 
