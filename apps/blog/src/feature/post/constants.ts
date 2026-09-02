@@ -28,7 +28,7 @@ export type Tag = keyof typeof TAG_LABELS;
 
 export const ORDERS = [
   { label: "최신순", value: "recent" },
-  { label: "조회순", value: "views" },
+  { label: "댓글순", value: "comments" },
   { label: "인기순", value: "likes" },
 ] as const;
 

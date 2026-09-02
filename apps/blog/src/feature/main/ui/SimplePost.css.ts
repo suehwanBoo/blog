@@ -45,6 +45,7 @@ const cardContent = style({
   display: "flex",
   flexDirection: "column",
   width: "100%",
+  minWidth: 0,
   flex: 1,
   height: CARD_HEIGHT,
   justifyContent: "space-between",
@@ -99,6 +100,40 @@ const cardMeta = style({
   alignItems: "center",
 });
 
+const loadingTitle = style({
+  width: "80%",
+  height: 25,
+});
+
+const loadingCard = style([
+  card,
+  {
+    borderTop: `1px solid ${themeVars.color.active}`,
+  },
+]);
+
+const loadingBody = style([
+  cardBody,
+  {
+    gap: 16,
+  },
+]);
+
+const loadingDesc = style([
+  cardDescription,
+  {
+    height: 50,
+  },
+]);
+
+const loadingMeta = style([
+  cardMeta,
+  {
+    height: 20,
+    width: 150,
+  },
+]);
+
 export const simplePostStyles = {
   wrapper,
   srOnly,
@@ -113,4 +148,9 @@ export const simplePostStyles = {
   cardMetaBox,
   cardDate,
   cardMeta,
+  loadingTitle,
+  loadingCard,
+  loadingDesc,
+  loadingBody,
+  loadingMeta,
 };

@@ -3,22 +3,55 @@
 import { simplePostStyles as styles } from "./SimplePost.css";
 import { Select } from "@boo/ui/client";
 import clsx from "clsx";
-import View from "@/components/ui/View";
 import Like from "@/components/ui/Like";
 import CopyLink from "@/components/ui/CopyLink";
 import Tags from "@/components/ui/Tags";
 import useClientOrder from "../hooks/useClientOrder";
-import { ORDERS, type OrderValue } from "@/feature/post/constants";
-import testImageSmall from "@/assets/test_img_m.webp";
+import { ORDERS, type OrderValue, type Tag } from "@/feature/post/constants";
 import { gridItem } from "@/styles/layout.css";
 import ClickableCardOverlay from "@/components/layout/ClickableCardOverlay";
+import useFetchPost from "../hooks/useFetchPost";
+import { makeDateString } from "@/utils/article/date";
+import Comment from "@/components/ui/Comment";
+import EmptyPost from "./EmptyPost";
+import { skeleton } from "@/components/ui/skeleton.css";
+import { forwardRef, useCallback, useMemo } from "react";
+import { useIntersectionObserver } from "@boo/hooks";
 
 export default function SimplePost({
   initialOrderValue,
+  tag = "all",
+  mode = "preview",
 }: {
   initialOrderValue: OrderValue;
+  tag?: Tag;
+  mode?: "preview" | "infinite";
 }) {
   const { orderState, setSelectedOrder } = useClientOrder(initialOrderValue);
+  const { data, hasNextPage, fetchNextPage, isFetchingNextPage } = useFetchPost(
+    orderState.value,
+    tag,
+  );
+
+  const observerOptions = useMemo(
+    () => ({
+      threshold: 0.3,
+    }),
+    [],
+  );
+
+  const handleFetchNextPage = useCallback(() => {
+    if (!hasNextPage || isFetchingNextPage) return;
+    fetchNextPage();
+  }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
+
+  const { ref } = useIntersectionObserver({
+    callback: handleFetchNextPage,
+    options: observerOptions,
+  });
+
+  const posts = data?.pages.flatMap((page) => page.posts);
+
   return (
     <section
       className={clsx(gridItem({ desktop: 8 }), styles.wrapper)}
@@ -36,7 +69,28 @@ export default function SimplePost({
           value={orderState}
         />
       </div>
-      <CardList />
+      {posts?.map((post) => (
+        <ClickableCardOverlay
+          href={`/page/${post.id}`}
+          label={`link to ${post.title}`}
+          divider
+          key={post.id}
+        >
+          <Card
+            title={post.title}
+            content={post.summary}
+            date={makeDateString(post.createdAt)}
+            tags={post.tags}
+            meta={{
+              likes: post.likeCount,
+              comments: post.commentCount,
+            }}
+            thumbnail={post.thumbnail.sub.source}
+          />
+        </ClickableCardOverlay>
+      ))}
+      {mode === "infinite" && hasNextPage && <SkeletonCard ref={ref} />}
+      {posts?.length === 0 && <EmptyPost />}
     </section>
   );
 }
@@ -52,27 +106,10 @@ type CardProps = {
   content: string;
   tags: string[];
   meta: {
-    views: number;
+    comments: number;
     likes: number;
   };
 };
-
-function CardList() {
-  return (
-    <>
-      {mockCardList.map((card) => (
-        <ClickableCardOverlay
-          href={`/page/${card.id}`}
-          label={`link to ${card.title}`}
-          divider={true}
-          key={card.id}
-        >
-          <Card {...card} />
-        </ClickableCardOverlay>
-      ))}
-    </>
-  );
-}
 
 function Card({ date, meta, thumbnail, title, content, tags }: CardProps) {
   return (
@@ -86,8 +123,8 @@ function Card({ date, meta, thumbnail, title, content, tags }: CardProps) {
         </div>
         <div className={styles.cardMetaBox}>
           <div className={styles.cardMeta}>
-            <View views={meta.views} />
             <Like likes={meta.likes} />
+            <Comment comments={meta.comments} />
           </div>
           <CopyLink />
         </div>
@@ -105,113 +142,30 @@ function Card({ date, meta, thumbnail, title, content, tags }: CardProps) {
   );
 }
 
-const mockCardList: (CardProps & { id: number })[] = [
-  {
-    id: 1,
-    date: "17 Jan 2022",
-    title: "Build your API",
-    meta: { likes: 100, views: 200 },
-    thumbnail: {
-      src: testImageSmall.src,
-      width: testImageSmall.width,
-      height: testImageSmall.height,
-    },
-    content: "short content",
-    tags: ["Performacne", "UI"],
-  },
-  {
-    id: 2,
-    date: "17 Jan 2022",
-    title: "Build your API",
-    meta: { likes: 100, views: 200 },
-    thumbnail: {
-      src: testImageSmall.src,
-      width: testImageSmall.width,
-      height: testImageSmall.height,
-    },
-    content:
-      "some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content ",
-    tags: ["Performacne", "UI"],
-  },
-  {
-    id: 3,
-    date: "17 Jan 2022",
-    title: "Build your API",
-    meta: { likes: 100, views: 200 },
-    thumbnail: {
-      src: testImageSmall.src,
-      width: testImageSmall.width,
-      height: testImageSmall.height,
-    },
-    content: "short content",
-    tags: ["Performacne", "UI"],
-  },
-  {
-    id: 4,
-    date: "17 Jan 2022",
-    title: "Build your API",
-    meta: { likes: 100, views: 200 },
-    thumbnail: {
-      src: testImageSmall.src,
-      width: testImageSmall.width,
-      height: testImageSmall.height,
-    },
-    content:
-      "some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content ",
-    tags: ["Performacne", "UI"],
-  },
-  {
-    id: 5,
-    date: "17 Jan 2022",
-    title: "Build your API",
-    meta: { likes: 100, views: 200 },
-    thumbnail: {
-      src: testImageSmall.src,
-      width: testImageSmall.width,
-      height: testImageSmall.height,
-    },
-    tags: ["Performacne", "UI"],
-    content: "short content",
-  },
-  {
-    id: 6,
-    date: "17 Jan 2022",
-    title: "Build your API",
-    meta: { likes: 100, views: 200 },
-    thumbnail: {
-      src: testImageSmall.src,
-      width: testImageSmall.width,
-      height: testImageSmall.height,
-    },
-    tags: ["Performacne", "UI"],
-    content:
-      "some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content ",
-  },
-  {
-    id: 7,
-    date: "17 Jan 2022",
-    title: "Build your API",
-    meta: { likes: 100, views: 200 },
-    thumbnail: {
-      src: testImageSmall.src,
-      width: testImageSmall.width,
-      height: testImageSmall.height,
-    },
-    tags: ["Performacne", "UI"],
-    content: "short content",
-  },
-  {
-    id: 8,
-    date: "17 Jan 2022",
-    title: "Build your API",
-    meta: { likes: 100, views: 200 },
-    thumbnail: {
-      src: testImageSmall.src,
-      width: testImageSmall.width,
-      height: testImageSmall.height,
-    },
-    tags: ["Performacne", "UI"],
-    content:
-      "some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content some content ",
-  },
-];
+const SkeletonCard = forwardRef<HTMLDivElement>((_, ref) => {
+  return (
+    <div className={styles.loadingCard} ref={ref}>
+      <div className={styles.cardContent}>
+        <div className={styles.loadingBody}>
+          <h4
+            className={clsx(styles.loadingTitle, skeleton({ loading: true }))}
+          ></h4>
+          <p
+            className={clsx(styles.loadingDesc, skeleton({ loading: true }))}
+          ></p>
+          <p className={styles.cardDate}></p>
+        </div>
+        <div className={styles.cardMetaBox}>
+          <div
+            className={clsx(styles.loadingMeta, skeleton({ loading: true }))}
+          ></div>
+        </div>
+      </div>
+      <div
+        className={clsx(styles.thumbnailBox, skeleton({ loading: true }))}
+      ></div>
+    </div>
+  );
+});
+
+SkeletonCard.displayName = "SkeletonCard";

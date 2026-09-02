@@ -3,16 +3,17 @@
 import { tagSelectorStyles as styles } from "./TagSelector.css";
 import clsx from "clsx";
 import { TAG_LABELS, TAGS, type Tag } from "../constants";
-import useClientSelectedTag from "../hooks/useClientSelectedTag";
 import { gridItem } from "@/styles/layout.css";
 
 type TagSelectorProps = {
-  initialTagState: Tag;
+  selectedTag: Tag;
+  setSelectedTag: (tag: Tag) => void;
 };
 
-export default function TagSelector({ initialTagState }: TagSelectorProps) {
-  const { tagState, setSelectedTag } = useClientSelectedTag(initialTagState);
-
+export default function TagSelector({
+  selectedTag,
+  setSelectedTag,
+}: TagSelectorProps) {
   return (
     <aside
       className={clsx(gridItem({ desktop: 12 }), styles.wrapper)}
@@ -24,7 +25,7 @@ export default function TagSelector({ initialTagState }: TagSelectorProps) {
       <nav aria-label="Trending tags">
         <ul className={styles.tagBox}>
           {TAGS.map((tag) => {
-            const isActive = tag === tagState;
+            const isActive = tag === selectedTag;
             return (
               <li key={tag}>
                 <button

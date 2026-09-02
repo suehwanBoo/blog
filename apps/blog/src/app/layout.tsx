@@ -7,6 +7,7 @@ import "@boo/ui/styles.css";
 import "@boo/editor/styles.css";
 import { OverlayProvider, ToastProvider } from "@boo/ui/client";
 import AuthProvider from "@/feature/auth/AuthProvider";
+import QueryProvider from "@/context/queryProvider";
 
 const Pretendard = localFont({
   src: [
@@ -42,9 +43,11 @@ export default function RootLayout({
       <ToastProvider maxCount={3}>
         <OverlayProvider>
           <AuthProvider>
-            <body style={{ background: themeVars.color.background }}>
-              {children}
-            </body>
+            <QueryProvider>
+              <body style={{ background: themeVars.color.background }}>
+                {children}
+              </body>
+            </QueryProvider>
           </AuthProvider>
         </OverlayProvider>
       </ToastProvider>
