@@ -25,7 +25,7 @@ export default async function MainPage({
   const latestPosts =
     latestResult.status === "fulfilled" ? latestResult.value : [];
 
-  const latestPost = latestPosts[0];
+  const latestPost = latestPosts?.[0];
 
   const popularPosts =
     popularResult.status === "fulfilled" ? popularResult.value : [];
