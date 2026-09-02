@@ -1,17 +1,11 @@
 import PostPage from "@/feature/post";
-import { ORDERS, TAGS, type ProxyPostType } from "@/feature/post/constants";
+import { type ProxyPostType } from "@/feature/post/constants";
 import { isValidOrderValue } from "@/feature/post/utils/parseOrder";
 import { isValidTag } from "@/feature/post/utils/parseTag";
 import { notFound } from "next/navigation";
 
-export const dynamicParams = false;
-
-export function generateStaticParams(): { query: ProxyPostType }[] {
-  return TAGS.flatMap((tag) =>
-    ORDERS.map(({ value }) => ({
-      query: [tag, value],
-    })),
-  );
+export function generateStaticParams() {
+  return [];
 }
 export default async function Post({
   params,
