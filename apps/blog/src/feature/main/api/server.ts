@@ -102,21 +102,10 @@ export const getPopularPost = (revalidate: number, limit: number) =>
   })();
 
 export const getLatestPost = (revalidate: number, limit: number) =>
-  unstable_cache(
-    async () => {
-      try {
-        const posts = await findLatestPost(5);
-        console.log("latest posts", posts.length);
-      } catch (err) {
-        console.error("findLatestPost failed", err);
-      }
-    },
-    ["latest", `${limit}`],
-    {
-      tags: [`latest:${limit}`, `home`],
-      revalidate,
-    },
-  )();
+  unstable_cache(() => findLatestPost(limit), ["latest", `${limit}`], {
+    tags: [`latest:${limit}`, `home`],
+    revalidate,
+  })();
 
 export const getMainPosts = (
   revalidate: number,
