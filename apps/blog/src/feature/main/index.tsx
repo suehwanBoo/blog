@@ -22,6 +22,10 @@ export default async function MainPage({
     getPopularPost(main_revalidate, 2),
   ]);
 
+  if (latestResult.status === "rejected") {
+    console.error("[getLatestPost failed]", latestResult.reason);
+  }
+
   const latestPosts =
     latestResult.status === "fulfilled" ? latestResult.value : [];
 
