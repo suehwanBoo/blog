@@ -97,13 +97,13 @@ export const findPostByOption = async (
 
 export const getPopularPost = (revalidate: number, limit: number) =>
   unstable_cache(() => findPopularPost(limit), ["popular", `${limit}`], {
-    tags: [`popular:${limit}`],
+    tags: [`popular:${limit}`, `home`],
     revalidate,
   })();
 
 export const getLatestPost = (revalidate: number, limit: number) =>
   unstable_cache(() => findLatestPost(limit), ["latest", `${limit}`], {
-    tags: [`latest:${limit}`],
+    tags: [`latest:${limit}`, `home`],
     revalidate,
   })();
 
@@ -118,7 +118,7 @@ export const getMainPosts = (
     () => findPostByOption(limit, order, tag, cursor),
     ["main", `${order}:${tag}:${cursor}`],
     {
-      tags: [`main:${order}:${tag}:${cursor}`],
+      tags: [`main:${order}:${tag}:${cursor}`, `home`],
       revalidate,
     },
   )();

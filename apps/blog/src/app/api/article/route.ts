@@ -4,6 +4,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { articleSubmitSchema } from "@boo/firebase/schema/article";
 import { findPostByOption } from "@/feature/main/api/server";
 import type { OrderValue, Tag } from "@/feature/post/constants";
+import { updateTag } from "next/cache";
 
 export async function OPTIONS() {
   return new NextResponse(null, {
@@ -20,6 +21,8 @@ export async function POST(req: NextRequest) {
     const article = await req.json();
     const data = await articleSubmitSchema.parseAsync(article);
     const id = await postArticle(data);
+    updateTag("home");
+    // 추후 cdn purge 필요
     return json({ ok: true, id });
   } catch (err) {
     if (err instanceof Error)
@@ -33,7 +36,10 @@ export async function GET(req: Request) {
   const cursor = searchParams.get("cursor") ?? undefined;
   const tag = searchParams.get("tag") ?? "all";
   const order = searchParams.get("order") ?? "recent";
-  const limit = Number(searchParams.get("limit") ?? 5);
+  const rawLimit = Number(searchParams.get("limit") ?? 5);
+
+  const limit =
+    Number.isInteger(rawLimit) && rawLimit > 0 ? Math.min(rawLimit, 20) : 5;
 
   const result = await findPostByOption(
     limit,

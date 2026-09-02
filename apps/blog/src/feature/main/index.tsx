@@ -17,12 +17,18 @@ export default async function MainPage({
 }) {
   const main_revalidate = 86400;
 
-  const [recentPosts, popularPosts] = await Promise.all([
+  const [latestResult, popularResult] = await Promise.allSettled([
     getLatestPost(main_revalidate, 1),
     getPopularPost(main_revalidate, 2),
   ]);
 
-  const recentPost = recentPosts[0];
+  const latestPosts =
+    latestResult.status === "fulfilled" ? latestResult.value : [];
+
+  const latestPost = latestPosts[0];
+
+  const popularPosts =
+    popularResult.status === "fulfilled" ? popularResult.value : [];
 
   const simplePostClient = await getOrderPostQueryClient(
     initialOrderValue,
@@ -31,7 +37,7 @@ export default async function MainPage({
 
   return (
     <>
-      <RecentPost post={recentPost} />
+      <RecentPost post={latestPost} />
       <PopularPost posts={popularPosts} />
       <HydrationBoundary state={dehydrate(simplePostClient)}>
         <SimplePost initialOrderValue={initialOrderValue} />

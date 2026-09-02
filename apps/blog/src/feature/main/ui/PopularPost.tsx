@@ -1,7 +1,6 @@
 import { typography } from "@boo/ui";
 import clsx from "clsx";
 import { popularStyle as styles } from "./PopularPost.css";
-import View from "@/components/ui/View";
 import Like from "@/components/ui/Like";
 import Tags from "@/components/ui/Tags";
 import CopyLink from "@/components/ui/CopyLink";
@@ -9,6 +8,7 @@ import { gridItem } from "@/styles/layout.css";
 import ClickableCardOverlay from "@/components/layout/ClickableCardOverlay";
 import type { ArticleMainAttr } from "@/feature/page/type";
 import { makeDateString } from "@/utils/article/date";
+import Comment from "@/components/ui/Comment";
 
 type PopularPostProps = {
   posts: ArticleMainAttr[] | undefined;
@@ -43,7 +43,7 @@ export default function PopularPost({ posts }: PopularPostProps) {
                 height: post.thumbnail.sub.source.height,
               }}
               tags={post.tags}
-              meta={{ likes: post.likeCount, views: 0 }}
+              meta={{ likes: post.likeCount, comments: post.commentCount }}
             />
           </ClickableCardOverlay>
         ))}
@@ -64,7 +64,7 @@ type CardProps = {
   content: string;
   tags: Array<string>;
   meta: {
-    views: number;
+    comments: number;
     likes: number;
   };
 };
@@ -90,8 +90,8 @@ function Card({ thumbnail, title, date, meta, tags, content }: CardProps) {
         </div>
         <div className={styles.cardMetaBox}>
           <div className={styles.cardMeta}>
-            <View views={meta.views} />
             <Like likes={meta.likes} />
+            <Comment comments={meta.comments} />
           </div>
           <CopyLink />
         </div>
