@@ -5,41 +5,17 @@ import View from "@/components/ui/View";
 import Like from "@/components/ui/Like";
 import Tags from "@/components/ui/Tags";
 import CopyLink from "@/components/ui/CopyLink";
-import testImage from "@/assets/test_img_m.webp";
 import { gridItem } from "@/styles/layout.css";
 import ClickableCardOverlay from "@/components/layout/ClickableCardOverlay";
+import type { ArticleMainAttr } from "@/feature/page/type";
+import { makeDateString } from "@/utils/article/date";
 
-const mockCardList: (CardProps & { id: number })[] = [
-  {
-    id: 1,
-    date: "17 Jan 2022",
-    title: "Build your API",
-    meta: { likes: 100, views: 200 },
-    thumbnail: {
-      src: testImage.src,
-      width: testImage.width,
-      height: testImage.height,
-    },
-    content:
-      "Like to know the secrets of transforming a 2-14 team into a 3x Super Bowl winning Dynasty?",
-    tags: ["Performance", "UI"],
-  },
-  {
-    id: 2,
-    date: "17 Jan 2022",
-    title: "Build your API",
-    meta: { likes: 100, views: 200 },
-    thumbnail: {
-      src: testImage.src,
-      width: testImage.width,
-      height: testImage.height,
-    },
-    content: "some content",
-    tags: ["Performance", "UI"],
-  },
-];
+type PopularPostProps = {
+  posts: ArticleMainAttr[] | undefined;
+};
 
-export default function PopularPost() {
+export default function PopularPost({ posts }: PopularPostProps) {
+  if (!posts) return null;
   return (
     <section
       className={clsx(gridItem({ desktop: 6 }), styles.section)}
@@ -49,14 +25,26 @@ export default function PopularPost() {
         Popular Post
       </h3>
       <div className={styles.content}>
-        {mockCardList.map((card) => (
+        {posts.map((post) => (
           <ClickableCardOverlay
-            href={`page/${card.id}`}
-            label={`link to ${card.title}`}
-            key={card.id}
+            href={`page/${post.id}`}
+            label={`link to ${post.title}`}
+            key={post.id}
             divider={true}
           >
-            <Card {...card} />
+            <Card
+              content={post.summary}
+              title={post.title}
+              id={post.id}
+              date={makeDateString(post.createdAt)}
+              thumbnail={{
+                src: post.thumbnail.sub.source.src,
+                width: post.thumbnail.sub.source.width,
+                height: post.thumbnail.sub.source.height,
+              }}
+              tags={post.tags}
+              meta={{ likes: post.likeCount, views: 0 }}
+            />
           </ClickableCardOverlay>
         ))}
       </div>
@@ -65,7 +53,7 @@ export default function PopularPost() {
 }
 
 type CardProps = {
-  id: number;
+  id: string;
   thumbnail: {
     src: string;
     width?: number;

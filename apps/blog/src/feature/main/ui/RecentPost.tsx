@@ -7,11 +7,13 @@ import testImage from "@/assets/test_img.webp";
 import testMobileImage from "@/assets/test_img_m.webp";
 import { gridItem } from "@/styles/layout.css";
 import ClickableCardOverlay from "@/components/layout/ClickableCardOverlay";
+import type { ArticleMainAttr, CardProps } from "@/feature/page/type";
+import { makeCardProps } from "../utils/post";
 
 const mockRecentCard: CardProps = {
-  id: 5,
+  id: "mock",
   date: "17 Jan 2022",
-  title: "Migrating to Linear 101",
+  title: "Server API Error",
   thumbnail: {
     desktop: {
       src: testImage.src,
@@ -27,7 +29,13 @@ const mockRecentCard: CardProps = {
   tags: ["Performance", "UI"],
 };
 
-export default function RecentPost() {
+type RecentPostProps = {
+  post: ArticleMainAttr | undefined;
+};
+
+export default async function RecentPost({ post }: RecentPostProps) {
+  const cardPost = makeCardProps(post) || mockRecentCard;
+
   return (
     <section
       className={clsx(gridItem({ desktop: 6 }), styles.section)}
@@ -37,31 +45,14 @@ export default function RecentPost() {
         Latest Post
       </h3>
       <ClickableCardOverlay
-        href={`page/${mockRecentCard.id}`}
-        label={`link to ${mockRecentCard.title}`}
+        href={`page/${cardPost.id}`}
+        label={`link to ${cardPost.title}`}
       >
-        <RecentCard {...mockRecentCard} />
+        <RecentCard {...cardPost} />
       </ClickableCardOverlay>
     </section>
   );
 }
-
-type ImageSource = {
-  src: string;
-  width: number;
-  height: number;
-};
-
-type CardProps = {
-  id: number;
-  thumbnail: {
-    desktop: ImageSource;
-    mobile: ImageSource;
-  };
-  title: string;
-  date: string;
-  tags: string[];
-};
 
 function RecentCard({ thumbnail, title, date, tags }: CardProps) {
   const { desktop, mobile } = thumbnail;
