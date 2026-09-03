@@ -1,3 +1,4 @@
+import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
 import Navbar from "@/components/layout/nav/Navbar";
 import { commonLayout } from "@/styles/layout.css";
@@ -10,6 +11,7 @@ export default function HomeLayout({ children }: PropsWithChildren) {
         <Navbar />
       </Header>
       <main className={commonLayout}>{children}</main>
+      <Footer />
     </>
   );
 }

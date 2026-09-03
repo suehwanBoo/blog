@@ -37,6 +37,6 @@ export type OrderValue = Order["value"];
 
 export const DEFAULT_ORDER = "recent";
 
-export const ORDER_QUERY_KEY = "orderby";
+export const ORDER_QUERY_KEY = "order";
 
 export type ProxyPostType = [Tag, OrderValue];
