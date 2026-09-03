@@ -8,6 +8,7 @@ import "@boo/editor/styles.css";
 import { OverlayProvider, ToastProvider } from "@boo/ui/client";
 import AuthProvider from "@/feature/auth/AuthProvider";
 import QueryProvider from "@/context/queryProvider";
+import Footer from "@/components/layout/Footer";
 
 const Pretendard = localFont({
   src: [
