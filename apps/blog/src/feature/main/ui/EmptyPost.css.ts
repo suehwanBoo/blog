@@ -9,7 +9,7 @@ const fullScreen = style([
     alignItems: "center",
     justifyContent: "center",
     color: themeVars.color.subtitle,
-    height: "100%",
+    height: "313px",
   },
 ]);
 
