@@ -11,6 +11,10 @@ export const copyToClipboard = ({
   onSuccess,
   onFail,
 }: CopyToClipboardParameter) => {
+  if (!navigator.clipboard) {
+    onFail?.("not found navigator");
+    return;
+  }
   navigator.clipboard
     .writeText(text)
     .then(() => {
