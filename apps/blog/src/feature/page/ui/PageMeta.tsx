@@ -24,7 +24,7 @@ export default function PageMeta({ tags, postId }: PageMetaProps) {
       });
       return;
     }
-    debouncedMutate(postId);
+    debouncedMutate();
   };
 
   return (
