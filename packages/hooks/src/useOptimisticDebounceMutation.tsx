@@ -120,7 +120,7 @@ export function useOptimisticDebounceMutation<
   /**
    * 현재 interaction의 debounce timer.
    */
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const timerRef = useRef<number | null>(null);
 
   /**
    * 서버에 마지막으로 반영됐다고 확인된 상태.
