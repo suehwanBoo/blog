@@ -8,7 +8,6 @@ import { getArticle } from "@/feature/page/api/server";
 import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
-  // prevent dynamic rendering (and get runtime parameter)
   return [];
 }
 
@@ -32,7 +31,7 @@ export default async function Page({
         commentCount={article.commentCount}
       />
       <PageContent content={article.content} thumbnail={article.thumbnail} />
-      <PageMeta tags={article.tags} />
+      <PageMeta tags={article.tags} postId={id} />
       <PageComment />
       <SimplePost initialOrderValue="recent" />
     </section>

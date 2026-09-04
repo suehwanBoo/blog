@@ -1,26 +1,54 @@
+"use client";
+
 import Tags from "@/components/ui/Tags";
 import { pageMetaStyles as styles } from "./PageMeta.css";
 import type { ArticleSubmitMain } from "../type";
+import useCheckUserLikedQuery from "../hooks/useCheckUserLikedQuery";
+import useLikeMutation from "../hooks/useLikeMutation";
+import { useAuthStore } from "@/store/store";
+import { useToast } from "@boo/ui/client";
 
-type PageMetaProps = Pick<ArticleSubmitMain, "tags">;
+type PageMetaProps = Pick<ArticleSubmitMain, "tags"> & { postId: string };
 
-export default function PageMeta({ tags }: PageMetaProps) {
+export default function PageMeta({ tags, postId }: PageMetaProps) {
+  const { data } = useCheckUserLikedQuery(postId);
+  const { auth } = useAuthStore();
+  const { debouncedMutate } = useLikeMutation(postId);
+  const { apply } = useToast();
+
+  const onClickHandler = () => {
+    if (!auth) {
+      apply({
+        variant: "danger",
+        description: "로그인이 필요한 서비스입니다.",
+      });
+      return;
+    }
+    debouncedMutate(postId);
+  };
+
   return (
     <div className={styles.wrapper}>
       <Tags tags={tags} />
       <div className={styles.buttonWrapper}>
-        <LikeButton />
+        <LikeButton isLike={!!data} onClick={onClickHandler} />
         <ShareButton />
       </div>
     </div>
   );
 }
 
-function LikeButton() {
+function LikeButton({
+  isLike,
+  onClick,
+}: {
+  isLike: boolean;
+  onClick: () => void;
+}) {
   return (
-    <button className={styles.button} type="button">
+    <button className={styles.button} type="button" onClick={onClick}>
       <span>좋아요</span>
-      <LikeIcon />
+      {isLike ? <FullLikeIcon /> : <LikeIcon />}
     </button>
   );
 }
@@ -31,6 +59,27 @@ function ShareButton() {
       <span>공유</span>
       <ShareIcon />
     </button>
+  );
+}
+
+function FullLikeIcon() {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 14 14"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M6.07274 11.6479C4.427 10.4172 1.1665 7.60373 1.1665 5.07184C1.1665 3.39837 2.39457 2.04175 4.08317 2.04175C4.95817 2.04175 5.83317 2.33341 6.99984 3.50008C8.1665 2.33341 9.0415 2.04175 9.9165 2.04175C11.6051 2.04175 12.8332 3.39837 12.8332 5.07184C12.8332 7.60373 9.57268 10.4172 7.92694 11.6479C7.37313 12.062 6.62654 12.062 6.07274 11.6479Z"
+        fill="#5A81FA"
+        stroke="#5A81FA"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
   );
 }
 

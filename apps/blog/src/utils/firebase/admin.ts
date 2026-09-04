@@ -35,6 +35,19 @@ export async function hasAdminToken(req: NextRequest) {
   }
 }
 
+export async function getFirebaseUserByRequest(req: NextRequest) {
+  const authorization = req.headers.get("authorization");
+  if (!authorization?.startsWith("Bearer ")) return false;
+
+  try {
+    const token = authorization.replace("Bearer ", "");
+    const decoded = await getAuth(getAdminFirebase()).verifyIdToken(token);
+    return decoded;
+  } catch {
+    return null;
+  }
+}
+
 export async function postArticle(article: ArticleSubmitType) {
   const app = getAdminFirebase();
   const db = getFirestore(app);
