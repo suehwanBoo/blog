@@ -64,7 +64,7 @@ type OptimisticDebounceMutationOptions<
   /**
    * 최초 서버 동기화 상태를 알고 있을 경우 전달합니다.
    */
-  compareData?: TData;
+  compareData?: TData | undefined;
 
   /**
    * 서버 Mutation debounce 시간입니다.
