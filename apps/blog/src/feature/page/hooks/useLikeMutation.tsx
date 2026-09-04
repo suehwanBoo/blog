@@ -14,7 +14,7 @@ export default function useLikeMutation(postId: string) {
     [postId, auth],
   );
   const { data } = useCheckUserLikedQuery(postId);
-  return useOptimisticDebounceMutation<boolean, string>({
+  return useOptimisticDebounceMutation<boolean, boolean>({
     queryKey: likedQueryKey,
     compareData: data,
     mutationFn: async () => {
@@ -25,7 +25,7 @@ export default function useLikeMutation(postId: string) {
     getNextData: (prev) => !prev,
     shouldMutate: (prev, next) => prev !== next,
     delay: 500,
-    onError: (err) => {
+    onMutationError: (err) => {
       let message = "좋아요 요청에 실패하였습니다.";
       if (err && typeof err === "object" && "message" in err && err.message)
         message = "" + err.message;
